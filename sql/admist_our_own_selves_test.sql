@@ -1,6 +1,6 @@
-drop database if exists amidst_our_own_selves_test_test;
-create database amidst_our_own_selves_test_test;
-use amidst_our_own_selves_test_test;
+drop database if exists amidst_our_own_selves_test;
+create database amidst_our_own_selves_test;
+use amidst_our_own_selves_test;
 
 
 
