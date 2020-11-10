@@ -3,9 +3,11 @@ package capstone.amidst.data;
 import capstone.amidst.data.mappers.PlayerMapper;
 import capstone.amidst.models.Player;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class PlayerJdbcRepository implements PlayerRepository {
     // Fields
     private final JdbcTemplate jdbcTemplate;
@@ -18,8 +20,8 @@ public class PlayerJdbcRepository implements PlayerRepository {
     // Methods
     @Override
     public List<Player> findAll() {
-        final String sql = "select playerId, playerName, isDead, isImpostor, app_user_id" +
-                "from Player;";
+        final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
+                " from Player;";
         return jdbcTemplate.query(sql, new PlayerMapper());
     }
 
