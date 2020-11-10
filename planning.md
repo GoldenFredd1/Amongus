@@ -16,7 +16,7 @@ Maven Project
 
 Models
 1 hour - this includes adding validation annotation
-	[]Player
+	[x]Player
 		playerId
 		playerName
         isDead
