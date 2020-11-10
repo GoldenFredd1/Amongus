@@ -117,13 +117,13 @@ Data
 
 Domain
  6-8 hours
-[]Player
-	Test:
-	[]Should find no errors for a valid player
-	[]should find error in negative player ID
-	[]should not have a null name
-	[]should not have a null impostor boolean
-	[]should not have a null dead boolean
+    []Player
+        Test:
+        []Should find no errors for a valid player
+        []should find error in negative player ID
+        []should not have a null name
+        []should not have a null impostor boolean
+        []should not have a null dead boolean
 	[]Task
 		Test:
 		[]should find no errors for a valid task
@@ -142,8 +142,9 @@ Domain
 		Test:
 		[]should find no errors for a valid playerAssignedTask
 		[]should not have a null isComplete boolean
-[]Controllers 3-5 hours
-[]Player
+		
+Controllers 3-5 hours
+    []Player
 	[]Task
 	[]Room
 	[]Game
@@ -152,9 +153,9 @@ Domain
 []Security - JWT 3-5 hours
 
 Client
-[]Angular UI - Several days....
+    []Angular UI - Several days....
 
 []Style - BootStrap 2 hours
 
 Time Goals:
-Have a basic CRUD setup by friday - 13th November
+    [] Have a basic CRUD setup by friday - 13th November
