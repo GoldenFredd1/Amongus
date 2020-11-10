@@ -160,11 +160,9 @@ insert into app_user_role values
 
 insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
 (1,'testPlayerAlpha',false, false,1),
-(2,'Computer1',false, flase,null),
-(3,'Computer2',false, flase,null),
-(4,'Computer3',false, flase,null);
-
-    
+(2,'Computer1',false, false,null),
+(3,'Computer2',false, false,null),
+(4,'Computer3',false, false,null);
     
 end //
 -- 4. Change the statement terminator back to the original.
