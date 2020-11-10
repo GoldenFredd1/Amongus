@@ -1,3 +1,8 @@
+drop database if exists amidst_our_own_selves_test;
+create database amidst_our_own_selves_test;
+use amidst_our_own_selves_test;
+
+
 drop database if exists amidst_our_own_selves;
 create database amidst_our_own_selves;
 use amidst_our_own_selves;
@@ -139,6 +144,31 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Player_Assigned_Task` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+delimiter //
+create procedure set_known_good_state()
+begin
+
+insert into app_user values
+(1,'Bob the test player','hashpasswordgoeshere',false);
+
+insert into app_role values
+(1,'Admin'),
+(2,'User');
+
+insert into app_user_role values
+(1,2);
+
+insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
+(1,'testPlayerAlpha',false, false,1),
+(2,'Computer1',false, flase,null),
+(3,'Computer2',false, flase,null),
+(4,'Computer3',false, flase,null);
+
+    
+    
+end //
+-- 4. Change the statement terminator back to the original.
+delimiter ;
 
 
 insert into Room(roomId,roomName) values
