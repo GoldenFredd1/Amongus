@@ -3,15 +3,8 @@ create database amidst_our_own_selves_test;
 use amidst_our_own_selves_test;
 
 
-drop database if exists amidst_our_own_selves;
-create database amidst_our_own_selves;
-use amidst_our_own_selves;
 
-
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`app_user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`app_user` (
+CREATE TABLE IF NOT EXISTS app_user (
   `app_user_id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `password_hash` VARCHAR(45) NOT NULL,
@@ -21,10 +14,7 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`app_user` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`app_role`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`app_role` (
+CREATE TABLE IF NOT EXISTS app_role (
   `app_role_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   UNIQUE INDEX `app_role_id_UNIQUE` (`app_role_id` ASC) VISIBLE,
@@ -32,31 +22,26 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`app_role` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`app_user_role`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`app_user_role` (
+CREATE TABLE IF NOT EXISTS app_user_role (
   `app_user_id` INT NOT NULL,
   `app_role_id` INT NOT NULL,
   INDEX `fk_app_user_role_app_user_id_idx` (`app_user_id` ASC) VISIBLE,
   INDEX `fk_app_user_role_app_role_role_id_idx` (`app_role_id` ASC) VISIBLE,
   CONSTRAINT `fk_app_user_role_app_user_id`
     FOREIGN KEY (`app_user_id`)
-    REFERENCES `amidst_our_own_selves`.`app_user` (`app_user_id`)
+    REFERENCES app_user (`app_user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_app_user_role_app_role_role_id`
     FOREIGN KEY (`app_role_id`)
-    REFERENCES `amidst_our_own_selves`.`app_role` (`app_role_id`)
+    REFERENCES app_role (`app_role_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`Player`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Player` (
+
+CREATE TABLE IF NOT EXISTS Player (
   `playerId` INT NOT NULL AUTO_INCREMENT,
   `playerName` VARCHAR(45) NOT NULL,
   `isDead` TINYINT NOT NULL,
@@ -66,16 +51,13 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Player` (
   INDEX `fk_player_app_user_role_id_idx` (`app_user_id` ASC) VISIBLE,
   CONSTRAINT `fk_player_app_user_role_id`
     FOREIGN KEY (`app_user_id`)
-    REFERENCES `amidst_our_own_selves`.`app_user_role` (`app_user_id`)
+    REFERENCES app_user_role (`app_user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`Room`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Room` (
+CREATE TABLE IF NOT EXISTS Room (
   `roomId` INT NOT NULL,
   `roomName` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`roomId`),
@@ -83,10 +65,8 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Room` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`Task`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Task` (
+
+CREATE TABLE IF NOT EXISTS Task (
   `taskId` INT NOT NULL,
   `taskName` VARCHAR(45) NOT NULL,
   `roomId` INT NOT NULL,
@@ -95,16 +75,13 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Task` (
   INDEX `fk_task_room_id_idx` (`roomId` ASC) VISIBLE,
   CONSTRAINT `fk_task_room_id`
     FOREIGN KEY (`roomId`)
-    REFERENCES `amidst_our_own_selves`.`Room` (`roomId`)
+    REFERENCES Room (`roomId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`Game`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Game` (
+CREATE TABLE IF NOT EXISTS Game (
   `gameId` INT NOT NULL,
   `playerId` INT NOT NULL,
   `roomId` INT NOT NULL,
@@ -112,21 +89,19 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Game` (
   INDEX `fk_game_player_id_idx` (`playerId` ASC) VISIBLE,
   CONSTRAINT `fk_game_player_id`
     FOREIGN KEY (`playerId`)
-    REFERENCES `amidst_our_own_selves`.`Player` (`playerId`)
+    REFERENCES Player (`playerId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_game_room_id`
     FOREIGN KEY (`roomId`)
-    REFERENCES `amidst_our_own_selves`.`Room` (`roomId`)
+    REFERENCES Room (`roomId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `amidst_our_own_selves`.`Player_Assigned_Task`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Player_Assigned_Task` (
+
+CREATE TABLE IF NOT EXISTS Player_Assigned_Task (
   `task_id` INT NOT NULL,
   `playerId` INT NOT NULL,
   `isComplete` TINYINT NOT NULL,
@@ -134,12 +109,12 @@ CREATE TABLE IF NOT EXISTS `amidst_our_own_selves`.`Player_Assigned_Task` (
   INDEX `fk_player_assigned_task_player_id_idx` (`playerId` ASC) VISIBLE,
   CONSTRAINT `fk_player_assigned_task_task_id`
     FOREIGN KEY (`task_id`)
-    REFERENCES `amidst_our_own_selves`.`Task` (`taskId`)
+    REFERENCES Task (`taskId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_player_assigned_task_player_id`
     FOREIGN KEY (`playerId`)
-    REFERENCES `amidst_our_own_selves`.`Player` (`playerId`)
+    REFERENCES Player (`playerId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -163,6 +138,8 @@ insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
 (2,'Computer1',false, false,null),
 (3,'Computer2',false, false,null),
 (4,'Computer3',false, false,null);
+
+    
     
 end //
 -- 4. Change the statement terminator back to the original.
