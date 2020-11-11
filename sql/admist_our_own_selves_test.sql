@@ -2,19 +2,15 @@ drop database if exists amidst_our_own_selves_test;
 create database amidst_our_own_selves_test;
 use amidst_our_own_selves_test;
 
-
 create table app_user (
   app_user_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   username VARCHAR(45) NOT NULL,
   password_hash VARCHAR(45) NOT NULL,
   disabled TINYINT NOT NULL);
 
-
-
 create table app_role (
   app_role_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL);
-
 
 create table app_user_role (
   app_user_id INT NOT NULL,
@@ -40,7 +36,6 @@ create table Room (
   roomId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   roomName VARCHAR(45) NOT NULL);
 
-
 create table Task (
   taskId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   taskName VARCHAR(45) NOT NULL,
@@ -49,9 +44,8 @@ create table Task (
     FOREIGN KEY (roomId)
     REFERENCES Room (roomId));
 
-
 create table Game (
-  gameId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  gameId INT,
   playerId INT NOT NULL,
   roomId INT NOT NULL,
   CONSTRAINT fk_game_player_id
@@ -61,9 +55,8 @@ create table Game (
     FOREIGN KEY (roomId)
     REFERENCES Room (roomId));
 
-
 create table Player_Assigned_Task (
-  task_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  task_id INT NOT NULL,
   playerId INT NOT NULL,
   isComplete TINYINT NOT NULL,
   CONSTRAINT fk_player_assigned_task_task_id
@@ -73,12 +66,12 @@ create table Player_Assigned_Task (
     FOREIGN KEY (playerId)
     REFERENCES Player (playerId));
 
-
 delimiter //
 create procedure set_known_good_state()
 begin
 
-
+delete from Game;
+delete from Player_Assigned_Task;
 delete from Player;
 	alter table Player auto_increment = 1;
 delete from app_user_role;
@@ -90,8 +83,6 @@ delete from Task;
 	alter table Task auto_increment = 1;
 delete from Room;
 	alter table Room auto_increment = 1;
-delete from Game;
-delete from Player_Assigned_Task;
 
 insert into app_user values
 (1,'Bob the test player','hashpasswordgoeshere',false),
@@ -135,13 +126,11 @@ insert into Task(taskId,taskName,roomId) values
 (11,'Find a fancy hat',6),
 (12,'Put makeup on a mannequin',6);
 
-
 insert into Game values
 (1, 1, 1),
 (1, 2, 2),
 (1, 3, 6),
 (1, 4, 3);
-
 
 insert into Player_Assigned_Task values
 (1, 1, false),
@@ -155,7 +144,6 @@ insert into Player_Assigned_Task values
 
 end //
 delimiter ;
-
 
 -- select playerId, playerName, isDead, isImposter, app_user_id
 -- from Player;
