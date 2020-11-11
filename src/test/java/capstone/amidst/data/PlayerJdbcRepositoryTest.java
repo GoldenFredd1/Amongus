@@ -50,4 +50,33 @@ class PlayerJdbcRepositoryTest {
         assertNull(player);
     }
 
+    @Test
+    void shouldFindZeroImposters() {
+        List<Player> imposters = repository.findByIsImposter(true);
+
+        assertEquals(0, imposters.size());
+    }
+
+    @Test
+    void shouldFindFourCrewMates() {
+        List<Player> crewMates = repository.findByIsImposter(false);
+
+        assertEquals(4, crewMates.size());
+    }
+
+    @Test
+    void shouldFindZeroDead() {
+        List<Player> deadPlayers = repository.findByIsDead(true);
+
+        assertEquals(0, deadPlayers.size());
+    }
+
+    @Test
+    void shouldFindFourAlive() {
+        List<Player> alivePlayers = repository.findByIsDead(false);
+
+        assertEquals(4, alivePlayers.size());
+    }
+
+
 }
