@@ -23,7 +23,7 @@ public class PlayerController {
     // Mappings
     @GetMapping("/players")
     public List<Player> displayAll() {
-        return service.findAll();
+        return (List<Player>) service.findAll();
     }
 
 }

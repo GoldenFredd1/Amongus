@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Player } from '/player';
-// TODO: make a model folder for models
-import { Observable } from 'rxjs/Observable';
+import { Player } from './models/player';
+import { Observable } from 'rxjs';
 
-@Injectable(
-//   providedIn: 'root'
-)
+@Injectable()
 export class PlayerServiceService {
   private playersUrl: string;
 
@@ -16,5 +13,9 @@ export class PlayerServiceService {
 
     public findAll(): Observable<Player[]> {
       return this.http.get<Player[]>(this.playersUrl);
+    }
+
+    public save(player: Player) {
+      return this.http.post<Player>(this.playersUrl, player);
     }
 }
