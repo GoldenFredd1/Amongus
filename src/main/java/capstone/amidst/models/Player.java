@@ -13,21 +13,22 @@ public class Player {
     @NotNull(message = "Player must be either dead or alive.")
     private boolean isDead;
 
-    @NotNull(message = "Player must be either an impostor or a crewmate.")
-    private boolean isImpostor;
+    @NotNull(message = "Player must be either an imposter or a crewmate.")
+    private boolean isImposter;
 
     @PositiveOrZero(message = "User ID must be 0 or higher.")
     private int appUserId;
 
     // Constructors
-    public Player(int playerId, String playerName, boolean isDead, boolean isImpostor, int appUserId) {
+    public Player(int playerId, String playerName, boolean isDead, boolean isImposter, int appUserId) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.isDead = isDead;
-        this.isImpostor = isImpostor;
+        this.isImposter = isImposter;
         this.appUserId = appUserId;
     }
-    public Player() {}
+    public Player() {
+    }
 
     // Getters and Setters
     public int getPlayerId() {
@@ -48,11 +49,11 @@ public class Player {
     public void setDead(boolean dead) {
         isDead = dead;
     }
-    public boolean isImpostor() {
-        return isImpostor;
+    public boolean isImposter() {
+        return isImposter;
     }
-    public void setImpostor(boolean impostor) {
-        isImpostor = impostor;
+    public void setImposter(boolean imposter) {
+        isImposter = imposter;
     }
     public int getAppUserId() {
         return appUserId;
@@ -60,4 +61,5 @@ public class Player {
     public void setAppUserId(int appUserId) {
         this.appUserId = appUserId;
     }
+
 }

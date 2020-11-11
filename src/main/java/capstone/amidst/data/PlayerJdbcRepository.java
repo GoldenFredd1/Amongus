@@ -31,7 +31,7 @@ public class PlayerJdbcRepository implements PlayerRepository {
     }
 
     @Override
-    public Player findByIsImpostor(boolean isImpostor) {
+    public Player findByIsImposter(boolean isImposter) {
         return null;
     }
 

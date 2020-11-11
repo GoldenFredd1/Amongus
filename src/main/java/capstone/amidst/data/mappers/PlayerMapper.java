@@ -15,7 +15,7 @@ public class PlayerMapper implements RowMapper<Player> {
         player.setPlayerId(resultSet.getInt("playerId"));
         player.setPlayerName(resultSet.getString("playerName"));
         player.setDead(resultSet.getBoolean("isDead"));
-        player.setImpostor(resultSet.getBoolean("isImposter"));
+        player.setImposter(resultSet.getBoolean("isImposter"));
         player.setAppUserId(resultSet.getInt("app_user_id"));
         return player;
     }

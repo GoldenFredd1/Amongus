@@ -8,7 +8,7 @@ public interface PlayerRepository {
 
     List<Player> findAll();
     Player findById(int playerId);
-    Player findByIsImpostor(boolean isImpostor);
+    Player findByIsImposter(boolean isImposter);
     List<Player> findByIsDead(boolean isDead);
 
     Player add(Player player);
