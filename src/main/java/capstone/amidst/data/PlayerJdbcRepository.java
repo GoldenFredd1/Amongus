@@ -27,7 +27,11 @@ public class PlayerJdbcRepository implements PlayerRepository {
 
     @Override
     public Player findById(int playerId) {
-        return null;
+        final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
+                " from Player" +
+                " where playerId = ?;";
+        return jdbcTemplate.query(sql, new PlayerMapper(), playerId)
+                .stream().findFirst().orElse(null);
     }
 
     @Override

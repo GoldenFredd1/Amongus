@@ -1,21 +1,26 @@
-<h3> Players </h3>
+<div class="container">
+  <h3> Players </h3>
 
-<div class="card my-5">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let player of players">
-        <td>{{ player.playerId }}</td>
-        <td>{{ player.playerName }}</td>
-<!--        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>-->
-      </tr>
-      </tbody>
-    </table>
+  <div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">isDead</th>
+          <th scope="col">isImpostor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let player of players">
+          <td>{{ player.playerId }}</td>
+          <td>{{ player.playerName }}</td>
+          <td>{{ player.isDead}}</td>
+          <td>{{ player.isImpostor }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

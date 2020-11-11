@@ -32,4 +32,22 @@ class PlayerJdbcRepositoryTest {
         assertTrue(players.size() == 4);
     }
 
+    @Test
+    void shouldFindById() {
+        Player player = repository.findById(1);
+
+        assertEquals(1, player.getPlayerId());
+        assertEquals("testPlayerAlpha", player.getPlayerName());
+        assertFalse(player.isDead());
+        assertFalse(player.isImposter());
+        assertEquals(1, player.getAppUserId());
+    }
+
+    @Test
+    void shouldNotFindByMissingId() {
+        Player player = repository.findById(1000);
+
+        assertNull(player);
+    }
+
 }
