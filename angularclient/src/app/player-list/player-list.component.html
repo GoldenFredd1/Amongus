@@ -14,16 +14,18 @@
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Name</th>
-          <th scope="col">isDead</th>
-          <th scope="col">isImpostor</th>
+          <th scope="col">is Dead?</th>
+          <th scope="col">is Imposter?</th>
+          <th scope="col">User ID</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let player of players">
           <td>{{ player.playerId }}</td>
           <td>{{ player.playerName }}</td>
-          <td>{{ player.dead}}</td>
-          <td>{{ player.impostor }}</td>
+          <td>{{ player.dead }}</td>
+          <td>{{ player.imposter }}</td>
+          <td>{{ player.appUserId }}</td>
         </tr>
         </tbody>
       </table>

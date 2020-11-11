@@ -29,7 +29,7 @@ class PlayerJdbcRepositoryTest {
         List<Player> players = repository.findAll();
 
         assertNotNull(players);
-        assertTrue(players.size() >= 4);
+        assertTrue(players.size() == 3 || players.size() == 4); // delete could run first
     }
 
     @Test
@@ -60,7 +60,7 @@ class PlayerJdbcRepositoryTest {
         assertEquals(1, player.getPlayerId());
         assertEquals("testPlayerAlpha", player.getPlayerName());
         assertFalse(player.isDead());
-        assertFalse(player.isImpostor());
+        assertFalse(player.isImposter());
         assertEquals(1, player.getAppUserId());
     }
 
@@ -73,16 +73,16 @@ class PlayerJdbcRepositoryTest {
 
     @Test
     void shouldFindZeroImposters() {
-        List<Player> imposters = repository.findByIsImpostor(true);
+        List<Player> imposters = repository.findByIsImposter(true);
 
         assertEquals(0, imposters.size());
     }
 
     @Test
     void shouldFindFourCrewMates() {
-        List<Player> crewMates = repository.findByIsImpostor(false);
+        List<Player> crewMates = repository.findByIsImposter(false);
 
-        assertTrue(crewMates.size() >= 4);
+        assertTrue(crewMates.size() == 3 || crewMates.size() == 4);
     }
 
     @Test
@@ -96,7 +96,18 @@ class PlayerJdbcRepositoryTest {
     void shouldFindFourAlive() {
         List<Player> alivePlayers = repository.findByIsDead(false);
 
-        assertTrue(alivePlayers.size() >= 4 );
+        assertTrue(alivePlayers.size() == 3 || alivePlayers.size() == 4);
+    }
+
+    @Test
+    void shouldDeleteById() {
+        assertTrue(repository.deleteById(3));
+        assertEquals(3, repository.findAll().size());
+    }
+
+    @Test
+    void shouldNotDeleteMissingId() {
+        assertFalse(repository.deleteById(1000));
     }
 
 

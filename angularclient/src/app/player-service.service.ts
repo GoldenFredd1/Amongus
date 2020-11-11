@@ -6,7 +6,6 @@ import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class PlayerServiceService {
-
   private playersUrl: string;
 
   constructor(private http: HttpClient) {
@@ -16,9 +15,7 @@ export class PlayerServiceService {
   public findAll(): Observable<Player[]> {
     return this.http.get<Player[]>(this.playersUrl);
   }
-
-
-    public save(player: Player) {
+  public save(player: Player) {
       return this.http.post<Player>(this.playersUrl, player);
     }
 

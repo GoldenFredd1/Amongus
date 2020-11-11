@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import java.util.List;
 
 @RestController
@@ -46,17 +45,14 @@ public class PlayerController {
     public Player findById(@PathVariable int playerId) {
         return service.findById(playerId);
     }
-
     // These are probably just for testing purposes
     @GetMapping("/players/{isImposter}")
     public List<Player> findByIsImposter(@PathVariable boolean isImposter) {
         return service.findByIsImposter(isImposter);
     }
-
     @GetMapping("/players/{isDead}")
     public List<Player> findByIsDead(@PathVariable boolean isDead) {
         return service.findByIsDead(isDead);
-
     }
 
 }

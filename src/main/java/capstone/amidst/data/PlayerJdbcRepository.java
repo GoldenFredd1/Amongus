@@ -101,6 +101,8 @@ public class PlayerJdbcRepository implements PlayerRepository {
 
     @Override
     public boolean deleteById(int playerId) {
-        return false;
+        jdbcTemplate.update("delete from Game where playerId = ?;", playerId);
+        jdbcTemplate.update("delete from Player_Assigned_Task where playerId = ?;", playerId);
+        return jdbcTemplate.update("delete from Player where playerId = ?;", playerId) > 0;
     }
 }

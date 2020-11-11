@@ -18,6 +18,7 @@ export class PlayerListComponent implements OnInit {
   ngOnInit() {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data;
+      console.log(data);
     });
   }
 
