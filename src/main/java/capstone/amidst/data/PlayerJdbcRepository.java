@@ -97,7 +97,14 @@ public class PlayerJdbcRepository implements PlayerRepository {
 
     @Override
     public boolean update(Player player) {
-        return false;
+        final String sql = "update Player set playerName = ?," +
+                "isDead = ?, isImposter = ?, app_user_id = ? where playerId = ?;";
+        return jdbcTemplate.update(sql,
+                player.getPlayerName(),
+                player.isDead(),
+                player.isImposter(),
+                player.getAppUserId(),
+                player.getPlayerId()) > 0;
     }
 
     @Override

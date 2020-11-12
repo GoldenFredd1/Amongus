@@ -55,8 +55,24 @@ public class PlayerController {
     }
 
     @DeleteMapping("/players/{playerId}")
-    public boolean deletePlayer(@PathVariable int playerId) {
-        return service.deleteById(playerId);
+    public ResponseEntity<Void> deletePlayer(@PathVariable int playerId) {
+        if(service.deleteById(playerId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/players/{playerId}")
+    public ResponseEntity<Player> update(@PathVariable int playerId, @RequestBody Player player) {
+        if (playerId != player.getPlayerId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Result<Player> result = service.update(player);
+        if (result.getType() == ResultType.INVALID) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
 }
