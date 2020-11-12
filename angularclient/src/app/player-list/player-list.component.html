@@ -3,7 +3,7 @@
 
 <div>
   <p>
-    <button (click)="add()"> Add Computer</button>
+    <a class="btn btn-info" (click)="add()"> Add Computer</a>
   </p>
 </div>
 
@@ -14,16 +14,22 @@
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Name</th>
-          <th scope="col">isDead</th>
-          <th scope="col">isImpostor</th>
+          <th scope="col">Is Dead?</th>
+          <th scope="col">Is Imposter?</th>
+          <th scope="col">User ID</th>
+          <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let player of players">
+        <tr *ngFor="let player of players; index as playerId">
           <td>{{ player.playerId }}</td>
           <td>{{ player.playerName }}</td>
-          <td>{{ player.dead}}</td>
-          <td>{{ player.impostor }}</td>
+          <td>{{ player.dead }}</td>
+          <td>{{ player.imposter }}</td>
+          <td>{{ player.appUserId }}</td>
+          <td *ngIf="player.appUserId == 2">
+            <a (click)="delete(player.playerId)" class="btn btn-info"> Delete </a>
+          </td>
         </tr>
         </tbody>
       </table>

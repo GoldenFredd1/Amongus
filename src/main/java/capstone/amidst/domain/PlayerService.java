@@ -29,8 +29,8 @@ public class PlayerService {
         return repository.findById(playerId);
     }
 
-    public List<Player> findByIsImposter(boolean isImpostor) {
-        return repository.findByIsImpostor(isImpostor);
+    public List<Player> findByIsImposter(boolean isImposter) {
+        return repository.findByIsImposter(isImposter);
     }
 
     public List<Player> findByIsDead(boolean isDead) {
@@ -77,4 +77,7 @@ public class PlayerService {
         return result;
     }
 
+    public boolean deleteById(int playerId) {
+        return repository.deleteById(playerId);
+    }
 }

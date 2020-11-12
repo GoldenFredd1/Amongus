@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Player } from './models/player';
 import { Observable, of } from 'rxjs';
 
-
 @Injectable()
 export class PlayerServiceService {
 
@@ -17,17 +16,23 @@ export class PlayerServiceService {
     return this.http.get<Player[]>(this.playersUrl);
   }
 
+  public save(player: Player) {
+    return this.http.post<Player>(this.playersUrl, player);
+  }
 
-  // public save(player: Player) {
-  //   return this.http.post<Player>(this.playersUrl, player);
-  // }
 
   public addComputerPlayer(player: Player): Observable<any> {
      return this.http.post(this.playersUrl, player, this.httpOptions);
   }
 
+
+  public deleteComputerPlayer(playerId: number): Observable<any> {
+    return this.http.delete(this.playersUrl + (`/${playerId}`));
+  }
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
 
 }

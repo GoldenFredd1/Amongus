@@ -24,7 +24,6 @@ export class PlayerListComponent implements OnInit {
       this.players = data});
   }
 
-
   add(): void {
     this.playerServiceService.addComputerPlayer(new Player())
       .subscribe(player => {this.players.push(player);
@@ -32,6 +31,12 @@ export class PlayerListComponent implements OnInit {
     this.getPlayers();
   }
 
+  delete(playerId): void {
+    this.playerServiceService.deleteComputerPlayer(playerId)
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
 
 
 }

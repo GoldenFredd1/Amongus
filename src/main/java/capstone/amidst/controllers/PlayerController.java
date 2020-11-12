@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class PlayerController {
 
     private final PlayerService service;
@@ -29,9 +28,8 @@ public class PlayerController {
     // Mappings
     @GetMapping("/players")
     public List<Player> displayAll() {
-        return (List<Player>) service.findAll();
+        return service.findAll();
     }
-
 
     @PostMapping("/players")
     public ResponseEntity<Object> addComputer(@RequestBody Player player) {
@@ -46,17 +44,19 @@ public class PlayerController {
     public Player findById(@PathVariable int playerId) {
         return service.findById(playerId);
     }
-
     // These are probably just for testing purposes
     @GetMapping("/players/{isImposter}")
     public List<Player> findByIsImposter(@PathVariable boolean isImposter) {
         return service.findByIsImposter(isImposter);
     }
-
     @GetMapping("/players/{isDead}")
     public List<Player> findByIsDead(@PathVariable boolean isDead) {
         return service.findByIsDead(isDead);
+    }
 
+    @DeleteMapping("/players/{playerId}")
+    public boolean deletePlayer(@PathVariable int playerId) {
+        return service.deleteById(playerId);
     }
 
 }

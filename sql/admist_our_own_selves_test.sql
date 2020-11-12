@@ -26,7 +26,7 @@ create table Player (
   playerId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   playerName VARCHAR(45) NOT NULL,
   isDead TINYINT NOT NULL,
-  isImpostor TINYINT NOT NULL,
+  isImposter TINYINT NOT NULL,
   app_user_id INT NULL,
   CONSTRAINT fk_player_app_user_role_id
     FOREIGN KEY (app_user_id)
@@ -97,7 +97,7 @@ insert into app_user_role values
 (1,2),
 (2,3);
 
-insert into Player(playerId, playerName, isDead, isImpostor, app_user_id) values
+insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
 (1,'testPlayerAlpha',false, false,1),
 (2,'Computer1',false, false,2),
 (3,'Computer2',false, false,2),
@@ -145,5 +145,5 @@ insert into Player_Assigned_Task values
 end //
 delimiter ;
 
--- select playerId, playerName, isDead, isImpostor, app_user_id
+-- select playerId, playerName, isDead, isImposter, app_user_id
 -- from Player;

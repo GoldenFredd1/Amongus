@@ -2,6 +2,6 @@ export class Player {
   playerId: number;
   playerName: string;
   dead: boolean;
-  impostor: boolean;
+  imposter: boolean;
   appUserId: number;
 }
