@@ -25,6 +25,17 @@ public class PlayerService {
         return repository.findAll();
     }
 
+    public Player findById(int playerId) {
+        return repository.findById(playerId);
+    }
+
+    public List<Player> findByIsImposter(boolean isImpostor) {
+        return repository.findByIsImpostor(isImpostor);
+    }
+
+    public List<Player> findByIsDead(boolean isDead) {
+        return repository.findByIsDead(isDead);
+    }
 
     public Result<Player> add(Player player) {
         Result<Player> result = new Result<>();

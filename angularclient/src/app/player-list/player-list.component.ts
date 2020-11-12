@@ -9,10 +9,13 @@ import { PlayerServiceService } from '../player-service.service';
 })
 export class PlayerListComponent implements OnInit {
   players: Player[];
+  title: string;
 
-  constructor(private playerServiceService: PlayerServiceService) { }
+  constructor(private playerServiceService: PlayerServiceService) {
+    this.title="Amidst Our Own Selves";
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data;
     });

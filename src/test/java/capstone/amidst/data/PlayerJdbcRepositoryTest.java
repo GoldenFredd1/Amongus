@@ -53,14 +53,59 @@ class PlayerJdbcRepositoryTest {
     }
 
 
+    @Test
+    void shouldFindById() {
+        Player player = repository.findById(1);
+
+        assertEquals(1, player.getPlayerId());
+        assertEquals("testPlayerAlpha", player.getPlayerName());
+        assertFalse(player.isDead());
+        assertFalse(player.isImpostor());
+        assertEquals(1, player.getAppUserId());
+    }
+
+    @Test
+    void shouldNotFindByMissingId() {
+        Player player = repository.findById(1000);
+
+        assertNull(player);
+    }
+
+    @Test
+    void shouldFindZeroImposters() {
+        List<Player> imposters = repository.findByIsImpostor(true);
+
+        assertEquals(0, imposters.size());
+    }
+
+    @Test
+    void shouldFindFourCrewMates() {
+        List<Player> crewMates = repository.findByIsImpostor(false);
+
+        assertTrue(crewMates.size() >= 4);
+    }
+
+    @Test
+    void shouldFindZeroDead() {
+        List<Player> deadPlayers = repository.findByIsDead(true);
+
+        assertEquals(0, deadPlayers.size());
+    }
+
+    @Test
+    void shouldFindFourAlive() {
+        List<Player> alivePlayers = repository.findByIsDead(false);
+
+        assertTrue(alivePlayers.size() >= 4 );
+    }
+
 
     private Player newPlayer(){
         Player player = new Player();
         player.setPlayerName("Xx3litexX");
         player.setDead(false);
-        player.setImposter(false);
+        player.setImpostor(false);
         player.setAppUserId(1);
         return player;
     }
-
 }

@@ -1,4 +1,5 @@
-<h3> Players </h3>
+<div class="container">
+  <h3> Players </h3>
 
 <div>
   <p>
@@ -6,32 +7,26 @@
   </p>
 </div>
 
-
-<div class="card my-5">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
+  <div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Name</th>
-          <th scope="col">Dead</th>
-          <th scope="col">Imposter</th>
-          <th scope="col">AppUserId</th>
-          <th></th>
+          <th scope="col">isDead</th>
+          <th scope="col">isImpostor</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr *ngFor="let player of players">
           <td>{{ player.playerId }}</td>
           <td>{{ player.playerName }}</td>
-          <td>{{ player.dead }}</td>
-          <td>{{ player.imposter }}</td>
-          <td>{{ player.appUserId }}</td>
-          <!-- <td>
-          <button class="delete" title="delete hero" (click)="delete(hero)">Delete</button>
-        </td> -->
+          <td>{{ player.dead}}</td>
+          <td>{{ player.impostor }}</td>
         </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

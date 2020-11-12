@@ -62,7 +62,7 @@ class PlayerServiceTest {
         Player player = new Player();
         player.setPlayerName("Xx3litexX");
         player.setDead(false);
-        player.setImposter(false);
+        player.setImpostor(false);
         player.setAppUserId(1);
         return player;
     }

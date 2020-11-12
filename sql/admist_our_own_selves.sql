@@ -30,7 +30,7 @@ create table Player (
   playerId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   playerName VARCHAR(45) NOT NULL,
   isDead TINYINT NOT NULL,
-  isImposter TINYINT NOT NULL,
+  isImpostor TINYINT NOT NULL,
   app_user_id INT NULL,
   CONSTRAINT fk_player_app_user_role_id
     FOREIGN KEY (app_user_id)
