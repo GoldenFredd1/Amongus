@@ -16,12 +16,14 @@ export class PlayerListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.playerServiceService.findAll().subscribe(data => {
-      this.players = data;
-      console.log(data);
-    });
+    this.getPlayers();
   }
 
+  getPlayers(): void {
+    this.playerServiceService.findAll().subscribe(data => {
+      this.players = data;
+    });
+  }
 
   add(): void {
     this.playerServiceService.addComputerPlayer(new Player)
@@ -29,5 +31,11 @@ export class PlayerListComponent implements OnInit {
       });
   }
 
+  delete(playerId): void {
+    this.playerServiceService.deleteComputerPlayer(playerId)
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
 
 }

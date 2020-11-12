@@ -24,14 +24,14 @@ public class PlayerJdbcRepository implements PlayerRepository {
     // Methods
     @Override
     public List<Player> findAll() {
-        final String sql = "select playerId, playerName, isDead, isImpostor, app_user_id" +
+        final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
                 " from Player;";
         return jdbcTemplate.query(sql, new PlayerMapper());
     }
 
     @Override
     public Player findById(int playerId) {
-        final String sql = "select playerId, playerName, isDead, isImpostor, app_user_id" +
+        final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
                 " from Player" +
                 " where playerId = ?;";
         return jdbcTemplate.query(sql, new PlayerMapper(), playerId)
@@ -39,16 +39,16 @@ public class PlayerJdbcRepository implements PlayerRepository {
     }
 
     @Override
-    public List<Player> findByIsImpostor(boolean isImpostor) {
-        final String sql = "select playerId, playerName, isDead, isImpostor, app_user_id" +
+    public List<Player> findByIsImposter(boolean isImposter) {
+        final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
                 " from Player" +
-                " where isImpostor = ?;";
-        return jdbcTemplate.query(sql, new PlayerMapper(), isImpostor);
+                " where isImposter = ?;";
+        return jdbcTemplate.query(sql, new PlayerMapper(), isImposter);
     }
 
     @Override
     public List<Player> findByIsDead(boolean isDead) {
-        final String sql = "select playerId, playerName, isDead, isImpostor, app_user_id" +
+        final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
                 " from Player" +
                 " where isDead = ?;";
         return jdbcTemplate.query(sql, new PlayerMapper(), isDead);
@@ -56,14 +56,14 @@ public class PlayerJdbcRepository implements PlayerRepository {
 
     @Override
     public Player add(Player player) {
-        final String sql = "insert into Player(playerName, isDead, isImpostor, app_user_id) " +
+        final String sql = "insert into Player(playerName, isDead, isImposter, app_user_id) " +
                 "values (?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, player.getPlayerName());
             ps.setBoolean(2, player.isDead());
-            ps.setBoolean(3, player.isImpostor());
+            ps.setBoolean(3, player.isImposter());
             ps.setInt(4, player.getAppUserId());
             return ps;
         },keyHolder);
@@ -76,7 +76,7 @@ public class PlayerJdbcRepository implements PlayerRepository {
 
     @Override
     public Player addComputerPlayer(Player player) {
-        final String sql = "insert into Player(playerName, isDead, isImpostor, app_user_id) " +
+        final String sql = "insert into Player(playerName, isDead, isImposter, app_user_id) " +
                 "values ('Computer',false,false,2);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {

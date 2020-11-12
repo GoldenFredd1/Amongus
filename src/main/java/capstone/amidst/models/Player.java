@@ -15,17 +15,17 @@ public class Player {
     private boolean isDead;
 
     @NotNull(message = "Player must be either an imposter or a crewmate.")
-    private boolean isImpostor;
+    private boolean isImposter;
 
     @PositiveOrZero(message = "User ID must be 0 or higher.")
     private int appUserId;
 
     // Constructors
-    public Player(int playerId, String playerName, boolean isDead, boolean isImpostor, int appUserId) {
+    public Player(int playerId, String playerName, boolean isDead, boolean isImposter, int appUserId) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.isDead = isDead;
-        this.isImpostor = isImpostor;
+        this.isImposter = isImposter;
         this.appUserId = appUserId;
     }
     public Player() {
@@ -50,10 +50,10 @@ public class Player {
     public void setDead(boolean dead) {
         isDead = dead;
     }
-    public boolean isImpostor() {
-        return isImpostor;
+    public boolean isImposter() {
+        return isImposter;
     }
-    public void setImpostor(boolean impostor) { isImpostor = impostor; }
+    public void setImposter(boolean imposter) { isImposter = imposter; }
     public int getAppUserId() {
         return appUserId;
     }
@@ -69,13 +69,13 @@ public class Player {
         Player player = (Player) o;
         return playerId == player.playerId &&
                 isDead == player.isDead &&
-                isImpostor == player.isImpostor &&
+                isImposter == player.isImposter &&
                 appUserId == player.appUserId &&
                 playerName.equals(player.playerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(playerId, playerName, isDead, isImpostor, appUserId);
+        return Objects.hash(playerId, playerName, isDead, isImposter, appUserId);
     }
 }

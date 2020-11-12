@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Player } from './models/player';
 import { Observable, of } from 'rxjs';
 
-
 @Injectable()
 export class PlayerServiceService {
+
   private playersUrl: string;
 
   constructor(private http: HttpClient) {
@@ -15,12 +15,17 @@ export class PlayerServiceService {
   public findAll(): Observable<Player[]> {
     return this.http.get<Player[]>(this.playersUrl);
   }
-  public save(player: Player) {
-      return this.http.post<Player>(this.playersUrl, player);
-    }
 
-    public addComputerPlayer(player: Player): Observable<any> {
-      return this.http.post(this.playersUrl, player);
-    }
+  public save(player: Player) {
+    return this.http.post<Player>(this.playersUrl, player);
+  }
+
+  public addComputerPlayer(player: Player): Observable<any> {
+    return this.http.post(this.playersUrl, player);
+  }
+
+  public deleteComputerPlayer(playerId: number): Observable<any> {
+    return this.http.delete(this.playersUrl + (`/${playerId}`));
+  }
 
 }
