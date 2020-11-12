@@ -13,6 +13,8 @@ public interface PlayerRepository {
 
     Player add(Player player);
 
+    Player addComputerPlayer(Player player);
+
     boolean update(Player player);
 
     boolean deleteById(int playerId);

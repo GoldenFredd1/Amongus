@@ -10,7 +10,7 @@ import { PlayerServiceService } from './player-service.service';
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerListComponent
+    PlayerListComponent,
   ],
   imports: [
     BrowserModule,

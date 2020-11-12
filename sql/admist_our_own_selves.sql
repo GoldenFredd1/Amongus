@@ -73,6 +73,12 @@ create table Player_Assigned_Task (
     FOREIGN KEY (playerId)
     REFERENCES Player (playerId));
 
+
+insert into app_user values
+(1,'Bob the test player','hashpasswordgoeshere',false),
+(2,'Computer','hashpasswordgoeshere',false);
+
+
 insert into app_role values
 (1,'Admin'),
 (2,'User'),

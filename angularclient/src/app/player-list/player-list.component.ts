@@ -18,4 +18,12 @@ export class PlayerListComponent implements OnInit {
     });
   }
 
+
+  add(): void {
+    this.playerServiceService.addComputerPlayer(new Player)
+      .subscribe(player => {this.players.push(player);
+      });
+  }
+
+
 }

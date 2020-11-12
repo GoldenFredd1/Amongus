@@ -1,6 +1,7 @@
 package capstone.amidst.models;
 
 import javax.validation.constraints.*;
+import java.util.Objects;
 
 public class Player {
     // Private Fields
@@ -62,4 +63,21 @@ public class Player {
         this.appUserId = appUserId;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return playerId == player.playerId &&
+                isDead == player.isDead &&
+                isImposter == player.isImposter &&
+                appUserId == player.appUserId &&
+                playerName.equals(player.playerName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerId, playerName, isDead, isImposter, appUserId);
+    }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Player } from './models/player';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
 
 @Injectable()
 export class PlayerServiceService {
@@ -18,4 +19,9 @@ export class PlayerServiceService {
     public save(player: Player) {
       return this.http.post<Player>(this.playersUrl, player);
     }
+
+    public addComputerPlayer(player: Player): Observable<any> {
+      return this.http.post(this.playersUrl, player);
+    }
+
 }
