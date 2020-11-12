@@ -18,12 +18,16 @@ export class PlayerServiceService {
   }
 
 
-    public save(player: Player) {
-      return this.http.post<Player>(this.playersUrl, player);
-    }
+  // public save(player: Player) {
+  //   return this.http.post<Player>(this.playersUrl, player);
+  // }
 
-    public addComputerPlayer(player: Player): Observable<any> {
-      return this.http.post(this.playersUrl, player);
-    }
+  public addComputerPlayer(player: Player): Observable<any> {
+     return this.http.post(this.playersUrl, player, this.httpOptions);
+  }
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
 }

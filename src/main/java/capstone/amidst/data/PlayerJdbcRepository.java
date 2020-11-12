@@ -91,6 +91,7 @@ public class PlayerJdbcRepository implements PlayerRepository {
         jdbcTemplate.update("Update Player set playerName = 'Computer"
                 +id+"' where playerId = "
                 +id);
+        player.setPlayerName("Computer"+id);
         return player;
     }
 

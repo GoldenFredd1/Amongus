@@ -8,7 +8,7 @@ import { PlayerServiceService } from '../player-service.service';
   styleUrls: ['./player-list.component.css']
 })
 export class PlayerListComponent implements OnInit {
-  players: Player[];
+  players: Player[] ;
   title: string;
 
   constructor(private playerServiceService: PlayerServiceService) {
@@ -16,17 +16,22 @@ export class PlayerListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getPlayers();
+  }
+
+  getPlayers(): void {
     this.playerServiceService.findAll().subscribe(data => {
-      this.players = data;
-    });
+      this.players = data});
   }
 
 
   add(): void {
-    this.playerServiceService.addComputerPlayer(new Player)
+    this.playerServiceService.addComputerPlayer(new Player())
       .subscribe(player => {this.players.push(player);
       });
+    this.getPlayers();
   }
+
 
 
 }
