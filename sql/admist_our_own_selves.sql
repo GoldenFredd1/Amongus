@@ -5,15 +5,15 @@ use amidst_our_own_selves;
 
 create table app_user (
   app_user_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  username VARCHAR(45) NOT NULL,
-  password_hash VARCHAR(45) NOT NULL,
-  disabled TINYINT NOT NULL);
+  username varchar(50) not null unique,
+  password_hash varchar(2048) not null,
+  disabled boolean not null default(0));
 
 
 
 create table app_role (
   app_role_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL);
+  `name` VARCHAR(45) NOT NULL unique);
 
 
 create table app_user_role (
