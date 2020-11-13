@@ -45,7 +45,8 @@ create table Task (
     REFERENCES Room (roomId));
 
 create table Game (
-  gameId INT,
+  gameId INT PRIMARY KEY NOT NULL,
+  gameRoomCode VARCHAR(6) NOT NULL,
   playerId INT NOT NULL,
   roomId INT NOT NULL,
   CONSTRAINT fk_game_player_id
@@ -56,11 +57,11 @@ create table Game (
     REFERENCES Room (roomId));
 
 create table Player_Assigned_Task (
-  task_id INT NOT NULL,
+  taskId INT NOT NULL,
   playerId INT NOT NULL,
   isComplete TINYINT NOT NULL,
   CONSTRAINT fk_player_assigned_task_task_id
-    FOREIGN KEY (task_id)
+    FOREIGN KEY (taskid)
     REFERENCES Task (taskId),
   CONSTRAINT fk_player_assigned_task_player_id
     FOREIGN KEY (playerId)
@@ -127,10 +128,10 @@ insert into Task(taskId,taskName,roomId) values
 (12,'Put makeup on a mannequin',6);
 
 insert into Game values
-(1, 1, 1),
-(1, 2, 2),
-(1, 3, 6),
-(1, 4, 3);
+(1,'HELPME',1, 1),
+(2,'HELPME', 2, 2),
+(3,'HELPME', 3, 6),
+(4,'HELPME', 4, 3);
 
 insert into Player_Assigned_Task values
 (1, 1, false),

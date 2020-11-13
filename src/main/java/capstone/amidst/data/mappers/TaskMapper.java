@@ -1,6 +1,6 @@
 package capstone.amidst.data.mappers;
 
-import capstone.amidst.models.Player;
+
 import capstone.amidst.models.Task;
 import org.springframework.jdbc.core.RowMapper;
 

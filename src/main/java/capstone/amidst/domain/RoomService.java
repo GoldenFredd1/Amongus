@@ -2,9 +2,11 @@ package capstone.amidst.domain;
 
 import capstone.amidst.data.RoomRepository;
 import capstone.amidst.models.Room;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RoomService {
     private final RoomRepository repository;
 

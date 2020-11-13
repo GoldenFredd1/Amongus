@@ -28,7 +28,6 @@ export class PlayerListComponent implements OnInit {
     this.playerServiceService.addComputerPlayer(new Player())
       .subscribe(player => {this.players.push(player);
       });
-    this.getPlayers();
   }
 
   delete(playerId): void {
