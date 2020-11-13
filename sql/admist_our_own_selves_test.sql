@@ -90,9 +90,9 @@ insert into app_user values
 (2,'Computer','hashpasswordgoeshere',false);
 
 insert into app_role values
-(1,'Admin'),
-(2,'User'),
-(3,'Computer');
+(1,'ADMIN'),
+(2,'USER'),
+(3,'COMPUTER');
 
 insert into app_user_role values
 (1,2),

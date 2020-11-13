@@ -1,0 +1,8 @@
+<div class="container">
+    <nav>
+        <h2>Amidst Our Own Selves</h2>
+        <a mat-button *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a>
+        <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/" class="nav-link">New Game</a>
+        <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="nav-link">LogOut</a>
+    </nav>
+</div>
