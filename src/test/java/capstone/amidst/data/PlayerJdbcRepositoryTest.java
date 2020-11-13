@@ -29,7 +29,8 @@ class PlayerJdbcRepositoryTest {
         List<Player> players = repository.findAll();
 
         assertNotNull(players);
-        assertTrue(players.size() == 3 || players.size() == 4 || players.size() == 5); // delete could run first
+        assertTrue(players.size() >= 3);
+        // delete or add could run first
     }
 
     @Test
@@ -51,7 +52,6 @@ class PlayerJdbcRepositoryTest {
 //           System.out.println(players.get(i).getPlayerName());
 //       }
     }
-
 
     @Test
     void shouldFindById() {
@@ -82,7 +82,7 @@ class PlayerJdbcRepositoryTest {
     void shouldFindFourCrewMates() {
         List<Player> crewMates = repository.findByIsImposter(false);
 
-        assertTrue(crewMates.size() == 3 || crewMates.size() == 4);
+        assertTrue(crewMates.size() >= 3);
     }
 
     @Test
@@ -96,13 +96,13 @@ class PlayerJdbcRepositoryTest {
     void shouldFindFourAlive() {
         List<Player> alivePlayers = repository.findByIsDead(false);
 
-        assertTrue(alivePlayers.size() == 3 || alivePlayers.size() == 4 || alivePlayers.size() == 5);
+        assertTrue(alivePlayers.size() >= 3);
     }
 
     @Test
     void shouldDeleteById() {
         assertTrue(repository.deleteById(3));
-        assertTrue(repository.findAll().size() == 3 || repository.findAll().size() == 4);
+        assertTrue(repository.findAll().size() >= 3);
     }
 
     @Test
@@ -110,6 +110,23 @@ class PlayerJdbcRepositoryTest {
         assertFalse(repository.deleteById(1000));
     }
 
+    @Test
+    void shouldEditExistingPlayer() {
+        assertEquals("testPlayerAlpha", repository.findById(1).getPlayerName());
+
+        Player player = newPlayer();
+        player.setPlayerId(1);
+
+        assertTrue(repository.update(player));
+        assertEquals("Xx3litexX", repository.findById(1).getPlayerName());
+    }
+
+    @Test
+    void shouldNotEditMissingPlayer() {
+        Player player = newPlayer();
+        player.setPlayerId(1000);
+        assertFalse(repository.update(player));
+    }
 
     private Player newPlayer(){
         Player player = new Player();

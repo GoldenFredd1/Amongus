@@ -1,11 +1,11 @@
 <div class="container">
   <h3> Players </h3>
 
-<div>
-  <p>
-    <a class="btn btn-info" (click)="add()"> Add Computer</a>
-  </p>
-</div>
+  <div>
+    <p>
+      <a class="btn btn-info" (click)="add()"> Add Computer</a>
+    </p>
+  </div>
 
   <div class="card my-5">
     <div class="card-body">
@@ -17,11 +17,11 @@
           <th scope="col">Is Dead?</th>
           <th scope="col">Is Imposter?</th>
           <th scope="col">User ID</th>
-          <th scope="col">Delete</th>
+          <th scope="col">Change</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let player of players; index as playerId">
+        <tr *ngFor="let player of players">
           <td>{{ player.playerId }}</td>
           <td>{{ player.playerName }}</td>
           <td>{{ player.dead }}</td>
@@ -35,4 +35,11 @@
       </table>
     </div>
   </div>
+
+  <div>
+    <p>
+      <a class="btn btn-info"> Start Game </a>
+    </p>
+  </div>
+
 </div>

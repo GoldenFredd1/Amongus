@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Player } from './models/player';
 import { Observable, of } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PlayerServiceService {
 
   private playersUrl: string;
@@ -16,23 +18,20 @@ export class PlayerServiceService {
     return this.http.get<Player[]>(this.playersUrl);
   }
 
+  public async addComputerPlayer(player: Player) {
+    return await this.http.post(this.playersUrl, player, this.httpOptions).toPromise();
+ }
+
   public save(player: Player) {
     return this.http.post<Player>(this.playersUrl, player);
   }
 
-
-  public addComputerPlayer(player: Player): Observable<any> {
-     return this.http.post(this.playersUrl, player, this.httpOptions);
-  }
-
-
-  public deleteComputerPlayer(playerId: number): Observable<any> {
-    return this.http.delete(this.playersUrl + (`/${playerId}`));
+  public async deleteComputerPlayer(playerId: number) {
+    return await this.http.delete(this.playersUrl + (`/${playerId}`)).toPromise();
   }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
 
 }

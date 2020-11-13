@@ -77,6 +77,27 @@ public class PlayerService {
         return result;
     }
 
+    public Result<Player> update(Player player) {
+        Result<Player> result = new Result<>();
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Player>> violations = validator.validate(player);
+
+        if (!repository.update(player)) {
+            String msg = String.format("playerId: %s, not found", player.getPlayerId());
+            result.addMessage(msg, ResultType.NOT_FOUND);
+            return result;
+        }
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Player> violation : violations) {
+                result.addMessage(violation.getMessage(), ResultType.INVALID);
+            }
+            return result;
+        }
+        return result;
+    }
+
     public boolean deleteById(int playerId) {
         return repository.deleteById(playerId);
     }

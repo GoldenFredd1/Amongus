@@ -19,22 +19,19 @@ export class PlayerListComponent implements OnInit {
     this.getPlayers();
   }
 
-  getPlayers(): void {
+  getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data});
   }
 
-  add(): void {
-    this.playerServiceService.addComputerPlayer(new Player())
-      .subscribe(player => {this.players.push(player);
-      });
+  async add() {
+    let createdPlayer = await this.playerServiceService.addComputerPlayer(new Player())
+    this.getPlayers();
   }
 
-  delete(playerId): void {
-    this.playerServiceService.deleteComputerPlayer(playerId)
-    .subscribe(data => {
-      console.log(data);
-    });
+  async delete(playerId) {
+    let deletedPlayer = await this.playerServiceService.deleteComputerPlayer(playerId)
+    this.getPlayers();
   }
 
 
