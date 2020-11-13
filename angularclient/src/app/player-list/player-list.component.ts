@@ -8,7 +8,7 @@ import { PlayerServiceService } from '../player-service.service';
   styleUrls: ['./player-list.component.css']
 })
 export class PlayerListComponent implements OnInit {
-  players: Player[] ;
+  players: Player[];
   title: string;
 
   constructor(private playerServiceService: PlayerServiceService) {
@@ -21,16 +21,16 @@ export class PlayerListComponent implements OnInit {
 
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
-      this.players = data});
+      this.players = data, console.log(data)});
   }
 
   async add() {
-    let createdPlayer = await this.playerServiceService.addComputerPlayer(new Player())
+    await this.playerServiceService.addComputerPlayer(new Player())
     this.getPlayers();
   }
 
   async delete(playerId) {
-    let deletedPlayer = await this.playerServiceService.deleteComputerPlayer(playerId)
+    await this.playerServiceService.deleteComputerPlayer(playerId)
     this.getPlayers();
   }
 
