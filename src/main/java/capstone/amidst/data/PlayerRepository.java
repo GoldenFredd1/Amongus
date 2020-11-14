@@ -8,14 +8,20 @@ public interface PlayerRepository {
 
     List<Player> findAll();
     Player findById(int playerId);
-    List<Player> findByIsImposter(boolean isImposter);
-    List<Player> findByIsDead(boolean isDead);
+    List<Player> findByIsImposter(boolean Imposter);
+    List<Player> findByIsDead(boolean Dead);
 
     Player add(Player player);
 
     Player addComputerPlayer(Player player);
 
     boolean update(Player player);
+
+    Boolean updateIsDead(Player player);
+
+    Boolean updateIsImposter(Player player);
+
+    Boolean updateResetPlayer(Player player);
 
     boolean deleteById(int playerId);
 }

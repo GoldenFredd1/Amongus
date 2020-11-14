@@ -47,10 +47,6 @@ class PlayerJdbcRepositoryTest {
         Player actual = repository.addComputerPlayer(player);
         assertNotNull(actual);
         assertEquals(6, actual.getPlayerId());
-//        List<Player> players = repository.findAll();
-//       for(int i=0;i<players.size();i++){
-//           System.out.println(players.get(i).getPlayerName());
-//       }
     }
 
     @Test
@@ -72,10 +68,10 @@ class PlayerJdbcRepositoryTest {
     }
 
     @Test
-    void shouldFindZeroImposters() {
+    void shouldFindZerooTOOneImposters() {
         List<Player> imposters = repository.findByIsImposter(true);
 
-        assertEquals(0, imposters.size());
+        assertTrue(imposters.size()>=0);
     }
 
     @Test
@@ -128,7 +124,41 @@ class PlayerJdbcRepositoryTest {
         assertFalse(repository.update(player));
     }
 
-    private Player newPlayer(){
+    @Test
+    void shouldUpdateIsDead() {
+        Player player = repository.findById(1);
+        assertEquals(1, player.getPlayerId());
+
+        repository.updateIsDead(player);
+        assertTrue(player.isDead());
+    }
+
+    @Test
+    void shouldUpdateIsImposter() {
+        Player player = repository.findById(1);
+        assertEquals(1, player.getPlayerId());
+
+        repository.updateIsImposter(player);
+        assertTrue(player.isImposter());
+    }
+
+    @Test
+    void shouldUpdateReset() {
+        Player player = repository.findById(1);
+        assertEquals(1, player.getPlayerId());
+
+        repository.updateIsDead(player);
+        assertTrue(player.isDead());
+        repository.updateIsImposter(player);
+        assertTrue(player.isImposter());
+
+        repository.updateResetPlayer(player);
+        assertFalse(player.isDead());
+        assertFalse(player.isImposter());
+    }
+
+
+    private Player newPlayer() {
         Player player = new Player();
         player.setPlayerName("Xx3litexX");
         player.setDead(false);

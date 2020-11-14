@@ -151,4 +151,4 @@ delimiter ;
 -- select playerId, playerName, isDead, isImposter, app_user_id
 -- from Player;
 
-select * from app_user
+-- select * from app_user

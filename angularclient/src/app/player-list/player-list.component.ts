@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Player } from '../models/player';
 import { PlayerServiceService } from '../player-service.service';
+
 
 @Component({
   selector: 'app-player-list',
@@ -10,8 +12,11 @@ import { PlayerServiceService } from '../player-service.service';
 export class PlayerListComponent implements OnInit {
   players: Player[];
   title: string;
+  //app_user: appUser[];
 
-  constructor(private playerServiceService: PlayerServiceService) {
+  constructor(
+    private route: ActivatedRoute,
+    private playerServiceService: PlayerServiceService) {
     this.title="Amidst Our Own Selves";
   }
 

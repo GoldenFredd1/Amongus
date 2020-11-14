@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -79,10 +80,7 @@ public class PlayerJdbcRepository implements PlayerRepository {
         final String sql = "insert into Player(playerName, isDead, isImposter, app_user_id) " +
                 "values ('Computer',false,false,2);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        int rowsAffected = jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            return ps;
-        },keyHolder);
+        int rowsAffected = jdbcTemplate.update(connection -> connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS),keyHolder);
         if (rowsAffected <= 0) {
             return null;
         }
@@ -105,6 +103,36 @@ public class PlayerJdbcRepository implements PlayerRepository {
                 player.isImposter(),
                 player.getAppUserId(),
                 player.getPlayerId()) > 0;
+    }
+
+    @Override
+    @Transactional
+    public Boolean updateIsDead(Player player){
+        final String sql = "Update Player set" +
+                " isDead = ?" +
+                " where playerId =?;";
+        player.setDead(true);
+        return jdbcTemplate.update(sql,player.isDead(),player.getPlayerId()) > 0;
+    }
+
+    @Override
+    public Boolean updateIsImposter(Player player){
+        final String sql = "Update Player set" +
+                " isImposter = ?" +
+                " where playerId =?;";
+        player.setImposter(true);
+        return jdbcTemplate.update(sql,player.isImposter(),player.getPlayerId()) > 0;
+    }
+
+    @Override
+    public Boolean updateResetPlayer(Player player){
+        final String sql = "Update Player set" +
+                " isDead = ?," +
+                " isImposter = ?" +
+                " where playerId =?;";
+        player.setDead(false);
+        player.setImposter(false);
+        return jdbcTemplate.update(sql,player.isDead(),player.isImposter(),player.getPlayerId()) > 0;
     }
 
     @Override
