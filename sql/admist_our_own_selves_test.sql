@@ -87,7 +87,8 @@ delete from Room;
 
 insert into app_user values
 (1,'Bob the test player','hashpasswordgoeshere',false),
-(2,'Computer','hashpasswordgoeshere',false);
+(2,'Computer','$2a$10$Jlmrl1iLHTUWx1ooHVs3y.0UVHF3luzRYkbRDhsRp61U0lBiffGRe',false),
+(3,'arjohnson','$2a$10$nOcl.INLYB.dKnLcNUP.P.B5Ia3YcX2zHsuyVQCj91uIsGOecN4Oy',false);
 
 insert into app_role values
 (1,'ADMIN'),
@@ -96,7 +97,8 @@ insert into app_role values
 
 insert into app_user_role values
 (1,2),
-(2,3);
+(2,3),
+(3,1);
 
 insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
 (1,'testPlayerAlpha',false, false,1),
@@ -148,3 +150,5 @@ delimiter ;
 
 -- select playerId, playerName, isDead, isImposter, app_user_id
 -- from Player;
+
+select * from app_user
