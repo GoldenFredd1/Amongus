@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
       error => {
         this.invalidLogin = true
         this.error = error.message;
-
       }
     )
     );
