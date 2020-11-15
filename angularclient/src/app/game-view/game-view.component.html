@@ -1,44 +1,63 @@
-    <div class="row">
-        <div class="column" style="width: 30%;">
-            <h2 style="text-align: center"> Task List</h2>
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Task ID</th>
-                  <th scope="col">Task Name</th>
-                  <th scope="col">Task Room</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let task of tasks">
-                  <td>{{ task.taskId }}</td>
-                  <td>{{ task.taskName }}</td>
-                  <td>{{ task.roomId }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    
-        <div class="column" style="width: 40%;">
-            <h2 style="text-align: center"> Map </h2>
-            <!-- <img src="../../amongUs.png"/> -->
-        </div>
-    
-        <div class="column" style="width: 30%;">
-            <h2 style="text-align: center"> Current Players in Room </h2>
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Player ID</th>
-                  <th scope="col">Player Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let player of players">
-                  <td>{{ player.playerId }}</td>
-                  <td>{{ player.playerName }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="row">
+  <div class="column" style="width: 30%;">
+    <h2 style="text-align: center"> Task List</h2>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Task ID</th>
+          <th scope="col">Task Name</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{ task.taskId }}</td>
+          <td>{{ task.taskName }}</td>
+          <td>{{ task.complete }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="column" style="width: 40%;">
+    <h2 style="text-align: center"> Map </h2>
+    <!-- <img src="../../amongUs.png"/> -->
+
+
+
+    <div>
+      <button class="btn btn-success">Do Task</button>
+      <select name="task" id="tasks">
+        <option *ngFor="let task of tasks">{{ task.taskName }}</option>
+      </select>
     </div>
+    <div>
+      <button class="btn btn-info">Change Room</button>
+      <select name="room" id="rooms">
+        <option *ngFor="let room of rooms">{{ room.roomName }}</option>
+      </select>
+    </div>
+    <div>
+      <button routerLink="/voteScreen" class="btn btn-warning">Report</button>
+    </div>
+  </div>
+
+  <div class="column" style="width: 30%;">
+    <h2 style="text-align: center"> Current Players in Room </h2>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <!-- <th scope="col">Player ID</th> -->
+          <th scope="col">Player Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of players">
+          <!-- <td>{{ player.playerId }}</td> -->
+          <td>{{ player.playerName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

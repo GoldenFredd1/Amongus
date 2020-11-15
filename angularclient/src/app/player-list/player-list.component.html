@@ -14,21 +14,22 @@
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
-          <th scope="col">ID</th>
+          <!-- <th scope="col">ID</th> -->
           <th scope="col">Name</th>
-          <th scope="col">Is Dead?</th>
-          <th scope="col">Is Imposter?</th>
-          <th scope="col">User ID</th>
-          <th scope="col">Change</th>
+          <!-- <th scope="col">Is Dead?</th> -->
+          <!-- <th scope="col">Is Imposter?</th> -->
+          <!-- <th scope="col">User ID</th> -->
+          <!-- <th scope="col">Change</th> -->
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let player of players">
-          <td>{{ player.playerId }}</td>
+          <!-- <td>{{ player.playerId }}</td> -->
           <td>{{ player.playerName }}</td>
-          <td>{{ player.dead }}</td>
-          <td>{{ player.imposter }}</td>
-          <td>{{ player.appUserId }}</td>
+          <!-- <td>{{ player.dead }}</td> -->
+          <!-- <td>{{ player.imposter }}</td> -->
+          <!-- <td>{{ player.appUserId }}</td> -->
           <td *ngIf="player.appUserId == 2">
             <a (click)="delete(player.playerId)" class="btn btn-info"> Delete </a>
           </td>

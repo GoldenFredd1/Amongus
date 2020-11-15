@@ -3,6 +3,8 @@ import { Player } from '../models/player';
 import { Task } from '../models/task';
 import { PlayerServiceService } from '../player-service.service';
 import { TaskService } from '../task-service';
+import { RoomsService } from '../rooms.service';
+import { Rooms } from '../models/rooms';
 
 
 @Component({
@@ -13,18 +15,20 @@ import { TaskService } from '../task-service';
 export class GameViewComponent implements OnInit {
   players: Player[];
   tasks: Task[];
+  rooms: Rooms[];
   title: string;
 
   constructor(
       private playerServiceService: PlayerServiceService,
       private taskService: TaskService,
+      private roomsService: RoomsService,
       ) {
-    this.title="Amidst Our Own Selves";
   }
 
   ngOnInit() {
     this.getPlayers();
     this.getTasks();
+    this.getRooms();
   }
 
   getPlayers() {
@@ -34,7 +38,12 @@ export class GameViewComponent implements OnInit {
 
   getTasks() {
     this.taskService.findAll().subscribe(data => {
-      this.tasks = data});
+      this.tasks = data, console.log(data)});
+  }
+
+  getRooms() {
+    this.roomsService.findAll().subscribe(data => {
+      this.rooms = data, console.log(data)});
   }
 
 }

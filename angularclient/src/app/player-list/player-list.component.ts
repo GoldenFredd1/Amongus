@@ -11,13 +11,10 @@ import { PlayerServiceService } from '../player-service.service';
 })
 export class PlayerListComponent implements OnInit {
   players: Player[];
-  title: string;
-  //app_user: appUser[];
 
   constructor(
     private route: ActivatedRoute,
     private playerServiceService: PlayerServiceService) {
-    this.title="Amidst Our Own Selves";
   }
 
   ngOnInit() {
@@ -27,7 +24,7 @@ export class PlayerListComponent implements OnInit {
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data, console.log(data)});
-  }
+  }z
 
   async add() {
     await this.playerServiceService.addComputerPlayer(new Player())

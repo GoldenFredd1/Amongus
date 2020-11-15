@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { GameViewComponent } from './game-view/game-view.component';
+import { VoteViewComponent } from './vote-view/vote-view.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { GameViewComponent } from './game-view/game-view.component';
     LogoutComponent,
     HeaderComponent,
     GameViewComponent,
+    VoteViewComponent,
   ],
   imports: [
     BrowserModule,

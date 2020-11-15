@@ -5,13 +5,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { VoteViewComponent } from './vote-view/vote-view.component'; 
 
 const routes: Routes = [
   { path: '', component: PlayerListComponent,canActivate:[AuthGuardService] },
   { path: 'players', component: PlayerListComponent,canActivate:[AuthGuardService]},
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent,canActivate:[AuthGuardService] },
-  {path: 'game', component: GameViewComponent}
+  { path: 'game', component: GameViewComponent},
+  { path: 'voteScreen', component: VoteViewComponent},
 ];
 
 @NgModule({

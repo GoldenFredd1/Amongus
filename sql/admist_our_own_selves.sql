@@ -51,7 +51,7 @@ create table Task (
 
 
 create table Game (
-  gameId INT PRIMARY KEY NOT NULL,
+  gameId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   gameRoomCode VARCHAR(6) NOT NULL,
   playerId INT NOT NULL,
   roomId INT NOT NULL,
