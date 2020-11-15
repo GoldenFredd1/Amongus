@@ -34,7 +34,7 @@ export class GameViewComponent implements OnInit {
 
   getTasks() {
     this.taskService.findAll().subscribe(data => {
-      this.tasks = data});
+      this.tasks = data, console.log(data)});
   }
 
 }

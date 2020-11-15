@@ -11,10 +11,13 @@ export class TaskService {
   private taskUrl: string;
 
   constructor(private http: HttpClient) {
-    this.taskUrl = 'http://localhost:8080/task';
+    this.taskUrl = 'http://localhost:8080/assignedTask';
   }
 
   public findAll(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.taskUrl);
+  }
+  public findTaskById(): Observable<Task[]> {
     return this.http.get<Task[]>(this.taskUrl);
   }
 

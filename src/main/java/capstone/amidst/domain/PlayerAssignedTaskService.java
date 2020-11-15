@@ -2,6 +2,7 @@ package capstone.amidst.domain;
 
 import capstone.amidst.data.PlayerAssignedTaskRepository;
 import capstone.amidst.models.PlayerAssignedTask;
+import capstone.amidst.models.Task;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -12,10 +13,10 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class PlayerAssignedTaskServer {
+public class PlayerAssignedTaskService {
     private final PlayerAssignedTaskRepository repository;
 
-    public PlayerAssignedTaskServer(PlayerAssignedTaskRepository repository) {
+    public PlayerAssignedTaskService(PlayerAssignedTaskRepository repository) {
         this.repository = repository;
     }
 

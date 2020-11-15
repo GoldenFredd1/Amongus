@@ -27,7 +27,7 @@ export class PlayerListComponent implements OnInit {
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data, console.log(data)});
-  }
+  }z
 
   async add() {
     await this.playerServiceService.addComputerPlayer(new Player())

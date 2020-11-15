@@ -12,12 +12,20 @@ public class PlayerAssignedTask {
     @NotNull(message = "Task must be either an complete or incomplete.")
     private boolean isComplete;
 
+    private String taskName;
+
 
 
     public PlayerAssignedTask() {
     }
 
     public PlayerAssignedTask(int taskId, int playerId, boolean isComplete) {
+        this.taskId = taskId;
+        this.playerId = playerId;
+        this.isComplete = isComplete;
+    }
+
+    public PlayerAssignedTask(int taskId, String taskName, boolean isComplete) {
         this.taskId = taskId;
         this.playerId = playerId;
         this.isComplete = isComplete;
@@ -45,6 +53,14 @@ public class PlayerAssignedTask {
 
     public void setComplete(boolean complete) {
         isComplete = complete;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
     @Override

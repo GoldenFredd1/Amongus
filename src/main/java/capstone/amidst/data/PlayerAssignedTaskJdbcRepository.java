@@ -1,5 +1,6 @@
 package capstone.amidst.data;
 
+import capstone.amidst.data.mappers.PATMapper;
 import capstone.amidst.data.mappers.PlayerAssignedTaskMapper;
 import capstone.amidst.models.PlayerAssignedTask;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,12 +31,13 @@ public class PlayerAssignedTaskJdbcRepository implements PlayerAssignedTaskRepos
     //find all tasks for a player in a game
     @Override
     public List<PlayerAssignedTask> findAPlayersTasks(String gameCode, int playerId){
-        final String sql = "Select pat.taskId, pat.playerId, pat.isComplete " +
+        final String sql = "Select pat.taskId, t.taskName, pat.isComplete " +
                 "from Player_Assigned_Task pat " +
+                "join Task t on t.taskId = pat.taskId " +
                 "join  Player p on p.playerId = pat.playerId  " +
                 "join Game g on g.playerId = p.playerId  " +
                 " where g.gameRoomCode = ? and p.playerId =?;";
-        return  jdbcTemplate.query(sql,new PlayerAssignedTaskMapper(),gameCode, playerId);
+        return  jdbcTemplate.query(sql,new PATMapper(),gameCode, playerId);
     }
 
     //find a specific task based off taskId and gameCode
