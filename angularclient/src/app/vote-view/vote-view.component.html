@@ -1,0 +1,27 @@
+
+<div class="column" style="width: 30%;">
+    <h2 style="text-align: center"> Current Players in Room </h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Player Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let player of players">
+          <td>{{ player.playerName }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <select name="players" id="players">
+        <option *ngFor="let player of players">{{ player.playerName }}</option>
+    </select>
+    <p>
+      <a routerLink="/game" class="btn btn-info"> Vote </a>
+    </p>
+
+  </div>
+

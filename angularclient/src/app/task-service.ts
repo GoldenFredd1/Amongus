@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from './models/task';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class TaskService {
   public findAll(): Observable<Task[]> {
     return this.http.get<Task[]>(this.taskUrl);
   }
+  
   public findTaskById(): Observable<Task[]> {
     return this.http.get<Task[]>(this.taskUrl);
   }

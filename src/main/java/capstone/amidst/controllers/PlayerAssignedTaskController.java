@@ -2,7 +2,6 @@ package capstone.amidst.controllers;
 
 import capstone.amidst.domain.PlayerAssignedTaskService;
 import capstone.amidst.models.PlayerAssignedTask;
-import capstone.amidst.models.Task;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
