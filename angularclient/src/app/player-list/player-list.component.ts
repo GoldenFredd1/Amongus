@@ -39,5 +39,23 @@ export class PlayerListComponent implements OnInit {
     this.getPlayers();
   }
 
+  // // needs work (still need to get playerIDs)
+  // setUpGame() {
+
+  //   var gameRoomCode = this.generateGameCode();
+  //   var roomId = 1;
+  // }
+
+  // // could be private?
+  // generateGameCode() {
+  //   var code="";
+  //   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  //   for(var i=0; i<6; i++)
+  //     code += possible.charAt(Math.floor(Math.random()*possible.length));
+    
+  // console.log(code);
+  // return code;
+  // }
+
 
 }
