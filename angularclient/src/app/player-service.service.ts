@@ -22,10 +22,6 @@ export class PlayerServiceService {
     return await this.http.post(this.playersUrl, player, this.httpOptions).toPromise();
  }
 
-  public save(player: Player) {
-    return this.http.post<Player>(this.playersUrl, player);
-  }
-
   public async deleteComputerPlayer(playerId: number) {
     return await this.http.delete(this.playersUrl + (`/${playerId}`)).toPromise();
   }

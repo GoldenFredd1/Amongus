@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { GameService } from '../game.service';
 import { Player } from '../models/player';
 import { PlayerServiceService } from '../player-service.service';
-
 
 @Component({
   selector: 'app-player-list',
@@ -13,8 +12,8 @@ export class PlayerListComponent implements OnInit {
   players: Player[];
 
   constructor(
-    private route: ActivatedRoute,
-    private playerServiceService: PlayerServiceService) {
+    private playerServiceService: PlayerServiceService,
+    private gameService: GameService) {
   }
 
   ngOnInit() {
@@ -24,7 +23,7 @@ export class PlayerListComponent implements OnInit {
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data, console.log(data)});
-  }z
+  }
 
   async add() {
     await this.playerServiceService.addComputerPlayer(new Player())
@@ -36,23 +35,8 @@ export class PlayerListComponent implements OnInit {
     this.getPlayers();
   }
 
-  // // needs work (still need to get playerIDs)
-  // setUpGame() {
-
-  //   var gameRoomCode = this.generateGameCode();
-  //   var roomId = 1;
-  // }
-
-  // // could be private?
-  // generateGameCode() {
-  //   var code="";
-  //   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  //   for(var i=0; i<6; i++)
-  //     code += possible.charAt(Math.floor(Math.random()*possible.length));
-    
-  // console.log(code);
-  // return code;
-  // }
-
+  async setUpGame() {
+    await this.gameService.setUpGame();
+  }
 
 }

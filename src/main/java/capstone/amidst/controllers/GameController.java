@@ -30,6 +30,7 @@ public class GameController {
 
     @PostMapping("/game")
     public ResponseEntity<Object> addGame(@RequestBody Game game) {
+        System.out.println("You've made it to the Controller.");
         Result<Game> result = service.add(game);
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
