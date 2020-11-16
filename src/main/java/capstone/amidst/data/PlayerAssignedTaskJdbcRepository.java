@@ -2,6 +2,7 @@ package capstone.amidst.data;
 
 import capstone.amidst.data.mappers.PATMapper;
 import capstone.amidst.data.mappers.PlayerAssignedTaskMapper;
+import capstone.amidst.models.Player;
 import capstone.amidst.models.PlayerAssignedTask;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -38,6 +39,17 @@ public class PlayerAssignedTaskJdbcRepository implements PlayerAssignedTaskRepos
                 "join Game g on g.playerId = p.playerId  " +
                 " where g.gameRoomCode = ? and p.playerId =?;";
         return  jdbcTemplate.query(sql,new PATMapper(),gameCode, playerId);
+    }
+
+    @Override
+    public PlayerAssignedTask findById(int taskId){
+        final String sql = "Select taskId, playerId, isComplete " +
+                "from Player_Assigned_Task " +
+                "where taskId = ?;";
+        return jdbcTemplate.query(sql, new PlayerAssignedTaskMapper(), taskId)
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     //find a specific task based off taskId and gameCode

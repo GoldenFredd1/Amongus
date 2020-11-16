@@ -5,6 +5,7 @@ import { PlayerServiceService } from '../player-service.service';
 import { TaskService } from '../task-service';
 import { RoomsService } from '../rooms.service';
 import { Rooms } from '../models/rooms';
+import { FormBuilder } from "@angular/forms";
 
 
 @Component({
@@ -22,6 +23,7 @@ export class GameViewComponent implements OnInit {
       private playerServiceService: PlayerServiceService,
       private taskService: TaskService,
       private roomsService: RoomsService,
+      public fb: FormBuilder
       ) {
   }
 
@@ -46,4 +48,27 @@ export class GameViewComponent implements OnInit {
       this.rooms = data, console.log(data)});
   }
 
+  async updateTask(taskId) {
+    await this.taskService.updateTask(taskId)
+    this.getPlayers();
+    this.getTasks();
+    this.getRooms();
+  }
+
+  // actual roomId
+  roomNameForm = this.fb.group({
+    roomName: ['']
+  })
+
+  onSubmit() {
+    console.log(this.roomNameForm.value);
+    this.updateRoom(JSON.stringify(this.roomNameForm.value).slice(12,-1));
+    
+  }
+
+  //TODO: change this to update in the game table..not room table duh
+  updateRoom(roomName) {
+    console.log(roomName);
+    // this.roomsService.findByRoomName(roomName);
+  }
 }

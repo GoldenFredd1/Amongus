@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { GameViewComponent } from './game-view/game-view.component';
 import { VoteViewComponent } from './vote-view/vote-view.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,13 +23,15 @@ import { VoteViewComponent } from './vote-view/vote-view.component';
     HeaderComponent,
     GameViewComponent,
     VoteViewComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent]

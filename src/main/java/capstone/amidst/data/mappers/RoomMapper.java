@@ -15,4 +15,5 @@ public class RoomMapper implements RowMapper<Room> {
         room.setRoomName(resultSet.getString("roomName"));
         return room;
     }
+
 }

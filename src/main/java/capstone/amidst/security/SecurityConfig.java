@@ -27,9 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
-                .antMatchers(HttpMethod.GET, "/players").permitAll()
-                .antMatchers(HttpMethod.POST, "/players").permitAll()
-                .antMatchers(HttpMethod.PUT, "/players").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/players","/assignedTask").permitAll()
+                .antMatchers(HttpMethod.POST, "/players","/assignedTask/*").permitAll()
+                .antMatchers(HttpMethod.PUT, "/players","/assignedTask/*").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/players").hasAnyRole("USER","ADMIN")
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), converter))

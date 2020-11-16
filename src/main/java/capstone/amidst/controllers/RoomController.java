@@ -2,9 +2,9 @@ package capstone.amidst.controllers;
 
 import capstone.amidst.domain.RoomService;
 import capstone.amidst.models.Room;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +23,16 @@ public class RoomController {
     public List<Room> displayAll() {
         return service.findAll();
     }
+
+
+    @GetMapping("/rooms/{roomId}")
+    public ResponseEntity<Room> findByRoomId(@PathVariable int roomId){
+        Room room = service.findById(roomId);
+        if(room == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        System.out.println("you updated???");
+        return ResponseEntity.ok(room);
+    }
+
 }

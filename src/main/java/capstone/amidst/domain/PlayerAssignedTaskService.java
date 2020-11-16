@@ -31,6 +31,9 @@ public class PlayerAssignedTaskService {
     public PlayerAssignedTask specificTask(String gameCode, int playerId){
         return repository.specificTask(gameCode,playerId);
     }
+    public PlayerAssignedTask findById(int taskId){
+        return repository.findById(taskId);
+    }
 
     public Result<PlayerAssignedTask> update(PlayerAssignedTask PAT){
         Result<PlayerAssignedTask> result = new Result<>();
@@ -56,7 +59,10 @@ public class PlayerAssignedTaskService {
             String msg = String.format("taskId: %s, not found", PAT.getTaskId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
-
+        else{
+            repository.updateTask(PAT);
+        }
+        System.out.println(result);
         return result;
     }
 }
