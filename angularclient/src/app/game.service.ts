@@ -5,18 +5,16 @@ import { Observable } from 'rxjs';
 import { PlayerServiceService } from './player-service.service'
 import { Player } from './models/player';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
   private gameUrl: string;
-  private players: Player[];
+//   private players: Player[];
   private game: Game;
 
-  constructor(private http: HttpClient,
-    private playerService: PlayerServiceService) {
+  constructor(private http: HttpClient) {
     this.gameUrl = 'http://localhost:8080/game';
   }
 
@@ -24,9 +22,14 @@ export class GameService {
     return this.http.get<Game[]>(this.gameUrl);
   }
 
+  public getGameRoomCode() {
+      console.log(this.game.gameRoomCode);
+      return this.game.gameRoomCode;
+  }
+
   public async addGame(game: Game) {
     return await this.http.post(this.gameUrl, game, this.httpOptions).toPromise();
- }
+  }
 
   public deleteGame(gameId: number) {
     return this.http.delete(this.gameUrl + (`/${gameId}`));
@@ -49,10 +52,14 @@ export class GameService {
     }
   }
 
-  public setUpGame() {
-    this.playerService.findAll().subscribe(data => {
-        this.players = data, this.realSetUp(this.players)});
-  }
+//   public setUpGame() {
+//     this.playerService.findAll().subscribe(data => {
+//         this.players = data, this.realSetUp(this.players)});
+//   }
+
+//   public setPlayers(players: Player[]) {
+//       this.players = players;
+//   }
 
   generateGameCode() {
     var code="";

@@ -73,4 +73,6 @@ public class GameJdbcRepository implements GameRepository {
     public boolean deleteById(int gameId) {
         return jdbcTemplate.update("delete from Game where gameId = ?;", gameId) > 0;
     }
+
+
 }
