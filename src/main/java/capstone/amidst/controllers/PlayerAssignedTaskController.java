@@ -37,7 +37,7 @@ public class PlayerAssignedTaskController {
     }
 
     @PostMapping("/assignedTask")
-    public ResponseEntity<Object> addPlayerTask( @RequestBody PlayerAssignedTask PAT) {
+    public ResponseEntity<Object> addPlayerTask(@RequestBody PlayerAssignedTask PAT) {
         System.out.println("You've made it to the controller!");
         Result<PlayerAssignedTask> result = service.addTask(PAT);
         if (result.getType() == ResultType.INVALID) {

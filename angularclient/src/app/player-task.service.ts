@@ -25,8 +25,8 @@ export class PlayerTaskService {
     return this.http.get<PlayerTask[]>(this.playerTaskUrl);
   }
 
-  public save(playerTask: PlayerTask) {
-    return this.http.post<PlayerTask>(this.playerTaskUrl, playerTask, this.httpOptions);
+  public async save(playerTask: PlayerTask) {
+    return await this.http.post<PlayerTask>(this.playerTaskUrl, playerTask, this.httpOptions).toPromise();
   }
 
   public async updatePlayerTask(playerTask: PlayerTask){
