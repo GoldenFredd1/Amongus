@@ -5,8 +5,12 @@ import capstone.amidst.data.mappers.PlayerAssignedTaskMapper;
 import capstone.amidst.models.Player;
 import capstone.amidst.models.PlayerAssignedTask;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -65,6 +69,25 @@ public class PlayerAssignedTaskJdbcRepository implements PlayerAssignedTaskRepos
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public PlayerAssignedTask addTask(PlayerAssignedTask PAT) {
+        final String sql = "insert into Player_Assigned_Task(taskId, playerId, isComplete) " +
+                "values (?,?,?);";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, PAT.getTaskId());
+            ps.setInt(2, PAT.getPlayerId());
+            ps.setBoolean(3, PAT.isComplete());
+            return ps;
+        },keyHolder);
+        if (rowsAffected <= 0) {
+            return null;
+        }
+        return PAT;
+    }
+
     @Override
     public Boolean updateTask(PlayerAssignedTask PAT){
         final String sql="Update Player_Assigned_Task set " +

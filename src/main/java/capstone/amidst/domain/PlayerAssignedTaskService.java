@@ -1,6 +1,7 @@
 package capstone.amidst.domain;
 
 import capstone.amidst.data.PlayerAssignedTaskRepository;
+import capstone.amidst.models.Player;
 import capstone.amidst.models.PlayerAssignedTask;
 import capstone.amidst.models.Task;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,26 @@ public class PlayerAssignedTaskService {
     }
     public PlayerAssignedTask findById(int taskId){
         return repository.findById(taskId);
+    }
+
+    public Result<PlayerAssignedTask> addTask(PlayerAssignedTask PAT) {
+        Result<PlayerAssignedTask> result = new Result<>();
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<PlayerAssignedTask>> violations = validator.validate(PAT);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<PlayerAssignedTask> violation : violations) {
+                result.addMessage(violation.getMessage(), ResultType.INVALID);
+            }
+            return result;
+        }
+
+        PAT = repository.addTask(PAT);
+        result.setPayload(PAT);
+        return result;
     }
 
     public Result<PlayerAssignedTask> update(PlayerAssignedTask PAT){

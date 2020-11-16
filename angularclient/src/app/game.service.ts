@@ -37,7 +37,7 @@ export class GameService {
       return this.http.put(this.gameUrl + (`/${game.gameId}`), game);
   }
 
-  public realSetUp(players: Player[]) {
+  public setUpGame(players: Player[]) {
     var gameRoomCode = this.generateGameCode();
     var roomId = 1;
     var imposterIndex = this.generateImposterIndex(players.length-1);
