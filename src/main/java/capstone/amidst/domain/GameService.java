@@ -2,6 +2,7 @@ package capstone.amidst.domain;
 
 import capstone.amidst.data.GameRepository;
 import capstone.amidst.models.Game;
+import capstone.amidst.models.Player;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -72,6 +73,7 @@ public class GameService {
         }
         return result;
     }
+
 
     public boolean deleteById(int gameId) {
         return repository.deleteById(gameId);

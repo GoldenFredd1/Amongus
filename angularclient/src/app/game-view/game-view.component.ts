@@ -61,7 +61,6 @@ export class GameViewComponent implements OnInit {
   })
 
   onSubmit() {
-    console.log(this.roomNameForm.value);
     this.updateRoom(JSON.stringify(this.roomNameForm.value).slice(12,-1));
     
   }

@@ -72,6 +72,19 @@ class GameJdbcRepositoryTest {
         assertFalse(repository.update(game));
     }
 
+
+    @Test
+    void shouldFindByGameCode(){
+        List<Game> gameList = repository.findByGameCode("HELPME");
+        assertTrue(gameList.size() >=3);
+    }
+
+    @Test
+    void shouldNotFindByGameCode(){
+        List<Game> gameList = repository.findByGameCode("NEVERU");
+        assertTrue(gameList.size() == 0);
+    }
+
     @Test
     void shouldDeleteExistingGame() {
         assertTrue(repository.deleteById(4));

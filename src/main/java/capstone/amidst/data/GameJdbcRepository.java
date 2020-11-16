@@ -36,6 +36,14 @@ public class GameJdbcRepository implements GameRepository {
     }
 
     @Override
+    public List<Game> findByGameCode(String gameCode) {
+        final String sql = "select gameId, gameRoomCode, playerId, roomId "
+                + "from Game "
+                + "where gameRoomCode = ?;";
+        return jdbcTemplate.query(sql, new GameMapper(), gameCode);
+    }
+
+    @Override
     public Game add(Game game) {
         final String sql = "insert into Game (gameRoomCode, playerId, roomId) "
                 + " values (?,?,?);";
