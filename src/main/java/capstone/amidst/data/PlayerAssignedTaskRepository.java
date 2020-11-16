@@ -16,5 +16,7 @@ public interface PlayerAssignedTaskRepository {
     //find a specific task based off taskId
     PlayerAssignedTask specificTask(String gameCode, int taskId);
 
+    PlayerAssignedTask addTask(PlayerAssignedTask PAT);
+
     Boolean updateTask(PlayerAssignedTask PAT);
 }

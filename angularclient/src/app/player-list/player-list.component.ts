@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game.service';
 import { Player } from '../models/player';
+import { GameService } from '../game.service';
 import { PlayerServiceService } from '../player-service.service';
+import { PlayerTaskService } from '../player-task.service';
+import { TaskService } from '../task-service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-player-list',
@@ -13,7 +17,9 @@ export class PlayerListComponent implements OnInit {
 
   constructor(
     private playerServiceService: PlayerServiceService,
-    private gameService: GameService) {
+    private gameService: GameService,
+    private playerTaskService: PlayerTaskService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -35,8 +41,14 @@ export class PlayerListComponent implements OnInit {
     this.getPlayers();
   }
 
-  async setUpGame() {
-    await this.gameService.setUpGame();
+  setUpGame() {
+    // this.gameService.setPlayers(this.players);
+    this.gameService.setUpGame(this.players);
+    // var taskList = this.taskService.findAll();
+    // console.log(taskList);
+    this.playerTaskService.assignTasks(this.players);
+    // assign tasks to players
+    this.router.navigate(["/game"]);
   }
 
 }
