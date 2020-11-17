@@ -107,13 +107,27 @@ public class GameJdbcRepository implements GameRepository {
         }
     }
 
+    @Override
+    public boolean didImposterWin(String gameRoomCode) {
+        int numPeopleAlive = getNumPeopleAlive(gameRoomCode);
+        final boolean imposterAlive = isImposterAlive(gameRoomCode);
+        if ((numPeopleAlive == 0 || numPeopleAlive == 1) && imposterAlive) {
+            System.out.println("Imposter wins! (True)");
+            return true;
+        } else {
+            System.out.println("Crew mates win! (False)");
+            return false;
+        }
+    }
+
     //Private Methods
     private int getNumPeopleAlive(String gameRoomCode) {
         final String sql = "select count(*) " +
                 "from Game g " +
                 "join Player p on p.playerId=g.playerId " +
                 "where g.gameRoomCode = ? " +
-                "and p.isDead = 0;";
+                "and p.isDead = 0 " +
+                "and p.isImposter = false;";
         return jdbcTemplate.queryForObject(sql, Integer.class, gameRoomCode);
     }
 

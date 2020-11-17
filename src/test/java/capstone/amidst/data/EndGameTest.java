@@ -101,4 +101,50 @@ public class EndGameTest {
         assertTrue(testDouble.checkEndGame("OKOKOK"));
     }
 
+    @Test
+    public void imposterShouldWinWithOneCrewMemberLeft() {
+        assertFalse(testDouble.checkEndGame("OKOKOK"));
+        for (Player player: players) {
+            if (player.getPlayerId() != 3 && !player.isImposter()) {
+                player.setDead(true);
+            }
+        }
+        assertTrue(testDouble.checkEndGame("OKOKOK"));
+        assertTrue(testDouble.didImposterWin("OKOKOK"));
+    }
+
+    @Test
+    public void imposterShouldWinWithZeroCrewMemberLeft() {
+        assertFalse(testDouble.checkEndGame("OKOKOK"));
+        for (Player player: players) {
+            if (!player.isImposter()) {
+                player.setDead(true);
+            }
+        }
+        assertTrue(testDouble.checkEndGame("OKOKOK"));
+        assertTrue(testDouble.didImposterWin("OKOKOK"));
+    }
+
+    @Test
+    public void crewMatesShouldWinWithAllTasksDone() {
+        assertFalse(testDouble.checkEndGame("OKOKOK"));
+        for (PlayerAssignedTask task: tasks) {
+            task.setComplete(true);
+        }
+        assertTrue(testDouble.checkEndGame("OKOKOK"));
+        assertFalse(testDouble.didImposterWin("OKOKOK"));
+    }
+
+    @Test
+    public void crewMatesShouldWinWithDeadImposter() {
+        assertFalse(testDouble.checkEndGame("OKOKOK"));
+        for (Player player: players) {
+            if (player.isImposter()) {
+                player.setDead(true);
+            }
+        }
+        assertTrue(testDouble.checkEndGame("OKOKOK"));
+        assertFalse(testDouble.didImposterWin("OKOKOK"));
+    }
+
 }

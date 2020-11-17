@@ -18,4 +18,6 @@ public interface GameRepository {
     boolean deleteById(int gameId);
 
     boolean checkEndGame(String gameRoomCode);
+
+    boolean didImposterWin(String gameRoomCode);
 }

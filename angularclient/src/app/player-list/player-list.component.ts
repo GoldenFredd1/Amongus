@@ -3,7 +3,6 @@ import { Player } from '../models/player';
 import { GameService } from '../game.service';
 import { PlayerServiceService } from '../player-service.service';
 import { PlayerTaskService } from '../player-task.service';
-import { TaskService } from '../task-service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 
@@ -24,7 +23,7 @@ export class PlayerListComponent implements OnInit {
     private playerTaskService: PlayerTaskService,
     private authenticationService: AuthenticationService,
     private router: Router) {
-      this.username = authenticationService.getUser();
+      // this.username = authenticationService.getUser();
   }
 
   ngOnInit() {
@@ -66,10 +65,6 @@ export class PlayerListComponent implements OnInit {
     }
 
     await this.playerTaskService.assignTasks(this.players);
-
-    // just for testing, this will go somewhere else
-    // var isTheGameOver = this.gameService.isGameOver(this.gameService.getGameRoomCode());
-    // console.log(isTheGameOver);
 
     this.router.navigate(["/game"]);
   }

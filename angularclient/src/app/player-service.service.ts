@@ -25,6 +25,11 @@ export class PlayerServiceService {
     return this.http.get(this.appUserUrl + (`/${username}`)); 
   }
 
+  public findRealPlayer(appUserId: number) {
+    console.log(this.appUserUrl + "/appUser/1");
+    return this.http.get<Player>(this.appUserUrl + "/appUser" + (`/${appUserId}`)).toPromise();
+  }
+
   public async addComputerPlayer(player: Player) {
     return await this.http.post(this.playersUrl, player, this.httpOptions).toPromise();
  }

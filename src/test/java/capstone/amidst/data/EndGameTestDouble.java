@@ -79,10 +79,21 @@ public class EndGameTestDouble implements GameRepository {
     @Override
     public boolean checkEndGame(String gameRoomCode) {
         int numPeopleAlive = getNumPeopleAlive();
-        final int numTasksLeft = getTasksRemaining();
-        final boolean imposterAlive = isImposterAlive();
+        int numTasksLeft = getTasksRemaining();
+        boolean imposterAlive = isImposterAlive();
 
         if (numPeopleAlive == 0 || numPeopleAlive == 1 || numTasksLeft == 0 || !imposterAlive) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean didImposterWin(String gameRoomCode) {
+        int numPeopleAlive = getNumPeopleAlive();
+        boolean imposterAlive = isImposterAlive();
+        if ((numPeopleAlive == 0 || numPeopleAlive == 1) && imposterAlive) {
             return true;
         } else {
             return false;
@@ -93,7 +104,7 @@ public class EndGameTestDouble implements GameRepository {
     int getNumPeopleAlive() {
         int count = 0;
         for(Player player: players) {
-            if (!player.isDead()) {
+            if (!player.isDead() && !player.isImposter()) {
                 count++;
             }
         }

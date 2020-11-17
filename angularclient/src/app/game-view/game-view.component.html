@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let task of tasks">
+        <tr *ngFor="let task of playerTasks">
           <td>{{ task.taskId }}</td>
           <td>{{ task.taskName }}</td>
           <td>{{ task.complete }}</td>
@@ -40,13 +40,14 @@
       <button class="btn btn-success" (click) = "updateTask(task.taskId)">Do Task</button>
     </div> -->
 
-    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()"> 
+    <!-- <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">  -->
+    <form [formGroup]="roomNameForm"> 
       <select formControlName="roomName">
         <option disabled>Select Oppo Suits</option>
         <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
       </select>
 
-      <button class="btn btn-info">Change Room</button>
+      <button (click)="getIsGameOver()" class="btn btn-info">Change Room</button>
     </form>
 
     <div>
