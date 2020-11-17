@@ -99,8 +99,10 @@ public class GameJdbcRepository implements GameRepository {
         final boolean imposterAlive = isImposterAlive(gameRoomCode);
 
         if (numPeopleAlive == 0 || numPeopleAlive == 1 || numTasksLeft == 0 || !imposterAlive) {
+            System.out.println("True");
             return true;
         } else {
+            System.out.println("False");
             return false;
         }
     }

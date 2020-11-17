@@ -16,9 +16,21 @@ export class GameService {
     this.gameUrl = 'http://localhost:8080/game';
   }
 
+  // this doesn't make sense, it doesn't pass in an ID... oh well, we probably won't need it
   public findGameById(): Observable<Game[]> {
     return this.http.get<Game[]>(this.gameUrl);
   }
+
+  // public isGameOver(gameRoomCode: string): Observable<Boolean> {
+  //   console.log(this.gameUrl + (`/${gameRoomCode}`));
+  //   return this.http.get<Boolean>(this.gameUrl + (`/${gameRoomCode}`));
+  // }
+
+  public isGameOver(gameRoomCode: string) {
+    console.log(this.gameUrl + (`/${gameRoomCode}`));
+    return this.http.get(this.gameUrl + (`/${gameRoomCode}`));
+  }
+
 
   public getGameRoomCode() {
       // console.log(this.game.gameRoomCode);
@@ -49,10 +61,10 @@ export class GameService {
         this.game.playerId = players[i].playerId;
         if (i == imposterIndex) {
             players[i].imposter = true;
+            // CHANGE THIS: JUST FOR TESTING THE END GAME CONDITION,
+            // THE LINE BELOW SHOULD BE DELETED
+            // players[i].dead = true;
         }
-        // console.log(this.game);
-        // console.log(players[i]);
-        this.game = this.game;
         this.addGame(this.game);
     }
   }
