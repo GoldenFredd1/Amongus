@@ -57,6 +57,7 @@ public class PlayerAssignedTaskService {
     }
 
     public Result<PlayerAssignedTask> update(PlayerAssignedTask PAT){
+
         Result<PlayerAssignedTask> result = new Result<>();
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

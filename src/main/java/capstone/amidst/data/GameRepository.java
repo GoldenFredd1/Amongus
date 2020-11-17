@@ -16,4 +16,6 @@ public interface GameRepository {
     boolean update(Game game);
 
     boolean deleteById(int gameId);
+
+    boolean checkEndGame(String gameRoomCode);
 }

@@ -41,13 +41,20 @@ export class PlayerListComponent implements OnInit {
     this.getPlayers();
   }
 
+
   setUpGame() {
-    // this.gameService.setPlayers(this.players);
     this.gameService.setUpGame(this.players);
-    // var taskList = this.taskService.findAll();
-    // console.log(taskList);
+
+    for(let i=0; i<this.players.length; i++) {
+      this.playerServiceService.editPlayer(this.players[i]);
+      console.log(this.players[i]);
+    }
+    console.log("----------");
+    console.log(this.players);
+    console.log("----------");
+
     this.playerTaskService.assignTasks(this.players);
-    // assign tasks to players
+
     this.router.navigate(["/game"]);
   }
 

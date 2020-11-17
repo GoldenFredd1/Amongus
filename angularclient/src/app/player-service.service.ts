@@ -26,6 +26,10 @@ export class PlayerServiceService {
     return await this.http.delete(this.playersUrl + (`/${playerId}`)).toPromise();
   }
 
+  public async editPlayer(player: Player) {
+    return await this.http.put(this.playersUrl + (`/${player.playerId}`), player, this.httpOptions).toPromise();
+}
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

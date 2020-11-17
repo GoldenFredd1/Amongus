@@ -24,30 +24,39 @@ public class Game {
         this.playerId = playerId;
         this.roomId = roomId;
     }
-    public Game(){}
+
+    public Game() {
+    }
 
     // Getters and Setters
     public int getGameId() {
         return gameId;
     }
+
     public void setGameId(int gameId) {
         this.gameId = gameId;
     }
+
     public String getGameRoomCode() {
         return gameRoomCode;
     }
+
     public void setGameRoomCode(String gameRoomCode) {
         this.gameRoomCode = gameRoomCode;
     }
+
     public int getPlayerId() {
         return playerId;
     }
+
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
     }
+
     public int getRoomId() {
         return roomId;
     }
+
     public void setRoomId(int roomId) {
         this.roomId = roomId;
     }

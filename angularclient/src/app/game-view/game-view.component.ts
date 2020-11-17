@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../models/player';
-import { Task } from '../models/task';
+import { PlayerTask } from '../models/player-task';
 import { PlayerServiceService } from '../player-service.service';
 import { TaskService } from '../task-service';
 import { RoomsService } from '../rooms.service';
 import { Rooms } from '../models/rooms';
 import { FormBuilder } from "@angular/forms";
+import { PlayerTaskService } from '../player-task.service';
+import { GameService } from '../game.service';
+import { Task } from '../models/task';
 
 
 @Component({
@@ -15,21 +18,24 @@ import { FormBuilder } from "@angular/forms";
 })
 export class GameViewComponent implements OnInit {
   players: Player[];
+  playerTasks: PlayerTask[];
   tasks: Task[];
   rooms: Rooms[];
   title: string;
 
   constructor(
       private playerServiceService: PlayerServiceService,
+      private playerTaskService: PlayerTaskService,
       private taskService: TaskService,
       private roomsService: RoomsService,
+      private gameService: GameService,
       public fb: FormBuilder
       ) {
   }
 
   ngOnInit() {
     this.getPlayers();
-    this.getTasks();
+    // this.getPlayerTasks();
     this.getRooms();
   }
 
@@ -38,10 +44,10 @@ export class GameViewComponent implements OnInit {
       this.players = data});
   }
 
-  getTasks() {
-    this.taskService.findAll().subscribe(data => {
-      this.tasks = data, console.log(data)});
-  }
+  // getPlayerTasks() {
+  //   this.playerTaskService.findPlayerTaskByPlayerId("SEDQFI", 1).subscribe(data => {
+  //     this.playerTasks = data, console.log(data)});
+  // }
 
   getRooms() {
     this.roomsService.findAll().subscribe(data => {
@@ -51,7 +57,7 @@ export class GameViewComponent implements OnInit {
   async updateTask(taskId) {
     await this.taskService.updateTask(taskId)
     this.getPlayers();
-    this.getTasks();
+    // this.getPlayerTasks();
     this.getRooms();
   }
 
@@ -62,7 +68,7 @@ export class GameViewComponent implements OnInit {
 
   onSubmit() {
     this.updateRoom(JSON.stringify(this.roomNameForm.value).slice(12,-1));
-    
+
   }
 
   //TODO: change this to update in the game table..not room table duh

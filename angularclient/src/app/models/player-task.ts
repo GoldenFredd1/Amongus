@@ -1,6 +1,5 @@
 export class PlayerTask {
     taskId: number;
     playerId: number;
-    isComplete: boolean;
+    complete: boolean;
   }
-  
