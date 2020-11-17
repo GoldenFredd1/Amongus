@@ -24,10 +24,12 @@ export class GameViewComponent implements OnInit {
   playerTasks: PlayerTask[];
   tasks: Task[];
   rooms: Rooms[];
+  realPlayer: Player;
   title: string;
   public game;
   isGameOver: boolean;
   didImposterWin: boolean;
+  appUserIdReal: number = 1;
   public username;
   public player;
 
@@ -41,50 +43,54 @@ export class GameViewComponent implements OnInit {
       public fb: FormBuilder,
       private router: Router
       ) {
-        this.game = gameService.getGame();
-        this.username = authenticationService.getUser();
+        // this.game = gameService.getGame();
+        // this.username = authenticationService.getUser();
   }
 
-  ngOnInit() {
-    this.getPlayers();
-    this.getRooms();
-
-    // apparently we have to initialize these here or data will be undefined later on
-    this.getIsGameOver();
-    this.getDidImposterWin();
+  async ngOnInit() {
+    await this.getPlayers();
+    await this.getRooms();
+    await this.getIsGameOver();
+    await this.getDidImposterWin();
+    await this.getRealPlayer();
+    this.getPlayerTasks(this.realPlayer.playerId);
   }
 
-  getIsGameOver() {
-    this.gameService.checkGameOver(this.gameService.getGameRoomCode())
+  async getIsGameOver() {
+    await this.gameService.checkGameOver(this.gameService.getGameRoomCode())
     .subscribe(data => {
       this.isGameOver = data
     });
-    console.log("Is the Game over? " + this.isGameOver);
+    // console.log("Is the Game over? " + this.isGameOver);
     if(this.isGameOver) {
       this.getDidImposterWin();
     }
   }
 
-  getDidImposterWin() {
-    this.gameService.checkImposterWin(this.gameService.getGameRoomCode())
+  async getDidImposterWin() {
+    await this.gameService.checkImposterWin(this.gameService.getGameRoomCode())
     .subscribe(data => {
       this.didImposterWin = data
     });
-    console.log("Did the imposter win? " + this.didImposterWin);
+    // console.log("Did the imposter win? " + this.didImposterWin);
   }
 
-  getPlayers() {
-    this.playerServiceService.findAll().subscribe(data => {
+  async getPlayers() {
+    await this.playerServiceService.findAll().subscribe(data => {
       this.players = data});
   }
 
-  // getPlayerTasks() {
-  //   this.playerTaskService.findPlayerTaskByPlayerId("SEDQFI", 1).subscribe(data => {
-  //     this.playerTasks = data, console.log(data)});
-  // }
+  async getRealPlayer() {
+    this.realPlayer = await this.playerServiceService.findRealPlayer(this.appUserIdReal);
+  }
 
-  getRooms() {
-    this.roomsService.findAll().subscribe(data => {
+  async getPlayerTasks(playerId: number) {
+    await this.playerTaskService.findPlayerTaskByPlayerId(this.gameService.getGameRoomCode(), playerId).subscribe(data => {
+      this.playerTasks = data, console.log(data)});
+  }
+
+  async getRooms() {
+    await this.roomsService.findAll().subscribe(data => {
       this.rooms = data, console.log(data)});
   }
 

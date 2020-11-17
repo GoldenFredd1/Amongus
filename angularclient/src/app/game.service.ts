@@ -77,15 +77,15 @@ export class GameService {
     }
   }
 
-  // public getGame(){
-  //   console.log("STARTING HERE")
-  //   console.log(this.game.gameId);
-  //   console.log(this.game.roomId);
-  //   console.log(this.game.gameRoomCode);
-  //   console.log(this.game.playerId);
-  //   console.log("ENDING HERE")
-  //   return this.game;
-  // }
+  public getGame(){
+    console.log("STARTING HERE")
+    console.log(this.game.gameId);
+    console.log(this.game.roomId);
+    console.log(this.game.gameRoomCode);
+    console.log(this.game.playerId);
+    console.log("ENDING HERE")
+    return this.game;
+  }
 
   generateImposterIndex(numPlayers: number) {
     return Math.floor(Math.random() * (numPlayers + 1));
