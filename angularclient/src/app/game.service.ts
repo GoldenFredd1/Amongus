@@ -47,23 +47,23 @@ export class GameService {
     return this.http.delete(this.gameUrl + (`/${gameId}`));
   }
 
-  public votingPlayerOut(vote){
-    return this.http.post(this.voteUrl,vote,this.httpOptions).toPromise();
+  public async votingPlayerOut(vote){
+    return await this.http.post(this.voteUrl,vote,this.httpOptions).toPromise();
   }
 
 
   public editGame(game: Game) {
-    //it doesn't know the gameID.....
     console.log(this.gameUrl + (`/${game.gameId}`));
     console.log("start of edit");
-    console.log(game.gameId);
-    console.log(game.gameRoomCode);
-    console.log(game.roomId);
+    console.log("GameID " +game.gameId);
+    console.log("GameRoomCode " + game.gameRoomCode);
+    console.log("Player id: "+ game.playerId);
+    console.log("ROom ID: " + game.roomId);
     console.log("end of edit game");
-      return this.http.put(this.gameUrl + (`/${game.gameId}`), game);
+    return this.http.put(this.gameUrl + (`/${game.gameId}`), game).toPromise();
   }
 
-  public setUpGame(players: Player[]) {
+  public async setUpGame(players: Player[]) {
     var gameRoomCode = this.generateGameCode();
     var roomId = 1;
     var imposterIndex = this.generateImposterIndex(players.length-1);
@@ -79,29 +79,18 @@ export class GameService {
             // THE LINE BELOW SHOULD BE DELETED
             // players[i].dead = true;
         }
-        this.addGame(this.game);
+        const data: any = await this.addGame(this.game);
+        // console.log("ADD GAME RETURN VALUE");
+        // console.log(data);
+        this.game.gameId=data.gameId;
+        console.log(this.game);
     }
   }
 
   public getGame(){
-    console.log("STARTING HERE")
-    console.log(this.game.gameId);
-    console.log(this.game.roomId);
-    console.log(this.game.gameRoomCode);
-    console.log(this.game.playerId);
-    console.log("ENDING HERE")
     return this.game;
   }
 
-
-//   public setUpGame() {
-//     this.playerService.findAll().subscribe(data => {
-//         this.players = data, this.realSetUp(this.players)});
-//   }
-
-//   public setPlayers(players: Player[]) {
-//       this.players = players;
-//   }
 
   generateImposterIndex(numPlayers: number) {
     return Math.floor(Math.random() * (numPlayers + 1));

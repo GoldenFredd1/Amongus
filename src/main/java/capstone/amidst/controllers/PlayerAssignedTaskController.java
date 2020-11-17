@@ -1,8 +1,7 @@
 package capstone.amidst.controllers;
 
-import capstone.amidst.domain.PlayerAssignedTaskService;
-import capstone.amidst.domain.Result;
-import capstone.amidst.domain.ResultType;
+import capstone.amidst.domain.*;
+import capstone.amidst.models.Game;
 import capstone.amidst.models.PlayerAssignedTask;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +14,15 @@ import java.util.List;
 public class PlayerAssignedTaskController {
 
     private final PlayerAssignedTaskService service;
+    private final ComputerPlayers computerPlayers;
+    private final PlayerService playerService;
+    private final GameService gameService;
 
-    public PlayerAssignedTaskController(PlayerAssignedTaskService service) {
+    public PlayerAssignedTaskController(PlayerAssignedTaskService service, ComputerPlayers computerPlayers, PlayerService playerService, GameService gameService) {
         this.service = service;
+        this.computerPlayers = computerPlayers;
+        this.playerService = playerService;
+        this.gameService = gameService;
     }
 
     // Mappings
@@ -58,7 +63,7 @@ public class PlayerAssignedTaskController {
     }
 
     @PutMapping("/assignedTask/{taskId}")
-    public ResponseEntity<Object> updateTask(@PathVariable int taskId, @RequestBody PlayerAssignedTask PAT) {
+    public ResponseEntity<Object> updateTask(@PathVariable int taskId, @RequestBody PlayerAssignedTask PAT, @RequestBody Game game) {
         PAT = service.findById(taskId);
         if(taskId != PAT.getTaskId()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -68,8 +73,9 @@ public class PlayerAssignedTaskController {
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        //TODO Trigger the computer players when a task is updated by player.
+        computerPlayers.ComputerPlayersMovement(game);
 
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
-
     }
 }

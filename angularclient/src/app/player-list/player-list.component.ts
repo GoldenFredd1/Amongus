@@ -58,14 +58,14 @@ export class PlayerListComponent implements OnInit {
     this.getPlayers();
   }
 
-  setUpGame() {
-    this.gameService.setUpGame(this.players);
+  async setUpGame() {
+    await this.gameService.setUpGame(this.players);
 
     for(let i=0; i<this.players.length; i++) {
-      this.playerServiceService.editPlayer(this.players[i]);
+      await this.playerServiceService.editPlayer(this.players[i]);
     }
 
-    this.playerTaskService.assignTasks(this.players);
+    await this.playerTaskService.assignTasks(this.players);
 
     // just for testing, this will go somewhere else
     // var isTheGameOver = this.gameService.isGameOver(this.gameService.getGameRoomCode());

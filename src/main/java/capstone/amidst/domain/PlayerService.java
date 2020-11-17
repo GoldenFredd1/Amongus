@@ -105,4 +105,8 @@ public class PlayerService {
     public boolean deleteById(int playerId) {
         return repository.deleteById(playerId);
     }
+
+    public boolean updateResetPlayer(Player player) {
+        return repository.updateResetPlayer(player);
+    }
 }

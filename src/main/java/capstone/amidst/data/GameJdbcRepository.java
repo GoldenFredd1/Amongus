@@ -7,7 +7,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -34,6 +33,7 @@ public class GameJdbcRepository implements GameRepository {
                 + "where gameId = ?;";
         return jdbcTemplate.query(sql, new GameMapper(), gameId).stream().findFirst().orElse(null);
     }
+
 
     @Override
     public List<Game> findByGameCode(String gameCode) {

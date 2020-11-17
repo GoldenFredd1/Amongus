@@ -2,22 +2,25 @@ use amidst_our_own_selves;
 
 insert into app_user values
 (1,'Bob the test player','hashpasswordgoeshere',false),
-(2,'Computer','hashpasswordgoeshere',false);
+(2,'Computer','hashpasswordgoeshere',false),
+(3,'arjohnson','$2a$10$nOcl.INLYB.dKnLcNUP.P.B5Ia3YcX2zHsuyVQCj91uIsGOecN4Oy',false);
 
 insert into app_role values
-(1,'Admin'),
-(2,'User'),
-(3,'Computer');
+(1,'ADMIN'),
+(2,'USER'),
+(3,'COMPUTER');
 
 insert into app_user_role values
 (1,2),
-(2,3);
+(2,3),
+(3,1);
 
 insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
 (1,'testPlayerAlpha',false, false,1),
 (2,'Computer1',false, false,2),
 (3,'Computer2',false, false,2),
-(4,'Computer3',false, false,2);
+(4,'Computer3',false, false,2),
+(5,'arjohnson',false,false,3);
 
 insert into Room(roomId,roomName) values
 (1,'Food Court'),
@@ -58,21 +61,27 @@ insert into Player_Assigned_Task values
 (3, 4, false),
 (7, 4, false);
 
-select p.playerName, t.taskName, g.gameRoomCode
-from Task t
-join Player_Assigned_Task pat on  pat.taskId  = t.taskId
-join  Player p on p.playerId = pat.playerId
-join Game g on g.playerId = p.playerId
-where g.gameRoomCode = 'HELPME';
+-- select p.playerName, t.taskName, g.gameRoomCode
+-- from Task t
+-- join Player_Assigned_Task pat on  pat.taskId  = t.taskId
+-- join  Player p on p.playerId = pat.playerId
+-- join Game g on g.playerId = p.playerId
+-- where g.gameRoomCode = 'HELPME';
 
-Select pat.taskId, pat.playerId, pat.isComplete
+Select pat.taskId, t.taskName, pat.isComplete 
 from Player_Assigned_Task pat
+join Task t on t.taskId = pat.taskId
 join  Player p on p.playerId = pat.playerId 
 join Game g on g.playerId = p.playerId 
-where g.gameRoomCode = 'HELPME' and taskId = 1;
+where g.gameRoomCode = 'HELPME' and pat.playerId = 1;
 
-Select pat.taskId, pat.playerId, pat.isComplete
-from Player_Assigned_Task pat
-join  Player p on p.playerId = pat.playerId 
-join Game g on g.playerId = p.playerId 
- where g.gameRoomCode = 'HELPME' and p.playerId =1;
+
+select * from Game;
+
+select * from Votes;
+
+-- Select pat.taskId, pat.playerId, pat.isComplete
+-- from Player_Assigned_Task pat
+-- join  Player p on p.playerId = pat.playerId 
+-- join Game g on g.playerId = p.playerId 
+--  where g.gameRoomCode = 'HELPME' and p.playerId =1;

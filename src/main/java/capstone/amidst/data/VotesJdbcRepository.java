@@ -23,7 +23,7 @@ public class VotesJdbcRepository implements VotesRepository {
 
     @Override
     public List<Votes> findAll(){
-        final String sql = "select voteId, gameRoomCode, votedForPlayerId,playerId " +
+        final String sql = "select voteId, gameRoomCode, votedForPlayerId, playerId " +
                 "from Votes;";
 
         return jdbcTemplate.query(sql,new VoteMapper());

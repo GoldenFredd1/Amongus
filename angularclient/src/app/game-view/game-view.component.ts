@@ -62,7 +62,7 @@ export class GameViewComponent implements OnInit {
 
   getRooms() {
     this.roomsService.findAll().subscribe(data => {
-      this.rooms = data, console.log(data)});
+      this.rooms = data});
   }
 
   async updateTask(taskId) {
@@ -80,13 +80,13 @@ export class GameViewComponent implements OnInit {
   })
 
   onSubmit() {
-    //this.updateRoom(JSON.stringify(this.roomNameForm.value).slice(12,-1));
-    console.log("start");
-    console.log(this.game.gameRoomCode);
-    console.log(this.game.roomId);
+    console.log("start submitting the Room Change");
+    console.log("GameID " + this.game.gameId);
+    console.log("Game Room Code: " + this.game.gameRoomCode);
+    console.log("ROOM ID: " + this.game.roomId);
     this.game.roomId = (JSON.stringify(this.roomNameForm.value).slice(12,-1));
-    console.log(this.game.roomId);
-    console.log("end");
+    console.log("RoomID After: " + this.game.roomId);
+    console.log("end the Room Change");
     this.gameService.editGame(this.game);
   }
 

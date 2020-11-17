@@ -66,6 +66,18 @@ create table Player_Assigned_Task (
   CONSTRAINT fk_player_assigned_task_player_id
     FOREIGN KEY (playerId)
     REFERENCES Player (playerId));
+    
+    create table Votes (
+	voteId  INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    gameRoomCode VARCHAR(6) NOT NULL,
+    votedForPlayerId INT NOT NULL,
+    playerId Int Not Null,
+    CONSTRAINT fk_votes_player_id
+    FOREIGN KEY (playerId)
+    REFERENCES Player (playerId)
+);
+
+
 
 delimiter //
 create procedure set_known_good_state()
@@ -144,6 +156,10 @@ insert into Player_Assigned_Task values
 (8, 3, false),
 (3, 4, false),
 (7, 4, false);
+
+Insert into Votes values
+(1,'HELPME',2,1),
+(2,'HELPME',3,1);
 
 end //
 delimiter ;

@@ -58,7 +58,7 @@ export class PlayerTaskService {
       } else {
         this.playerTask.complete = false;
       }
-      this.save(this.playerTask);
+      return this.save(this.playerTask);
     }
   }
 

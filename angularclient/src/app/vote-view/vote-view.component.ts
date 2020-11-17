@@ -48,8 +48,15 @@ export class VoteViewComponent implements OnInit {
     this.vote = new Votes();
     this.vote.gameRoomCode = this.game.gameRoomCode;
     this.vote.votedForPlayerId = parseInt(JSON.stringify(this.VotingPlayerOut.value).slice(12,-1));
-    //TODO: CONNECT THE PLAYERID
     this.vote.playerId = 5;
+    console.log("start voting");
+    console.log(this.vote.gameRoomCode);
+    console.log(this.vote.playerId);
+    console.log(this.vote.votedForPlayerId);
+    console.log(JSON.stringify(this.VotingPlayerOut.value));
+    this.playerIdVotedFor = (JSON.stringify(this.VotingPlayerOut.value).slice(12,-1));
+    console.log(this.playerIdVotedFor);
+    console.log("end voting");
     this.gameService.votingPlayerOut(this.vote);
     this.router.navigate(["/game"]);
   }

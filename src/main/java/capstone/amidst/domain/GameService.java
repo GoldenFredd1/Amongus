@@ -2,7 +2,6 @@ package capstone.amidst.domain;
 
 import capstone.amidst.data.GameRepository;
 import capstone.amidst.models.Game;
-import capstone.amidst.models.Player;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -17,6 +16,7 @@ public class GameService {
 
     private final GameRepository repository;
 
+
     public GameService(GameRepository repository) {
         this.repository = repository;
     }
@@ -28,6 +28,7 @@ public class GameService {
     public Game findById(int gameId) {
         return repository.findById(gameId);
     }
+
 
     public Result<Game> add(Game game) {
         Result<Game> result = new Result<>();
