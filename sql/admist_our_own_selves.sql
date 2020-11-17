@@ -48,6 +48,17 @@ create table Task (
   CONSTRAINT fk_task_room_id
     FOREIGN KEY (roomId)
     REFERENCES Room (roomId));
+    
+    
+create table Votes (
+	voteId  INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    gameRoomCode VARCHAR(6) NOT NULL,
+    votedForPlayerId INT NOT NULL,
+    playerId Int Not Null,
+    CONSTRAINT fk_votes_player_id
+    FOREIGN KEY (playerId)
+    REFERENCES Player (playerId)
+);
 
 
 create table Game (

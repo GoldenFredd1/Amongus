@@ -16,6 +16,7 @@ import { AuthenticationService } from '../service/authentication.service';
 export class PlayerListComponent implements OnInit {
   players: Player[];
   public username;
+  player: Player;
 
   constructor(
     private playerServiceService: PlayerServiceService,
@@ -28,7 +29,6 @@ export class PlayerListComponent implements OnInit {
 
   ngOnInit() {
     this.getPlayers();
-    this.getSpecificPlayer();
   }
 
   getPlayers() {
@@ -37,10 +37,11 @@ export class PlayerListComponent implements OnInit {
   }
 
   getSpecificPlayer(){
-    this.playerServiceService.findUser(this.username);
-    // .subscribe(data => {
-      // this.players = data, console.log(data)});
-      
+    this.playerServiceService.findUser(this.username).subscribe(
+      (newPlayer) => {
+      (newPlayer)
+    });
+      this.player = this.player;
   }
 
   async add() {

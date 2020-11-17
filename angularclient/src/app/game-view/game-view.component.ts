@@ -10,6 +10,8 @@ import { Game } from '../models/game';
 import { GameService } from "../game.service";
 import { PlayerTaskService } from '../player-task.service';
 import { Task } from '../models/task';
+import { AuthenticationService } from '../service/authentication.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,6 +26,8 @@ export class GameViewComponent implements OnInit {
   rooms: Rooms[];
   title: string;
   public game;
+  public username;
+  public player;
 
   constructor(
       private playerServiceService: PlayerServiceService,
@@ -31,9 +35,12 @@ export class GameViewComponent implements OnInit {
       private taskService: TaskService,
       private roomsService: RoomsService,
       private gameService: GameService,
-      public fb: FormBuilder
+      private authenticationService: AuthenticationService,
+      public fb: FormBuilder,
+      private router: Router
       ) {
         this.game = gameService.getGame();
+        this.username = authenticationService.getUser();     
   }
 
   ngOnInit() {
@@ -65,6 +72,8 @@ export class GameViewComponent implements OnInit {
     this.getRooms();
   }
 
+
+
   // actual roomId
   roomNameForm = this.fb.group({
     roomName: ['']
@@ -73,6 +82,7 @@ export class GameViewComponent implements OnInit {
   onSubmit() {
     //this.updateRoom(JSON.stringify(this.roomNameForm.value).slice(12,-1));
     console.log("start");
+    console.log(this.game.gameRoomCode);
     console.log(this.game.roomId);
     this.game.roomId = (JSON.stringify(this.roomNameForm.value).slice(12,-1));
     console.log(this.game.roomId);
@@ -80,9 +90,4 @@ export class GameViewComponent implements OnInit {
     this.gameService.editGame(this.game);
   }
 
-  //TODO: change this to update in the game table..not room table duh
-  updateRoom(roomName) {
-    console.log(roomName);
-     this.roomsService.findByRoomName(roomName);
-  }
 }

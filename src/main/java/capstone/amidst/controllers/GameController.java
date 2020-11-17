@@ -1,22 +1,18 @@
 package capstone.amidst.controllers;
 
-import capstone.amidst.domain.GameService;
-import capstone.amidst.domain.PlayerService;
-import capstone.amidst.domain.Result;
-import capstone.amidst.domain.ResultType;
+import capstone.amidst.domain.*;
 import capstone.amidst.models.Game;
 import capstone.amidst.models.Player;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class GameController {
 
     private final GameService service;
+
 
     public GameController(GameService service) {
         this.service = service;
@@ -60,5 +56,9 @@ public class GameController {
         System.out.println("YOu updated the game!!!!!");
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
+
+
+
+
 
 }

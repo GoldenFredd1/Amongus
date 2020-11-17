@@ -8,11 +8,13 @@ import { Player } from './models/player';
   providedIn: 'root'
 })
 export class GameService {
-
+  private voteUrl: string;
   private gameUrl: string;
   private game: Game;
+  
 
   constructor(private http: HttpClient) {
+    this.voteUrl = 'http://localhost:8080/votes';
     this.gameUrl = 'http://localhost:8080/game';
   }
 
@@ -33,7 +35,19 @@ export class GameService {
     return this.http.delete(this.gameUrl + (`/${gameId}`));
   }
 
+  public votingPlayerOut(vote){
+    return this.http.post(this.voteUrl,vote,this.httpOptions).toPromise();
+  }
+
+
   public editGame(game: Game) {
+    //it doesn't know the gameID.....
+    console.log(this.gameUrl + (`/${game.gameId}`));
+    console.log("start of edit");
+    console.log(game.gameId);
+    console.log(game.gameRoomCode);
+    console.log(game.roomId);
+    console.log("end of edit game");
       return this.http.put(this.gameUrl + (`/${game.gameId}`), game);
   }
 

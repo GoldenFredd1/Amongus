@@ -18,12 +18,12 @@
 </div>
 
 <div>
-    <select name="players" id="players">
-        <option *ngFor="let player of players">{{ player.playerName }}</option>
+  <form [formGroup]="VotingPlayerOut" (ngSubmit)="onSubmit()">
+    <select formControlName="playerId">
+        <option *ngFor="let player of players" [ngValue]="player.playerId">{{ player.playerName }}</option>
     </select>
-    <p>
-      <a routerLink="/game" class="btn btn-info"> Vote </a>
-    </p>
+    <button class="btn btn-info">Vote</button>
+  </form>
 
   </div>
 

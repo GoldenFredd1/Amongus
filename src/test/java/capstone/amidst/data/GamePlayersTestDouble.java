@@ -51,4 +51,9 @@ public class GamePlayersTestDouble implements GameRepository {
     public boolean deleteById(int gameId) {
         return false;
     }
+
+    @Override
+    public boolean checkEndGame(String gameRoomCode) {
+        return false;
+    }
 }

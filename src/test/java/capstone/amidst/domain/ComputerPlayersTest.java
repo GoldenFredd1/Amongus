@@ -15,6 +15,14 @@ class ComputerPlayersTest {
             new GamePlayersTestDouble(), new RoomTestDouble(), new PATTestDouble(),
             new TaskTestDouble());
 
+    @Test
+    void testingVote(){
+        Game testList = new GamePlayersTestDouble().findById(1);
+        List<Integer> voteList = service.ComputerVote(String.valueOf(testList));
+
+        voteList.forEach(System.out::println);
+    }
+
 
 
     @Test

@@ -3,7 +3,9 @@ package capstone.amidst.controllers;
 import capstone.amidst.domain.PlayerService;
 import capstone.amidst.domain.Result;
 import capstone.amidst.domain.ResultType;
+import capstone.amidst.domain.VoteService;
 import capstone.amidst.models.AppUser;
+import capstone.amidst.models.Game;
 import capstone.amidst.models.Player;
 import capstone.amidst.security.AppUserService;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class PlayerController {
 
     private final PlayerService service;
@@ -46,6 +48,7 @@ public class PlayerController {
     @GetMapping("/{username}")
     public Player findAppUser(@PathVariable String username){
         AppUser appUser = appUserService.findByUserName(username);
+        System.out.println("Now you made it here");
         return service.findByAppUserId(appUser.getAppUserId());
     }
 
@@ -83,5 +86,7 @@ public class PlayerController {
         }
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
+
+
 
 }

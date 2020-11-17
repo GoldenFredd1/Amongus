@@ -18,37 +18,58 @@ public class ComputerPlayers {
     final private TaskRepository taskRepository;
 
 
-    public ComputerPlayers(PlayerRepository playerRepository, GameRepository gameRepository, RoomRepository roomRepository, PlayerAssignedTaskRepository patRepositry, TaskRepository taskRepository) {
+    public ComputerPlayers(PlayerRepository playerRepository, GameRepository gameRepository,
+                           RoomRepository roomRepository, PlayerAssignedTaskRepository patRepository,
+                           TaskRepository taskRepository) {
         this.playerRepository = playerRepository;
         this.gameRepository = gameRepository;
         this.roomRepository = roomRepository;
-        this.patRepository = patRepositry;
+        this.patRepository = patRepository;
         this.taskRepository = taskRepository;
     }
 
 //TODO add a voting method.
 
-//    public void Vote(Game game) {
-//        List<Game> allPlayers = gameRepository.findByGameCode(game.getGameRoomCode());
-//        List<Game> aliveComputers = ComputerPlaysLeft(allPlayers);
-//
-//        for (Game aliveComputer : aliveComputers) {
-//            Player currentPlayer = playerRepository.findById(aliveComputer.getPlayerId());
-//            if (currentPlayer.isImposter()) {
-//                //ToDo Vote random
-//            } else {
-//                //search for the dead bod
-//                int roomOfDeadBody = deadBodyLocation(allPlayers);
-//                List<Player> playersInDeadBodyRoom = playersInCurrentRoom(allPlayers, roomOfDeadBody, currentPlayer);
-//                if (playersInDeadBodyRoom.size() > 0) {
-//                    //vote for that person...
-//                    //but what if there is more than one?? Skip? Random?
-//                } else {
-//                    //ToDo Vote random
-//                }
-//            }
-//        }
-//    }
+    public List<Integer> ComputerVote(String gameRoomCode) {
+        List<Game> allPlayers = gameRepository.findByGameCode(gameRoomCode);
+        List<Game> aliveComputers = ComputerPlaysLeft(allPlayers);
+
+        List<Integer> listOfVotes = new ArrayList<>();
+
+        for (Game aliveComputer : aliveComputers) {
+            Player currentPlayer = playerRepository.findById(aliveComputer.getPlayerId());
+            if (currentPlayer.isImposter()) {
+                int imposterVote = randomVote(allPlayers);
+                System.out.println("Imposter voted for: "+imposterVote);
+                listOfVotes.add(allPlayers.get(imposterVote).getPlayerId());
+            } else {
+                //search for the dead bod
+                int roomOfDeadBody = deadBodyLocation(allPlayers);
+                List<Player> playersInDeadBodyRoom = playersInCurrentRoom(allPlayers, roomOfDeadBody, currentPlayer);
+                if (playersInDeadBodyRoom.size() > 0) {
+                    for(int i=0; i<allPlayers.size();i++){
+                        if(allPlayers.get(i).getRoomId() == roomOfDeadBody){
+                            System.out.println("Crew body voted for: "+ i);
+                            listOfVotes.add(allPlayers.get(i).getPlayerId());
+                            break;
+                        }
+                    }
+                    //vote for that person...
+                    //but what if there is more than one?? Skip? Random?
+                } else {
+                    int crewRandom = randomVote(allPlayers);
+                    System.out.println("Crew random voted for: "+crewRandom);
+                    listOfVotes.add(allPlayers.get(crewRandom).getPlayerId());
+                }
+            }
+        }
+
+        return listOfVotes;
+    }
+
+    private int randomVote(List<Game> allPlayers) {
+        return (int) (Math.random() * allPlayers.size());
+    }
 
     private int deadBodyLocation(List<Game> allPlayers) {
         for (Game allPlayer : allPlayers) {
