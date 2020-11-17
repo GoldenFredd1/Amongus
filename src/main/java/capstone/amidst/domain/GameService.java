@@ -78,5 +78,9 @@ public class GameService {
     public boolean deleteById(int gameId) {
         return repository.deleteById(gameId);
     }
+
+    public boolean isGameOver(String gameRoomCode) {
+        return repository.checkEndGame(gameRoomCode);
+    }
 }
 

@@ -95,11 +95,6 @@ class GameJdbcRepositoryTest {
         assertFalse(repository.deleteById(100));
     }
 
-//    @Test
-//    void shouldReturnListWithSixItems() {
-//        List<Game> games = repository.checkEndGame("HELPME");
-//        assertEquals(8, games.size());
-//    }
 
 
     private Game makeGame() {

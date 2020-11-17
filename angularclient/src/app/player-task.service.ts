@@ -27,6 +27,7 @@ export class PlayerTaskService {
   // public findPlayerTaskByPlayerId(gameRoomCode: string, playerId: number): Observable<PlayerTask[]> {
   //   return this.http.get<PlayerTask[]>(this.playerTaskUrl + (`/${gameRoomCode}`) + (`/${playerId}`));
   // }
+
   public async updatePlayerTask(playerTask: PlayerTask){
     return await this.http.put(this.playerTaskUrl + (`/${playerTask.taskId}`), playerTask).toPromise();
   }
