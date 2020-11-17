@@ -37,7 +37,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   getSpecificPlayer(){
-    this.playerServiceService.findUser(this.username).subscribe();
+    this.playerServiceService.findUser(this.username);
     // .subscribe(data => {
       // this.players = data, console.log(data)});
       
