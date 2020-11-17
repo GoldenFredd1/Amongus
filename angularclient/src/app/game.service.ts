@@ -18,25 +18,22 @@ export class GameService {
     this.gameUrl = 'http://localhost:8080/game';
   }
 
-  // this doesn't make sense, it doesn't pass in an ID... oh well, we probably won't need it
-  public findGameById(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.gameUrl);
-  }
-
-  // public isGameOver(gameRoomCode: string): Observable<Boolean> {
-  //   console.log(this.gameUrl + (`/${gameRoomCode}`));
-  //   return this.http.get<Boolean>(this.gameUrl + (`/${gameRoomCode}`));
-  // }
-
-  public isGameOver(gameRoomCode: string) {
+  public checkGameOver(gameRoomCode: string): Observable<boolean> {
     console.log(this.gameUrl + (`/${gameRoomCode}`));
-    return this.http.get(this.gameUrl + (`/${gameRoomCode}`));
+    return this.http.get<boolean>(this.gameUrl + (`/${gameRoomCode}`));
   }
 
+  public checkImposterWin(gameRoomCode: string): Observable<boolean> {
+    console.log(this.gameUrl + "/gameOver" + (`/${gameRoomCode}`));
+    return this.http.get<boolean>(this.gameUrl + "/gameOver" + (`/${gameRoomCode}`));
+  }
 
   public getGameRoomCode() {
-      // console.log(this.game.gameRoomCode);
       return this.game.gameRoomCode;
+  }
+
+  public getGameId() {
+    return this.game.gameId;
   }
 
   public async addGame(game: Game) {
@@ -75,33 +72,20 @@ export class GameService {
         this.game.playerId = players[i].playerId;
         if (i == imposterIndex) {
             players[i].imposter = true;
-            // CHANGE THIS: JUST FOR TESTING THE END GAME CONDITION,
-            // THE LINE BELOW SHOULD BE DELETED
-            // players[i].dead = true;
         }
         this.addGame(this.game);
     }
   }
 
-  public getGame(){
-    console.log("STARTING HERE")
-    console.log(this.game.gameId);
-    console.log(this.game.roomId);
-    console.log(this.game.gameRoomCode);
-    console.log(this.game.playerId);
-    console.log("ENDING HERE")
-    return this.game;
-  }
-
-
-//   public setUpGame() {
-//     this.playerService.findAll().subscribe(data => {
-//         this.players = data, this.realSetUp(this.players)});
-//   }
-
-//   public setPlayers(players: Player[]) {
-//       this.players = players;
-//   }
+  // public getGame(){
+  //   console.log("STARTING HERE")
+  //   console.log(this.game.gameId);
+  //   console.log(this.game.roomId);
+  //   console.log(this.game.gameRoomCode);
+  //   console.log(this.game.playerId);
+  //   console.log("ENDING HERE")
+  //   return this.game;
+  // }
 
   generateImposterIndex(numPlayers: number) {
     return Math.floor(Math.random() * (numPlayers + 1));

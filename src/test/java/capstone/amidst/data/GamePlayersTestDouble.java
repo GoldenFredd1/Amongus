@@ -56,4 +56,9 @@ public class GamePlayersTestDouble implements GameRepository {
     public boolean checkEndGame(String gameRoomCode) {
         return false;
     }
+
+    @Override
+    public boolean didImposterWin(String gameRoomCode) {
+        return false;
+    }
 }

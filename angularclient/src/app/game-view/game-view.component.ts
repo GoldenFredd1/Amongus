@@ -26,6 +26,8 @@ export class GameViewComponent implements OnInit {
   rooms: Rooms[];
   title: string;
   public game;
+  isGameOver: boolean;
+  didImposterWin: boolean;
   public username;
   public player;
 
@@ -40,15 +42,36 @@ export class GameViewComponent implements OnInit {
       private router: Router
       ) {
         this.game = gameService.getGame();
-        this.username = authenticationService.getUser();     
+        this.username = authenticationService.getUser();
   }
 
   ngOnInit() {
     this.getPlayers();
-    // this.getPlayerTasks();
     this.getRooms();
+
+    // apparently we have to initialize these here or data will be undefined later on
+    this.getIsGameOver();
+    this.getDidImposterWin();
   }
 
+  getIsGameOver() {
+    this.gameService.checkGameOver(this.gameService.getGameRoomCode())
+    .subscribe(data => {
+      this.isGameOver = data
+    });
+    console.log("Is the Game over? " + this.isGameOver);
+    if(this.isGameOver) {
+      this.getDidImposterWin();
+    }
+  }
+
+  getDidImposterWin() {
+    this.gameService.checkImposterWin(this.gameService.getGameRoomCode())
+    .subscribe(data => {
+      this.didImposterWin = data
+    });
+    console.log("Did the imposter win? " + this.didImposterWin);
+  }
 
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
@@ -72,8 +95,6 @@ export class GameViewComponent implements OnInit {
     this.getRooms();
   }
 
-
-
   // actual roomId
   roomNameForm = this.fb.group({
     roomName: ['']
@@ -90,4 +111,9 @@ export class GameViewComponent implements OnInit {
     this.gameService.editGame(this.game);
   }
 
+  //TODO: change this to update in the game table..not room table duh
+  updateRoom(roomName) {
+    console.log(roomName);
+     this.roomsService.findByRoomName(roomName);
+  }
 }

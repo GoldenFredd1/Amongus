@@ -82,5 +82,10 @@ public class GameService {
     public boolean isGameOver(String gameRoomCode) {
         return repository.checkEndGame(gameRoomCode);
     }
+
+    public boolean didImposterWin(String gameRoomCode) {
+        return repository.didImposterWin(gameRoomCode);
+    }
+
 }
 

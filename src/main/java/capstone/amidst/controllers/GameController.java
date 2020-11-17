@@ -30,9 +30,14 @@ public class GameController {
         return service.isGameOver(gameRoomCode);
     }
 
+    @GetMapping("/game/gameOver/{gameRoomCode}")
+    public Boolean didImposterWin(@PathVariable String gameRoomCode) {
+        System.out.println("You've made it to didImposterWin in the Game Controller.");
+        return service.didImposterWin(gameRoomCode);
+    }
+
     @PostMapping("/game")
     public ResponseEntity<Object> addGame(@RequestBody Game game) {
-//        System.out.println("You've made it to addGame in the Game Controller.");
         Result<Game> result = service.add(game);
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
