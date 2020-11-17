@@ -83,4 +83,56 @@ public class GameJdbcRepository implements GameRepository {
     }
 
 
+    // End Game
+    // sql statement to get all gameIDs with the given gameRoomCode
+    // join this with player to get player info (isImposter, isDead)
+    // join this with player task to get task info (isComplete)
+    // now we have all the players because each gameID is a different player in the game
+    // we also have the information to check every win condition
+    // only 1 crew member left (imposter wins)
+    // all tasks are completed (crewmates win)
+    // imposter is voted out/dead (crewmates win)
+    @Override
+    public boolean checkEndGame(String gameRoomCode) {
+        int numPeopleAlive = getNumPeopleAlive(gameRoomCode);
+        final int numTasksLeft = getTasksRemaining(gameRoomCode);
+        final boolean imposterAlive = isImposterAlive(gameRoomCode);
+
+        if (numPeopleAlive == 0 || numPeopleAlive == 1 || numTasksLeft == 0 || !imposterAlive) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Private Methods
+    private int getNumPeopleAlive(String gameRoomCode) {
+        final String sql = "select count(*) " +
+                "from Game g " +
+                "join Player p on p.playerId=g.playerId " +
+                "where g.gameRoomCode = ? " +
+                "and p.isDead = 0;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, gameRoomCode);
+    }
+
+    private int getTasksRemaining(String gameRoomCode) {
+        final String sql = "select count(*) " +
+                "from Game g " +
+                "join Player p on p.playerId=g.playerId " +
+                "join Player_Assigned_Task pat on pat.playerId=p.playerId " +
+                "where g.gameRoomCode = ? " +
+                "and pat.isComplete=0;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, gameRoomCode);
+    }
+
+    private boolean isImposterAlive(String gameRoomCode) {
+        final String sql = "select count(*) " +
+                "from Game g " +
+                "join Player p on p.playerId=g.playerId " +
+                "where g.gameRoomCode = ? " +
+                "and p.isImposter = true " +
+                "and p.isDead = true;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, gameRoomCode) == 0;
+    }
+
 }

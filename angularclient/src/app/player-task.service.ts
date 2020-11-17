@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { PlayerTask } from './models/player-task';
 import { Player } from './models/player';
 
-// TODO: MAKE MODEL FOR PLAYER TASK
 @Injectable({
   providedIn: 'root'
 })
@@ -21,36 +20,43 @@ export class PlayerTaskService {
     return this.http.get<PlayerTask[]>(this.playerTaskUrl);
   }
 
-  public findPlayerTaskById(): Observable<PlayerTask[]> {
+  public findPlayerTaskByTaskId(): Observable<PlayerTask[]> {
     return this.http.get<PlayerTask[]>(this.playerTaskUrl);
+  }
+
+  // public findPlayerTaskByPlayerId(gameRoomCode: string, playerId: number): Observable<PlayerTask[]> {
+  //   return this.http.get<PlayerTask[]>(this.playerTaskUrl + (`/${gameRoomCode}`) + (`/${playerId}`));
+  // }
+  public async updatePlayerTask(playerTask: PlayerTask){
+    return await this.http.put(this.playerTaskUrl + (`/${playerTask.taskId}`), playerTask).toPromise();
   }
 
   public async save(playerTask: PlayerTask) {
     return await this.http.post<PlayerTask>(this.playerTaskUrl, playerTask, this.httpOptions).toPromise();
   }
 
-  public async updatePlayerTask(playerTask: PlayerTask){
-    return await this.http.put(this.playerTaskUrl + (`/${playerTask.taskId}`), playerTask).toPromise();
-  }
-
   public assignTasks(players: Player[]) {
     for (let i=0; i<players.length; i++) {
       var firstTaskId = this.getRandomTaskId();
       var secondTaskId = this.getRandomTaskId();
-      console.log("First Task ID: " + firstTaskId);
-      console.log("Second Task ID: " + secondTaskId);
       this.playerTask = new PlayerTask();
       this.playerTask.taskId = firstTaskId;
       this.playerTask.playerId = players[i].playerId;
-      this.playerTask.isComplete = false;
-      console.log(this.playerTask);
+      if (players[i].imposter) {
+        this.playerTask.complete = true;
+      } else {
+        this.playerTask.complete = false;
+      }
       this.save(this.playerTask);
 
       this.playerTask = new PlayerTask();
       this.playerTask.taskId = secondTaskId;
       this.playerTask.playerId = players[i].playerId;
-      this.playerTask.isComplete = false;
-      console.log(this.playerTask);
+      if (players[i].imposter) {
+        this.playerTask.complete = true;
+      } else {
+        this.playerTask.complete = false;
+      }
       this.save(this.playerTask);
     }
   }

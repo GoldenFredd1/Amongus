@@ -41,6 +41,7 @@ export class GameService {
     var gameRoomCode = this.generateGameCode();
     var roomId = 1;
     var imposterIndex = this.generateImposterIndex(players.length-1);
+
     for (var i=0; i<players.length; i++) {
         this.game = new Game();
         this.game.gameRoomCode = gameRoomCode;
@@ -65,6 +66,8 @@ export class GameService {
     console.log("ENDING HERE")
     return this.game;
   }
+
+
 //   public setUpGame() {
 //     this.playerService.findAll().subscribe(data => {
 //         this.players = data, this.realSetUp(this.players)});

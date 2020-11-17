@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../models/player';
-import { Task } from '../models/task';
+import { PlayerTask } from '../models/player-task';
 import { PlayerServiceService } from '../player-service.service';
 import { TaskService } from '../task-service';
 import { RoomsService } from '../rooms.service';
@@ -8,6 +8,8 @@ import { Rooms } from '../models/rooms';
 import { FormBuilder } from "@angular/forms";
 import { Game } from '../models/game';
 import { GameService } from "../game.service";
+import { PlayerTaskService } from '../player-task.service';
+import { Task } from '../models/task';
 
 
 @Component({
@@ -17,6 +19,7 @@ import { GameService } from "../game.service";
 })
 export class GameViewComponent implements OnInit {
   players: Player[];
+  playerTasks: PlayerTask[];
   tasks: Task[];
   rooms: Rooms[];
   title: string;
@@ -24,6 +27,7 @@ export class GameViewComponent implements OnInit {
 
   constructor(
       private playerServiceService: PlayerServiceService,
+      private playerTaskService: PlayerTaskService,
       private taskService: TaskService,
       private roomsService: RoomsService,
       private gameService: GameService,
@@ -34,7 +38,7 @@ export class GameViewComponent implements OnInit {
 
   ngOnInit() {
     this.getPlayers();
-    this.getTasks();
+    // this.getPlayerTasks();
     this.getRooms();
   }
 
@@ -44,10 +48,10 @@ export class GameViewComponent implements OnInit {
       this.players = data});
   }
 
-  getTasks() {
-    this.taskService.findAll().subscribe(data => {
-      this.tasks = data, console.log(data)});
-  }
+  // getPlayerTasks() {
+  //   this.playerTaskService.findPlayerTaskByPlayerId("SEDQFI", 1).subscribe(data => {
+  //     this.playerTasks = data, console.log(data)});
+  // }
 
   getRooms() {
     this.roomsService.findAll().subscribe(data => {
@@ -57,7 +61,7 @@ export class GameViewComponent implements OnInit {
   async updateTask(taskId) {
     await this.taskService.updateTask(taskId)
     this.getPlayers();
-    this.getTasks();
+    // this.getPlayerTasks();
     this.getRooms();
   }
 

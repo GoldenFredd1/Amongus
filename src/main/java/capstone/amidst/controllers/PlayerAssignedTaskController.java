@@ -37,9 +37,21 @@ public class PlayerAssignedTaskController {
         return ResponseEntity.ok(PAT);
     }
 
+    @GetMapping("/assignedTask/{gameRoomCode}/{playerId}")
+    public ResponseEntity<List<PlayerAssignedTask>> displayTasksByPlayerId(@PathVariable String gameRoomCode, @PathVariable int playerId) {
+        List<PlayerAssignedTask> PAT = service.findAPlayersTasks(gameRoomCode, playerId);
+        if(PAT == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(PAT);
+    }
+
     @PostMapping("/assignedTask")
     public ResponseEntity<Object> addPlayerTask(@RequestBody PlayerAssignedTask PAT) {
+<<<<<<< HEAD
         //System.out.println("You've made it to the controller!");
+=======
+>>>>>>> 81a58b75c5aefc1b3a32b8285ac45467fad20dc7
         Result<PlayerAssignedTask> result = service.addTask(PAT);
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
