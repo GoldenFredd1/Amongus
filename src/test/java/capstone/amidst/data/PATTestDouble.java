@@ -54,6 +54,11 @@ public class PATTestDouble implements PlayerAssignedTaskRepository {
     }
 
     @Override
+    public PlayerAssignedTask addTask(PlayerAssignedTask PAT) {
+        return null;
+    }
+
+    @Override
     public Boolean updateTask(PlayerAssignedTask PAT) {
         PAT.setComplete(true);
         return true;

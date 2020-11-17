@@ -4,7 +4,8 @@ import { GameService } from '../game.service';
 import { PlayerServiceService } from '../player-service.service';
 import { PlayerTaskService } from '../player-task.service';
 import { TaskService } from '../task-service';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'; 
+import { AuthenticationService } from '../service/authentication.service';
 
 
 @Component({
@@ -14,21 +15,32 @@ import { Router } from '@angular/router';
 })
 export class PlayerListComponent implements OnInit {
   players: Player[];
+  public username;
 
   constructor(
     private playerServiceService: PlayerServiceService,
     private gameService: GameService,
     private playerTaskService: PlayerTaskService,
+    private authenticationService: AuthenticationService,
     private router: Router) {
+      this.username = authenticationService.getUser();
   }
 
   ngOnInit() {
     this.getPlayers();
+    this.getSpecificPlayer();
   }
 
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data, console.log(data)});
+  }
+
+  getSpecificPlayer(){
+    this.playerServiceService.findUser(this.username).subscribe();
+    // .subscribe(data => {
+      // this.players = data, console.log(data)});
+      
   }
 
   async add() {

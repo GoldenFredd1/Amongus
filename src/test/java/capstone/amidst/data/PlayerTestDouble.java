@@ -34,6 +34,11 @@ public class PlayerTestDouble implements PlayerRepository {
     }
 
     @Override
+    public Player findByAppUserId(int appUserId) {
+        return null;
+    }
+
+    @Override
     public List<Player> findByIsImposter(boolean Imposter) {
        return null;
     }

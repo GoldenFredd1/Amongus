@@ -40,12 +40,25 @@ public class PlayerJdbcRepository implements PlayerRepository {
     }
 
     @Override
+    public Player findByAppUserId(int appUserId) {
+        final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
+                " from Player" +
+                " where app_user_id = ?;";
+        return jdbcTemplate.query(sql, new PlayerMapper(), appUserId)
+                .stream().findFirst().orElse(null);
+    }
+
+
+
+    @Override
     public List<Player> findByIsImposter(boolean isImposter) {
         final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
                 " from Player" +
                 " where isImposter = ?;";
         return jdbcTemplate.query(sql, new PlayerMapper(), isImposter);
     }
+
+
 
     @Override
     public List<Player> findByIsDead(boolean isDead) {

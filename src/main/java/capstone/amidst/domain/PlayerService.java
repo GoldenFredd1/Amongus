@@ -29,6 +29,10 @@ public class PlayerService {
         return repository.findById(playerId);
     }
 
+    public Player findByAppUserId(int appUserId) {
+        return repository.findByAppUserId(appUserId);
+    }
+
     public List<Player> findByIsImposter(boolean isImposter) {
         return repository.findByIsImposter(isImposter);
     }

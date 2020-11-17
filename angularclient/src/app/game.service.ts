@@ -21,7 +21,7 @@ export class GameService {
   }
 
   public getGameRoomCode() {
-      console.log(this.game.gameRoomCode);
+      // console.log(this.game.gameRoomCode);
       return this.game.gameRoomCode;
   }
 
@@ -49,12 +49,22 @@ export class GameService {
         if (i == imposterIndex) {
             players[i].imposter = true;
         }
-        console.log(this.game);
-        console.log(players[i]);
+        // console.log(this.game);
+        // console.log(players[i]);
+        this.game = this.game;
         this.addGame(this.game);
     }
   }
 
+  public getGame(){
+    console.log("STARTING HERE")
+    console.log(this.game.gameId);
+    console.log(this.game.roomId);
+    console.log(this.game.gameRoomCode);
+    console.log(this.game.playerId);
+    console.log("ENDING HERE")
+    return this.game;
+  }
 //   public setUpGame() {
 //     this.playerService.findAll().subscribe(data => {
 //         this.players = data, this.realSetUp(this.players)});
@@ -73,7 +83,7 @@ export class GameService {
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     for(var i=0; i<6; i++)
       code += possible.charAt(Math.floor(Math.random()*possible.length));
-    console.log(code);
+    // console.log(code);
     return code;
   }
 

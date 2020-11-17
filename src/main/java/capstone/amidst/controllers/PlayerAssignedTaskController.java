@@ -3,7 +3,6 @@ package capstone.amidst.controllers;
 import capstone.amidst.domain.PlayerAssignedTaskService;
 import capstone.amidst.domain.Result;
 import capstone.amidst.domain.ResultType;
-import capstone.amidst.models.Player;
 import capstone.amidst.models.PlayerAssignedTask;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,8 @@ public class PlayerAssignedTaskController {
         return service.findAPlayersTasks("HELPME", 1);
     }
 
+
+
     @GetMapping("/assignedTask/{taskId}")
     public ResponseEntity<PlayerAssignedTask> displayAll(@PathVariable int taskId) {
         PlayerAssignedTask PAT = service.specificTask("HELPME", taskId);
@@ -38,7 +39,7 @@ public class PlayerAssignedTaskController {
 
     @PostMapping("/assignedTask")
     public ResponseEntity<Object> addPlayerTask(@RequestBody PlayerAssignedTask PAT) {
-        System.out.println("You've made it to the controller!");
+        //System.out.println("You've made it to the controller!");
         Result<PlayerAssignedTask> result = service.addTask(PAT);
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

@@ -48,6 +48,7 @@ public class GameController {
 
     @PutMapping("/game/{gameId}")
     public ResponseEntity<Game> update(@PathVariable int gameId, @RequestBody Game game) {
+        System.out.println("You made it here??");
         if (gameId != game.getGameId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -56,6 +57,7 @@ public class GameController {
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+        System.out.println("YOu updated the game!!!!!");
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 

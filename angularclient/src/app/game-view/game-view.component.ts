@@ -6,6 +6,8 @@ import { TaskService } from '../task-service';
 import { RoomsService } from '../rooms.service';
 import { Rooms } from '../models/rooms';
 import { FormBuilder } from "@angular/forms";
+import { Game } from '../models/game';
+import { GameService } from "../game.service";
 
 
 @Component({
@@ -18,13 +20,16 @@ export class GameViewComponent implements OnInit {
   tasks: Task[];
   rooms: Rooms[];
   title: string;
+  public game;
 
   constructor(
       private playerServiceService: PlayerServiceService,
       private taskService: TaskService,
       private roomsService: RoomsService,
+      private gameService: GameService,
       public fb: FormBuilder
       ) {
+        this.game = gameService.getGame();
   }
 
   ngOnInit() {
@@ -32,6 +37,7 @@ export class GameViewComponent implements OnInit {
     this.getTasks();
     this.getRooms();
   }
+
 
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
@@ -61,13 +67,18 @@ export class GameViewComponent implements OnInit {
   })
 
   onSubmit() {
-    this.updateRoom(JSON.stringify(this.roomNameForm.value).slice(12,-1));
-    
+    //this.updateRoom(JSON.stringify(this.roomNameForm.value).slice(12,-1));
+    console.log("start");
+    console.log(this.game.roomId);
+    this.game.roomId = (JSON.stringify(this.roomNameForm.value).slice(12,-1));
+    console.log(this.game.roomId);
+    console.log("end");
+    this.gameService.editGame(this.game);
   }
 
   //TODO: change this to update in the game table..not room table duh
   updateRoom(roomName) {
     console.log(roomName);
-    // this.roomsService.findByRoomName(roomName);
+     this.roomsService.findByRoomName(roomName);
   }
 }

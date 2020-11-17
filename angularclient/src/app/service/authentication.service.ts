@@ -10,6 +10,7 @@ export class User {
   providedIn: "root"
 })
 export class AuthenticationService {
+  private username;
   constructor(private httpClient: HttpClient) {}
 // Provide username and password for authentication, and once authentication is successful, 
 //store JWT token in session
@@ -22,6 +23,7 @@ export class AuthenticationService {
           //let tokenStr = "Bearer " + userData.token;
           let tokenStr =  userData.token;
           sessionStorage.setItem("token", tokenStr);
+          this.username = username;
           return userData;
         })
       );
@@ -35,5 +37,10 @@ export class AuthenticationService {
 
   logOut() {
     sessionStorage.removeItem("username");
+  }
+
+  public getUser(){
+    console.log(this.username);
+    return this.username;
   }
 }

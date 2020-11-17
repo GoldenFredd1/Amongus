@@ -27,6 +27,17 @@ public class AppUserService implements UserDetailsService {
         this.appUserRepository = appUserRepository;
         this.encoder = encoder;
     }
+
+    public AppUser findByUserName(String username) throws UsernameNotFoundException{
+        AppUser appUser = appUserRepository.findByUsername(username);
+
+        if (appUser == null || appUser.isDisabled()) {
+            throw new UsernameNotFoundException(username + " not found.");
+        }
+
+        return appUser;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByUsername(username);
