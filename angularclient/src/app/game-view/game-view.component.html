@@ -5,7 +5,6 @@
   </div>
 </div>
 
-
 <div class="row">
   <div class="column" style="width: 30%;">
     <h2 style="text-align: center"> Task List</h2>
@@ -31,17 +30,8 @@
     </table>
   </div>
 
-
   <div class="column" style="width: 40%;">
-    <!-- <select name="task" id="tasks" (change) ="taskDropDown($event)">
-        <option>Select</option>
-        <option *ngFor="let task of tasks" [ngValue]="task.taskId">{{ task.taskId }}</option>
-      </select>
-      <button class="btn btn-success" (click) = "updateTask(task.taskId)">Do Task</button>
-    </div> -->
-
     <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()"> 
-    <!-- <form [formGroup]="roomNameForm" >  -->
       <select formControlName="roomName">
         <option disabled>Select Room</option>
         <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
@@ -51,7 +41,6 @@
     </form>
 
     <div>
-      <!-- <button routerLink="/voteScreen" class="btn btn-warning">Report</button> -->
       <button [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-warning">Report</button>
     </div>
   </div>

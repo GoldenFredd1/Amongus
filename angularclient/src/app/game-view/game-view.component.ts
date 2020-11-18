@@ -28,7 +28,7 @@ export class GameViewComponent implements OnInit {
   public game;
   isGameOver: boolean;
   didImposterWin: boolean;
-  appUserIdReal: number = 1;
+  appUserIdReal: number;
   public username;
   public player;
   isValid: any;
@@ -38,11 +38,12 @@ export class GameViewComponent implements OnInit {
       private playerTaskService: PlayerTaskService,
       private roomsService: RoomsService,
       private gameService: GameService,
+      private authenticationService: AuthenticationService,
       public fb: FormBuilder,
       private router: Router
       ) {
          this.game = gameService.getGame();
-        // this.username = authenticationService.getUser();
+         this.username = authenticationService.getUser();
   }
 
   async ngOnInit() {
@@ -86,6 +87,11 @@ export class GameViewComponent implements OnInit {
   }
 
   async getRealPlayer() {
+    const data: any = this.playerServiceService.findUser(this.username);
+    //this.player = this.player;
+    console.log("FindingPlayer");
+    console.log(data);
+    console.log("App User Id Real: "+ this.appUserIdReal);
     this.realPlayer = await this.playerServiceService.findRealPlayer(this.appUserIdReal);
   }
 
@@ -101,12 +107,6 @@ export class GameViewComponent implements OnInit {
   }
 
   async updateTask(taskId) {
-    // console.log("Triggering update tasks");
-    // console.log("Task id: " + taskId);
-    // console.log("GameID " + this.game.gameId);
-    // console.log("Game Room Code: " + this.game.gameRoomCode);
-    // console.log("ROOM ID: " + this.game.roomId);
-    // console.log("PlayerID ID: " + this.game.playerId);
     await this.playerTaskService.updatePlayerTask(taskId, this.game);
     await this.deadBodyCheck();
   }
@@ -117,20 +117,8 @@ export class GameViewComponent implements OnInit {
   })
 
   onSubmit() {
-    console.log("start submitting the Room Change");
-    console.log("GameID " + this.game.gameId);
-    console.log("Game Room Code: " + this.game.gameRoomCode);
-    console.log("ROOM ID: " + this.game.roomId);
     this.game.roomId = (JSON.stringify(this.roomNameForm.value).slice(12,-1));
-    console.log("RoomID After: " + this.game.roomId);
-    console.log("end the Room Change");
     this.gameService.editGame(this.game);
     this.deadBodyCheck();
   }
-
-  //TODO: change this to update in the game table..not room table duh
-  // updateRoom(roomName) {
-  //   console.log(roomName);
-  //    this.roomsService.findByRoomName(roomName);
-  // }
 }

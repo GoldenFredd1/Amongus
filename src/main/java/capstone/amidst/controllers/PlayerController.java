@@ -52,6 +52,7 @@ public class PlayerController {
     @GetMapping("/appUser/{appUserId}")
     public Player findByAppUserId(@PathVariable int appUserId) {
         System.out.println("You've made it to findByAppUserId in the Player Controller.");
+        System.out.println("App user ID is: "+appUserId);
         return service.findByAppUserId(appUserId);
     }
 

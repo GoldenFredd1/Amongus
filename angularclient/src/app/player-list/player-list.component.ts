@@ -23,11 +23,12 @@ export class PlayerListComponent implements OnInit {
     private playerTaskService: PlayerTaskService,
     private authenticationService: AuthenticationService,
     private router: Router) {
-      // this.username = authenticationService.getUser();
+      this.username = authenticationService.getUser();
   }
 
   ngOnInit() {
     this.getPlayers();
+    this.getSpecificPlayer();
   }
 
   getPlayers() {
@@ -36,15 +37,9 @@ export class PlayerListComponent implements OnInit {
   }
 
   getSpecificPlayer(){
-    // this.playerServiceService.findUser(this.username).subscribe(
-    //   (newPlayer) => {
-    //   (newPlayer)
-    // });
-    //   this.player = this.player;
-
-    this.playerServiceService.findUser(this.username);
-    // .subscribe(data => {
-      // this.players = data, console.log(data)});
+    console.log(this.username);
+    this.gameService.getPlayer(this.username).subscribe(data =>{
+      this.player = data, console.log(data)});
   }
 
   async add() {
@@ -58,6 +53,10 @@ export class PlayerListComponent implements OnInit {
   }
 
   async setUpGame() {
+    //TODO call on  a method to reset all players to false/false..
+    this.getSpecificPlayer();
+    console.log("AppUSer ID");
+    console.log(this.player.appUserId);
     await this.gameService.setUpGame(this.players);
 
     for(let i=0; i<this.players.length; i++) {

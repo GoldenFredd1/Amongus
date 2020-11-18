@@ -4,18 +4,21 @@ import { Game } from './models/game';
 import { Observable } from 'rxjs';
 import { Player } from './models/player';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
   private voteUrl: string;
   private gameUrl: string;
+  private appUserUrl: string;
+  private player: Player;
   private game: Game;
-  
 
   constructor(private http: HttpClient) {
     this.voteUrl = 'http://localhost:8080/votes';
     this.gameUrl = 'http://localhost:8080/game';
+    this.appUserUrl = `http://localhost:8080`;
   }
 
   public checkGameOver(gameRoomCode: string): Observable<boolean> {
@@ -52,15 +55,13 @@ export class GameService {
     return await this.http.post(this.voteUrl,vote,this.httpOptions).toPromise();
   }
 
+  public getPlayer(username:String): Observable<Player>{
+    console.log(this.appUserUrl + (`/${username}`));
+    return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
+  }
+
 
   public editGame(game: Game) {
-    console.log("start of edit");
-    console.log(this.gameUrl + "/updateGame" + (`/${game.gameId}`));
-    console.log("GameID " +game.gameId);
-    console.log("GameRoomCode " + game.gameRoomCode);
-    console.log("Player id: "+ game.playerId);
-    console.log("ROom ID: " + game.roomId);
-    console.log("end of edit game");
     return this.http.put(this.gameUrl + "/updateGame" +  (`/${game.gameId}`), game).toPromise();
   }
 

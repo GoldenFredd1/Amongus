@@ -21,12 +21,14 @@ export class PlayerServiceService {
     return this.http.get<Player[]>(this.playersUrl);
   }
 
-  public findUser(username:string) {
-    return this.http.get(this.appUserUrl + (`/${username}`)); 
+  public findUser(username:string): Observable<Player>  {
+    console.log(this.appUserUrl + (`/${username}`));
+    return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
   }
 
   public findRealPlayer(appUserId: number) {
-    console.log(this.appUserUrl + "/appUser/1");
+    console.log("PLAER SERVICE URL");
+    console.log(this.appUserUrl + "/appUser" + (`/${appUserId}`));
     return this.http.get<Player>(this.appUserUrl + "/appUser" + (`/${appUserId}`)).toPromise();
   }
 

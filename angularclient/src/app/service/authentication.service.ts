@@ -20,7 +20,6 @@ export class AuthenticationService {
       .pipe(
         map(userData => {
           sessionStorage.setItem("username", username);
-          //let tokenStr = "Bearer " + userData.token;
           let tokenStr =  userData.token;
           sessionStorage.setItem("token", tokenStr);
           this.username = username;
@@ -30,8 +29,7 @@ export class AuthenticationService {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem("username");
-    //console.log(!(user === null));
+    let user = sessionStorage.getItem("username")
     return !(user === null);
   }
 
@@ -40,7 +38,6 @@ export class AuthenticationService {
   }
 
   public getUser(){
-    console.log(this.username);
     return this.username;
   }
 }
