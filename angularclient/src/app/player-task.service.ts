@@ -39,8 +39,8 @@ export class PlayerTaskService {
 
   public assignTasks(players: Player[]) {
     for (let i=0; i<players.length; i++) {
-      var firstTaskId = this.getRandomTaskId();
-      var secondTaskId = this.getRandomTaskId();
+      var firstTaskId = this.getRandomTaskId(0);
+      var secondTaskId = this.getRandomTaskId(firstTaskId);
       this.playerTask = new PlayerTask();
       this.playerTask.taskId = firstTaskId;
       this.playerTask.playerId = players[i].playerId;
@@ -64,9 +64,12 @@ export class PlayerTaskService {
     console.log("Tasks: " + this.findAll());
   }
 
-  getRandomTaskId() {
-    // hard coded the number of tasks in our list... could refactor later
-    return Math.floor(Math.random() * (12) + 1);
+  getRandomTaskId(num: number) {
+    var returnNum = num;
+    while(returnNum == num) {
+      returnNum =  Math.floor(Math.random() * (12) + 1);
+    }
+    return returnNum;
   }
 
   httpOptions = {
