@@ -1,11 +1,3 @@
-<div class="row" style="width: 40%;">
-  <div class="column">
-    <h2 style="text-align: center"> Map </h2>
-    <img src="../../assets/amongUs.png" width="500" height="300" />
-  </div>
-</div>
-
-
 <div class="row">
   <div class="column" style="width: 30%;">
     <h2 style="text-align: center"> Task List</h2>
@@ -31,17 +23,21 @@
     </table>
   </div>
 
-
   <div class="column" style="width: 40%;">
-    <!-- <select name="task" id="tasks" (change) ="taskDropDown($event)">
+    <h2 style="text-align: center"> Map </h2>
+    <img src="../../assets/RoomDiagram.png" width="80%" height="80%" />
+  </div>
+
+  <!--<div class="column" style="width: 40%;">
+     <select name="task" id="tasks" (change) ="taskDropDown($event)">
         <option>Select</option>
         <option *ngFor="let task of tasks" [ngValue]="task.taskId">{{ task.taskId }}</option>
       </select>
       <button class="btn btn-success" (click) = "updateTask(task.taskId)">Do Task</button>
     </div> -->
 
-    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()"> 
-    <!-- <form [formGroup]="roomNameForm" >  -->
+    <!-- <div class="row">
+    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">
       <select formControlName="roomName">
         <option disabled>Select Room</option>
         <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
@@ -51,11 +47,9 @@
     </form>
 
     <div>
-      <!-- <button routerLink="/voteScreen" class="btn btn-warning">Report</button> -->
       <button [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-warning">Report</button>
     </div>
-  </div>
-
+  </div> -->
 
   <div class="column" style="width: 30%;">
     <h2 style="text-align: center"> Players </h2>
@@ -73,5 +67,29 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="column" style= "width: 30%;">
+    <h4 *ngIf="realPlayer.imposter == true"> You are the imposter! </h4>
+    <h4 *ngIf="realPlayer.imposter == false"> You are a crewmate! </h4>
+    <h4> Current Room ID: {{game.roomId}} </h4>
+  </div>
+
+  <div class="column" style="width:40%;">
+    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">
+      <select formControlName="roomName">
+        <option disabled>Select Room</option>
+        <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
+      </select>
+
+      <button  class="btn btn-info">Change Room</button>
+    </form>
+    <div>
+      <button [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-warning">Report</button>
+    </div>
   </div>
 </div>

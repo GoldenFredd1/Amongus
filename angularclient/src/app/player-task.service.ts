@@ -59,8 +59,9 @@ export class PlayerTaskService {
       } else {
         this.playerTask.complete = false;
       }
-      return this.save(this.playerTask);
+      this.save(this.playerTask);
     }
+    console.log("Tasks: " + this.findAll());
   }
 
   getRandomTaskId() {

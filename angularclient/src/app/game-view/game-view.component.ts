@@ -60,9 +60,8 @@ export class GameViewComponent implements OnInit {
     .subscribe(data => {
       this.isGameOver = data
     });
-    // console.log("Is the Game over? " + this.isGameOver);
     if(this.isGameOver) {
-      this.getDidImposterWin();
+      await this.getDidImposterWin();
     }
   }
 
@@ -75,9 +74,7 @@ export class GameViewComponent implements OnInit {
   async getDidImposterWin() {
     await this.gameService.checkImposterWin(this.gameService.getGameRoomCode())
     .subscribe(data => {
-      this.didImposterWin = data
-    });
-    // console.log("Did the imposter win? " + this.didImposterWin);
+      this.didImposterWin = data});
   }
 
   async getPlayers() {

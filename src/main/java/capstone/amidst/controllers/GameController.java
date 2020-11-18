@@ -27,8 +27,8 @@ public class GameController {
         return service.findById(gameId);
     }
 
-    @GetMapping("/game/gamOver/{gameRoomCode}")
-    public Boolean isGameOver(@PathVariable String gameRoomCode) {
+    @GetMapping("/game/gameOver/{gameRoomCode}")
+    public boolean isGameOver(@PathVariable String gameRoomCode) {
         System.out.println("You've made it to isGameOver in the Game Controller.");
         return service.isGameOver(gameRoomCode);
     }

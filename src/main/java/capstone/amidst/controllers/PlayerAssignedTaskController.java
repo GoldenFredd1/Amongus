@@ -31,8 +31,6 @@ public class PlayerAssignedTaskController {
         return service.findAPlayersTasks(game.getGameRoomCode(), game.getPlayerId());
     }
 
-
-
     @GetMapping("/assignedTask/{taskId}")
     public ResponseEntity<PlayerAssignedTask> displayATask(@PathVariable int taskId, @RequestBody Game game) {
         PlayerAssignedTask PAT = service.specificTask(game.getGameRoomCode(), taskId);

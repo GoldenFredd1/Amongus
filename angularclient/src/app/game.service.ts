@@ -11,7 +11,6 @@ export class GameService {
   private voteUrl: string;
   private gameUrl: string;
   private game: Game;
-  
 
   constructor(private http: HttpClient) {
     this.voteUrl = 'http://localhost:8080/votes';
@@ -31,6 +30,14 @@ export class GameService {
   public checkForDeadBody(gameId): Observable<boolean> {
     return this.http.get<boolean>(this.gameUrl+ "/bodyCheck"+ (`/${gameId}`));
   }
+
+  // public getCurrentGame(gameId: number) {
+  //   return this.http.get(this.gameUrl + (`/${gameId}`));
+  // }
+
+  // public setGame(game: Game) {
+  //   this.game = game;
+  // }
 
   public getGameRoomCode() {
       return this.game.gameRoomCode;
@@ -88,7 +95,6 @@ export class GameService {
   public getGame(){
     return this.game;
   }
-
 
   generateImposterIndex(numPlayers: number) {
     return Math.floor(Math.random() * (numPlayers + 1));

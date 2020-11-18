@@ -11,6 +11,7 @@ export class PlayerServiceService {
   private playersUrl: string;
   private appUserUrl: string;
   private player: Player;
+  private realPlayer: Player;
 
   constructor(private http: HttpClient) {
     this.playersUrl = 'http://localhost:8080/players';
@@ -22,7 +23,7 @@ export class PlayerServiceService {
   }
 
   public findUser(username:string) {
-    return this.http.get(this.appUserUrl + (`/${username}`)); 
+    return this.http.get(this.appUserUrl + (`/${username}`));
   }
 
   public findRealPlayer(appUserId: number) {
@@ -40,8 +41,15 @@ export class PlayerServiceService {
 
   public async editPlayer(player: Player) {
     return await this.http.put(this.playersUrl + (`/${player.playerId}`), player, this.httpOptions).toPromise();
-}
+  }
 
+  public getRealPlayer() {
+    return this.realPlayer;
+  }
+
+  // public setUpRealPlayer() {
+  //   this.realPlayer = this.findRealPlayer(1);
+  // }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
