@@ -34,6 +34,14 @@ public class GameJdbcRepository implements GameRepository {
         return jdbcTemplate.query(sql, new GameMapper(), gameId).stream().findFirst().orElse(null);
     }
 
+    @Override
+    public Game findByPlayerGameCode(int playerId, String gameCode) {
+        final String sql = "select gameId, gameRoomCode, playerId, roomId "
+                + "from Game "
+                + "where gameRoomCode = ? and playerId = ?;";
+        return jdbcTemplate.query(sql, new GameMapper(), gameCode, playerId).stream()
+                .findFirst().orElse(null);
+    }
 
     @Override
     public List<Game> findByGameCode(String gameCode) {

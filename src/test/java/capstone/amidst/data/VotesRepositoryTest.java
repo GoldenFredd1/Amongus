@@ -44,8 +44,11 @@ class VotesRepositoryTest {
         assertNull(vote);
     }
 
-//    @Test
-//    void shouldAdd(){
-//        Votes vote = new Votes();
-//    }
+    @Test
+    void shouldAdd(){
+        Votes vote = new Votes();
+        vote.setGameRoomCode("HELPME");
+        vote.setVotedForPlayerId(2);
+        vote.setPlayerId(1);
+    }
 }

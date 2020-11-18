@@ -13,7 +13,7 @@ public class GamePlayersTestDouble implements GameRepository {
         gameArrayList.add(new Game(1,"HELPME",1,1));
         gameArrayList.add(new Game(2,"HELPME",2,1));
         gameArrayList.add(new Game(3,"HELPME",3,1));
-        gameArrayList.add(new Game(4,"HELPME",4,1));
+        gameArrayList.add(new Game(4,"HELPME",4,3));
     }
 
 
@@ -26,6 +26,17 @@ public class GamePlayersTestDouble implements GameRepository {
     public Game findById(int gameId) {
         for(Game g: gameArrayList){
             if(g.getGameId() == gameId){
+                return g;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Game findByPlayerGameCode(int playerId, String gameCode) {
+        for(Game g: gameArrayList){
+            if(g.getGameRoomCode().equalsIgnoreCase(gameCode)
+                    && g.getPlayerId() == playerId){
                 return g;
             }
         }

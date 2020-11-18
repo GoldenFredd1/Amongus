@@ -24,7 +24,7 @@
           <td>{{ task.taskName }}</td>
           <td>{{ task.complete }}</td>
           <td *ngIf="task.complete == false">
-            <a (click)="updateTask(task)" class="btn btn-info"> Do Task </a>
+            <a (click)="updateTask(task.taskId)" class="btn btn-info"> Do Task </a>
           </td>
         </tr>
       </tbody>
@@ -40,18 +40,19 @@
       <button class="btn btn-success" (click) = "updateTask(task.taskId)">Do Task</button>
     </div> -->
 
-    <!-- <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">  -->
-    <form [formGroup]="roomNameForm"> 
+    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()"> 
+    <!-- <form [formGroup]="roomNameForm" >  -->
       <select formControlName="roomName">
-        <option disabled>Select Oppo Suits</option>
+        <option disabled>Select Room</option>
         <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
       </select>
 
-      <button (click)="getIsGameOver()" class="btn btn-info">Change Room</button>
+      <button  class="btn btn-info">Change Room</button>
     </form>
 
     <div>
-      <button routerLink="/voteScreen" class="btn btn-warning">Report</button>
+      <!-- <button routerLink="/voteScreen" class="btn btn-warning">Report</button> -->
+      <button [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-warning">Report</button>
     </div>
   </div>
 

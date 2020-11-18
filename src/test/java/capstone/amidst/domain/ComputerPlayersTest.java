@@ -29,7 +29,7 @@ class ComputerPlayersTest {
     void shouldReturnAListOfComputers() {
         Game testList = new GamePlayersTestDouble().findById(1);
         List<Game> finalList=service.ComputerPlayersMovement(testList);
-        assertEquals(finalList.size(), 3);
+        assertTrue(finalList.size() >=2);
         for (Game game : finalList) {
             System.out.println("player ID :" +game.getPlayerId()+" RoomId "+
                     game.getRoomId());

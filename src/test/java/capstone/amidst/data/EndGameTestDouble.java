@@ -57,6 +57,11 @@ public class EndGameTestDouble implements GameRepository {
     }
 
     @Override
+    public Game findByPlayerGameCode(int playerId, String gameCode) {
+        return null;
+    }
+
+    @Override
     public List<Game> findByGameCode(String gameCode) {
         return null;
     }

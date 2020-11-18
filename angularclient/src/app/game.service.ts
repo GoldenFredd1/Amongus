@@ -19,13 +19,17 @@ export class GameService {
   }
 
   public checkGameOver(gameRoomCode: string): Observable<boolean> {
-    console.log(this.gameUrl + (`/${gameRoomCode}`));
-    return this.http.get<boolean>(this.gameUrl + (`/${gameRoomCode}`));
+    console.log(this.gameUrl + "/gameOver" + (`/${gameRoomCode}`));
+    return this.http.get<boolean>(this.gameUrl + "/gameOver"+ (`/${gameRoomCode}`));
   }
 
   public checkImposterWin(gameRoomCode: string): Observable<boolean> {
-    console.log(this.gameUrl + "/gameOver" + (`/${gameRoomCode}`));
-    return this.http.get<boolean>(this.gameUrl + "/gameOver" + (`/${gameRoomCode}`));
+    console.log(this.gameUrl + "/whoWon" + (`/${gameRoomCode}`));
+    return this.http.get<boolean>(this.gameUrl + "/whoWon" + (`/${gameRoomCode}`));
+  }
+
+  public checkForDeadBody(gameId): Observable<boolean> {
+    return this.http.get<boolean>(this.gameUrl+ "/bodyCheck"+ (`/${gameId}`));
   }
 
   public getGameRoomCode() {
@@ -50,14 +54,14 @@ export class GameService {
 
 
   public editGame(game: Game) {
-    console.log(this.gameUrl + (`/${game.gameId}`));
     console.log("start of edit");
+    console.log(this.gameUrl + "/updateGame" + (`/${game.gameId}`));
     console.log("GameID " +game.gameId);
     console.log("GameRoomCode " + game.gameRoomCode);
     console.log("Player id: "+ game.playerId);
     console.log("ROom ID: " + game.roomId);
     console.log("end of edit game");
-    return this.http.put(this.gameUrl + (`/${game.gameId}`), game).toPromise();
+    return this.http.put(this.gameUrl + "/updateGame" +  (`/${game.gameId}`), game).toPromise();
   }
 
   public async setUpGame(players: Player[]) {

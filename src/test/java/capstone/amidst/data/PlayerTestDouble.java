@@ -15,7 +15,7 @@ public class PlayerTestDouble implements PlayerRepository {
         playerArrayList.add(new Player(1,"testPlayerAlpha",false, false,1));
         playerArrayList.add(new Player(2,"Computer2",false, false,2));
         playerArrayList.add(new Player(3,"Computer3",false, true,2));
-        playerArrayList.add(new Player(4,"Computer4",false, false,2));
+        playerArrayList.add(new Player(4,"Computer4",true, false,2));
     }
 
     @Override

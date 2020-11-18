@@ -1,6 +1,7 @@
 package capstone.amidst.domain;
 
 import capstone.amidst.data.GameRepository;
+import capstone.amidst.data.PlayerRepository;
 import capstone.amidst.models.Game;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,12 @@ import java.util.Set;
 public class GameService {
 
     private final GameRepository repository;
+    private final PlayerRepository playerRepository;
 
 
-    public GameService(GameRepository repository) {
+    public GameService(GameRepository repository, PlayerRepository playerRepository) {
         this.repository = repository;
+        this.playerRepository = playerRepository;
     }
 
     public List<Game> findAll() {
@@ -86,6 +89,21 @@ public class GameService {
 
     public boolean didImposterWin(String gameRoomCode) {
         return repository.didImposterWin(gameRoomCode);
+    }
+
+    public boolean deadBodyInRoomCheck(Game game){
+        List<Game> allPlayers = repository.findByGameCode(game.getGameRoomCode());
+        for (Game allPlayer : allPlayers) {
+            Game nonCurrentPlayer = repository.findByPlayerGameCode(allPlayer.getPlayerId(), game.getGameRoomCode());
+
+            if (playerRepository.findById(allPlayer.getPlayerId()).isDead()
+            && game.getRoomId() == nonCurrentPlayer.getRoomId()) {
+                //this is the dead person...
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

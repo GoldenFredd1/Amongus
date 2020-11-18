@@ -9,6 +9,8 @@ public interface GameRepository {
 
     Game findById(int gameId);
 
+    Game findByPlayerGameCode(int playerId, String gameCode);
+
     List<Game> findByGameCode(String gameCode);
 
     Game add(Game game);

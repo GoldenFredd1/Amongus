@@ -96,6 +96,21 @@ class GameJdbcRepositoryTest {
     }
 
 
+    @Test
+    void shouldFindSpecific(){
+        Game game = repository.findByPlayerGameCode(1,"HELPME");
+        assertNotNull(game);
+        assertEquals(1, game.getGameId());
+        assertEquals(1, game.getRoomId());
+    }
+
+    @Test
+    void shouldNotFIndSpecific(){
+        Game game = repository.findByPlayerGameCode(1099, "NEVERU");
+        assertNull(game);
+    }
+
+
 
     private Game makeGame() {
         Game game = new Game();

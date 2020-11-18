@@ -28,8 +28,6 @@ public class ComputerPlayers {
         this.taskRepository = taskRepository;
     }
 
-//TODO add a voting method.
-
     public List<Integer> ComputerVote(String gameRoomCode) {
         List<Game> allPlayers = gameRepository.findByGameCode(gameRoomCode);
         List<Game> aliveComputers = ComputerPlaysLeft(allPlayers);

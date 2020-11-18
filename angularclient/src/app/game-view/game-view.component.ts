@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Player } from '../models/player';
 import { PlayerTask } from '../models/player-task';
 import { PlayerServiceService } from '../player-service.service';
-import { TaskService } from '../task-service';
 import { RoomsService } from '../rooms.service';
 import { Rooms } from '../models/rooms';
 import { FormBuilder } from "@angular/forms";
@@ -32,27 +31,27 @@ export class GameViewComponent implements OnInit {
   appUserIdReal: number = 1;
   public username;
   public player;
+  isValid: any;
 
   constructor(
       private playerServiceService: PlayerServiceService,
       private playerTaskService: PlayerTaskService,
-      private taskService: TaskService,
       private roomsService: RoomsService,
       private gameService: GameService,
-      private authenticationService: AuthenticationService,
       public fb: FormBuilder,
       private router: Router
       ) {
-        // this.game = gameService.getGame();
+         this.game = gameService.getGame();
         // this.username = authenticationService.getUser();
   }
 
   async ngOnInit() {
     await this.getPlayers();
     await this.getRooms();
-    await this.getIsGameOver();
-    await this.getDidImposterWin();
+   // await this.getIsGameOver();
+   // await this.getDidImposterWin();
     await this.getRealPlayer();
+    await this.deadBodyCheck();
     this.getPlayerTasks(this.realPlayer.playerId);
   }
 
@@ -65,6 +64,12 @@ export class GameViewComponent implements OnInit {
     if(this.isGameOver) {
       this.getDidImposterWin();
     }
+  }
+
+  async deadBodyCheck(){
+    await this.gameService.checkForDeadBody(this.game.gameId).subscribe(data => {
+      this.isValid = data, console.log(data);
+    });
   }
 
   async getDidImposterWin() {
@@ -96,10 +101,14 @@ export class GameViewComponent implements OnInit {
   }
 
   async updateTask(taskId) {
-    await this.taskService.updateTask(taskId)
-    this.getPlayers();
-    // this.getPlayerTasks();
-    this.getRooms();
+    // console.log("Triggering update tasks");
+    // console.log("Task id: " + taskId);
+    // console.log("GameID " + this.game.gameId);
+    // console.log("Game Room Code: " + this.game.gameRoomCode);
+    // console.log("ROOM ID: " + this.game.roomId);
+    // console.log("PlayerID ID: " + this.game.playerId);
+    await this.playerTaskService.updatePlayerTask(taskId, this.game);
+    await this.deadBodyCheck();
   }
 
   // actual roomId
@@ -116,11 +125,12 @@ export class GameViewComponent implements OnInit {
     console.log("RoomID After: " + this.game.roomId);
     console.log("end the Room Change");
     this.gameService.editGame(this.game);
+    this.deadBodyCheck();
   }
 
   //TODO: change this to update in the game table..not room table duh
-  updateRoom(roomName) {
-    console.log(roomName);
-     this.roomsService.findByRoomName(roomName);
-  }
+  // updateRoom(roomName) {
+  //   console.log(roomName);
+  //    this.roomsService.findByRoomName(roomName);
+  // }
 }

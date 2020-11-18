@@ -10,7 +10,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let player of players">
-          <td>{{ player.playerName }}</td>
+          <td >{{ player.playerName }}</td>
           <td>{{ player.dead}} </td>
         </tr>
         </tbody>
@@ -20,8 +20,10 @@
 <div>
   <form [formGroup]="VotingPlayerOut" (ngSubmit)="onSubmit()">
     <select formControlName="playerId">
-        <option *ngFor="let player of players" [ngValue]="player.playerId">{{ player.playerName }}</option>
-    </select>
+      <ng-container  *ngFor="let player of players">
+        <option  *ngIf="player.dead == false" [ngValue]="player.playerId">{{ player?.playerName }}</option>
+      </ng-container>
+      </select>
     <button class="btn btn-info">Vote</button>
   </form>
 

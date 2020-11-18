@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PlayerTask } from './models/player-task';
 import { Player } from './models/player';
+import { Game } from './models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class PlayerTaskService {
     return this.http.get<PlayerTask[]>(this.playerTaskUrl + (`/${gameRoomCode}`) + (`/${playerId}`));
   }
 
-  public async updatePlayerTask(playerTask: PlayerTask){
-    return await this.http.put(this.playerTaskUrl + (`/${playerTask.taskId}`), playerTask).toPromise();
+  public async updatePlayerTask(taskId: number, game: Game){
+    return await this.http.put(this.playerTaskUrl + (`/${taskId}`), game).toPromise();
   }
 
   public async save(playerTask: PlayerTask) {

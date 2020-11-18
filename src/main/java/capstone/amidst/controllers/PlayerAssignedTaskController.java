@@ -27,15 +27,15 @@ public class PlayerAssignedTaskController {
 
     // Mappings
     @GetMapping("/assignedTask")
-    public List<PlayerAssignedTask> displayAll() {
-        return service.findAPlayersTasks("HELPME", 1);
+    public List<PlayerAssignedTask> displayAllTasksForAPlayer(@RequestBody Game game) {
+        return service.findAPlayersTasks(game.getGameRoomCode(), game.getPlayerId());
     }
 
 
 
     @GetMapping("/assignedTask/{taskId}")
-    public ResponseEntity<PlayerAssignedTask> displayAll(@PathVariable int taskId) {
-        PlayerAssignedTask PAT = service.specificTask("HELPME", taskId);
+    public ResponseEntity<PlayerAssignedTask> displayATask(@PathVariable int taskId, @RequestBody Game game) {
+        PlayerAssignedTask PAT = service.specificTask(game.getGameRoomCode(), taskId);
         if(PAT == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -63,8 +63,8 @@ public class PlayerAssignedTaskController {
     }
 
     @PutMapping("/assignedTask/{taskId}")
-    public ResponseEntity<Object> updateTask(@PathVariable int taskId, @RequestBody PlayerAssignedTask PAT, @RequestBody Game game) {
-        PAT = service.findById(taskId);
+    public ResponseEntity<Object> updateTask(@PathVariable int taskId, @RequestBody Game game) {
+        PlayerAssignedTask PAT = service.findById(taskId);
         if(taskId != PAT.getTaskId()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }

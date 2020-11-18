@@ -43,6 +43,11 @@ class GameServiceTest {
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
+    @Test
+    void shouldReturnTrue(){
+        Game gameIn = new Game(1,"HELPME",1,5);
+    }
+
     Game newGame(){
         Game game = new Game();
         game.setGameRoomCode("QQZZYY");
