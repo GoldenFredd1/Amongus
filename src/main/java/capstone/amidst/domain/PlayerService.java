@@ -33,6 +33,10 @@ public class PlayerService {
         return repository.findByAppUserId(appUserId);
     }
 
+    public Player findByUsername(String username){
+        return repository.findByUserName(username);
+    }
+
     public List<Player> findByIsImposter(boolean isImposter) {
         return repository.findByIsImposter(isImposter);
     }

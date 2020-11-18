@@ -1,13 +1,7 @@
-<div class="row" style="width: 40%;">
-  <div class="column">
-    <h2 style="text-align: center"> Map </h2>
-    <img src="../../assets/amongUs.png" width="500" height="300" />
-  </div>
-</div>
-
 <div class="row">
   <div class="column" style="width: 30%;">
-    <h2 style="text-align: center"> Task List</h2>
+    <h2 style="text-align: center" *ngIf="realPlayer && realPlayer.imposter == false"> Task List</h2>
+    <h2 style="text-align: center" *ngIf="realPlayer && realPlayer.imposter == true"> Fake Task List</h2>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
@@ -22,8 +16,8 @@
           <td>{{ task.taskId }}</td>
           <td>{{ task.taskName }}</td>
           <td>{{ task.complete }}</td>
-          <td *ngIf="task.complete == false">
-            <a (click)="updateTask(task.taskId)" class="btn btn-info"> Do Task </a>
+          <td>
+            <button [disabled]="realPlayer.imposter" (click)="updateTask(task.taskId)" class="btn btn-info"> Do Task </button>
           </td>
         </tr>
       </tbody>
@@ -31,20 +25,9 @@
   </div>
 
   <div class="column" style="width: 40%;">
-    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()"> 
-      <select formControlName="roomName">
-        <option disabled>Select Room</option>
-        <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
-      </select>
-
-      <button  class="btn btn-info">Change Room</button>
-    </form>
-
-    <div>
-      <button [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-warning">Report</button>
-    </div>
+    <h2 style="text-align: center"> Map </h2>
+    <img src="../../assets/RoomDiagram.png" width="100%" height="300" />
   </div>
-
 
   <div class="column" style="width: 30%;">
     <h2 style="text-align: center"> Players </h2>
@@ -62,5 +45,32 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="column" style= "width: 30%;">
+    <h2 *ngIf="realPlayer && realPlayer.imposter == true"> You are the Imposter! </h2>
+    <h4 *ngIf="realPlayer && realPlayer.imposter == false"> You are a Crewmate! </h4>
+    <h4> Current Room ID: {{game.roomId}} </h4>
+  </div>
+
+  <div class="column" style="width:40%;">
+    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">
+      <select formControlName="roomName">
+        <option disabled>Select Room</option>
+        <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
+      </select>
+
+      <button  class="btn btn-info">Change Room</button>
+    </form>
+    <div>
+      <button [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-warning">Report</button>
+    </div>
+    <div>
+      <button *ngIf="realPlayer && realPlayer.imposter == true" class="btn btn-danger"> Kill </button>
+    </div>
   </div>
 </div>

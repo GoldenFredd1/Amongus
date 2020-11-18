@@ -28,6 +28,7 @@ public class GameController {
     }
 
     @GetMapping("/game/gameOver/{gameRoomCode}")
+
     public Boolean isGameOver(@PathVariable String gameRoomCode) {
         System.out.println("You've made it to isGameOver in the Game Controller.");
         return service.isGameOver(gameRoomCode);
@@ -39,11 +40,16 @@ public class GameController {
         return service.didImposterWin(gameRoomCode);
     }
 
-    @GetMapping("/game/bodyCheck/{gameId}")
-    public Boolean deadBodyCheck(@PathVariable int gameId){
-        Game game = service.findById(gameId);
+    @GetMapping("/game/bodyCheck/{gameRoomCode}")
+    public Boolean deadBodyCheck(@PathVariable String gameRoomCode){
+        Game game = service.findByGameRoomCode(gameRoomCode);
         System.out.println("Checking for a dead body don't mind me..");
         return service.deadBodyInRoomCheck(game);
+    }
+
+    @GetMapping("/game/findReal/{playerId}/{gameRoomCode}")
+    public Game findByGameUserId(@PathVariable int playerId, @PathVariable String gameRoomCode){
+        return service.findByPlayerGame(gameRoomCode, playerId);
     }
 
     @PostMapping("/game")

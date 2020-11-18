@@ -15,14 +15,10 @@ public class PlayerAssignedTaskController {
 
     private final PlayerAssignedTaskService service;
     private final ComputerPlayers computerPlayers;
-    private final PlayerService playerService;
-    private final GameService gameService;
 
-    public PlayerAssignedTaskController(PlayerAssignedTaskService service, ComputerPlayers computerPlayers, PlayerService playerService, GameService gameService) {
+    public PlayerAssignedTaskController(PlayerAssignedTaskService service, ComputerPlayers computerPlayers) {
         this.service = service;
         this.computerPlayers = computerPlayers;
-        this.playerService = playerService;
-        this.gameService = gameService;
     }
 
     // Mappings
@@ -30,8 +26,6 @@ public class PlayerAssignedTaskController {
     public List<PlayerAssignedTask> displayAllTasksForAPlayer(@RequestBody Game game) {
         return service.findAPlayersTasks(game.getGameRoomCode(), game.getPlayerId());
     }
-
-
 
     @GetMapping("/assignedTask/{taskId}")
     public ResponseEntity<PlayerAssignedTask> displayATask(@PathVariable int taskId, @RequestBody Game game) {
@@ -73,7 +67,7 @@ public class PlayerAssignedTaskController {
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        //TODO Trigger the computer players when a task is updated by player.
+
         computerPlayers.ComputerPlayersMovement(game);
 
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);

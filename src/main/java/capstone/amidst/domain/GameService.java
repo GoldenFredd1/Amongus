@@ -32,6 +32,14 @@ public class GameService {
         return repository.findById(gameId);
     }
 
+    public Game findByGameRoomCode(String gameRoomCode){
+        return repository.findByGameCode(gameRoomCode).stream().findFirst().orElse(null);
+    }
+
+    public Game findByPlayerGame(String gameCode, int playerId){
+        return repository.findByPlayerGameCode(playerId, gameCode);
+    }
+
 
     public Result<Game> add(Game game) {
         Result<Game> result = new Result<>();

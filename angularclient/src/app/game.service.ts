@@ -22,17 +22,19 @@ export class GameService {
   }
 
   public checkGameOver(gameRoomCode: string): Observable<boolean> {
-    console.log(this.gameUrl + "/gameOver" + (`/${gameRoomCode}`));
     return this.http.get<boolean>(this.gameUrl + "/gameOver"+ (`/${gameRoomCode}`));
   }
 
   public checkImposterWin(gameRoomCode: string): Observable<boolean> {
-    console.log(this.gameUrl + "/whoWon" + (`/${gameRoomCode}`));
     return this.http.get<boolean>(this.gameUrl + "/whoWon" + (`/${gameRoomCode}`));
   }
 
   public checkForDeadBody(gameId): Observable<boolean> {
     return this.http.get<boolean>(this.gameUrl+ "/bodyCheck"+ (`/${gameId}`));
+  }
+
+  public getRealPlayerGame(playerId: number, gameRoomCode: string): Observable<any>{
+    return this.http.get<any>(this.gameUrl +"/findReal" +  (`/${playerId}`)+ (`/${gameRoomCode}`));
   }
 
   public getGameRoomCode() {
@@ -58,6 +60,7 @@ export class GameService {
   public getPlayer(username:String): Observable<Player>{
     console.log(this.appUserUrl + (`/${username}`));
     return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
+
   }
 
 
@@ -89,7 +92,6 @@ export class GameService {
   public getGame(){
     return this.game;
   }
-
 
   generateImposterIndex(numPlayers: number) {
     return Math.floor(Math.random() * (numPlayers + 1));

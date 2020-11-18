@@ -11,6 +11,7 @@ export class PlayerServiceService {
   private playersUrl: string;
   private appUserUrl: string;
   private player: Player;
+  private realPlayer: Player;
 
   constructor(private http: HttpClient) {
     this.playersUrl = 'http://localhost:8080/players';
@@ -26,10 +27,9 @@ export class PlayerServiceService {
     return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
   }
 
-  public findRealPlayer(appUserId: number) {
-    console.log("PLAER SERVICE URL");
-    console.log(this.appUserUrl + "/appUser" + (`/${appUserId}`));
-    return this.http.get<Player>(this.appUserUrl + "/appUser" + (`/${appUserId}`)).toPromise();
+  public findRealPlayer(username: string): Observable<Player> {
+    console.log(this.appUserUrl + (`/${username}`));
+    return this.http.get<Player>(this.appUserUrl + (`/${username}`));
   }
 
   public async addComputerPlayer(player: Player) {
@@ -42,8 +42,15 @@ export class PlayerServiceService {
 
   public async editPlayer(player: Player) {
     return await this.http.put(this.playersUrl + (`/${player.playerId}`), player, this.httpOptions).toPromise();
-}
+  }
 
+  public getRealPlayer() {
+    return this.realPlayer;
+  }
+
+  // public setUpRealPlayer() {
+  //   this.realPlayer = this.findRealPlayer(1);
+  // }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

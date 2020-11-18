@@ -23,14 +23,13 @@ export class GameViewComponent implements OnInit {
   playerTasks: PlayerTask[];
   tasks: Task[];
   rooms: Rooms[];
-  realPlayer: Player;
-  title: string;
+  public realPlayer;
   public game;
+  gameRoomCode: string;
   isGameOver: boolean;
   didImposterWin: boolean;
   appUserIdReal: number;
   public username;
-  public player;
   isValid: any;
 
   constructor(
@@ -42,8 +41,11 @@ export class GameViewComponent implements OnInit {
       public fb: FormBuilder,
       private router: Router
       ) {
-         this.game = gameService.getGame();
-         this.username = authenticationService.getUser();
+        this.username = authenticationService.getUser();
+        this.realPlayer = this.getRealPlayer(this.username);
+        this.gameRoomCode = gameService.getGameRoomCode();
+        this.game = this.getRealGame(this.gameRoomCode);
+         
   }
 
   async ngOnInit() {
@@ -51,9 +53,8 @@ export class GameViewComponent implements OnInit {
     await this.getRooms();
    // await this.getIsGameOver();
    // await this.getDidImposterWin();
-    await this.getRealPlayer();
     await this.deadBodyCheck();
-    this.getPlayerTasks(this.realPlayer.playerId);
+    await this.getPlayerTasks();
   }
 
   async getIsGameOver() {
@@ -61,14 +62,13 @@ export class GameViewComponent implements OnInit {
     .subscribe(data => {
       this.isGameOver = data
     });
-    // console.log("Is the Game over? " + this.isGameOver);
     if(this.isGameOver) {
-      this.getDidImposterWin();
+      await this.getDidImposterWin();
     }
   }
 
   async deadBodyCheck(){
-    await this.gameService.checkForDeadBody(this.game.gameId).subscribe(data => {
+    await this.gameService.checkForDeadBody(this.gameRoomCode).subscribe(data => {
       this.isValid = data, console.log(data);
     });
   }
@@ -76,9 +76,7 @@ export class GameViewComponent implements OnInit {
   async getDidImposterWin() {
     await this.gameService.checkImposterWin(this.gameService.getGameRoomCode())
     .subscribe(data => {
-      this.didImposterWin = data
-    });
-    // console.log("Did the imposter win? " + this.didImposterWin);
+      this.didImposterWin = data});
   }
 
   async getPlayers() {
@@ -86,17 +84,20 @@ export class GameViewComponent implements OnInit {
       this.players = data});
   }
 
-  async getRealPlayer() {
-    const data: any = this.playerServiceService.findUser(this.username);
-    //this.player = this.player;
-    console.log("FindingPlayer");
-    console.log(data);
-    console.log("App User Id Real: "+ this.appUserIdReal);
-    this.realPlayer = await this.playerServiceService.findRealPlayer(this.appUserIdReal);
+  async getRealPlayer(username:string){
+    await this.playerServiceService.findUser(username)
+    .subscribe(playerdata => {this.realPlayer = playerdata, console.log(playerdata)});
   }
 
-  async getPlayerTasks(playerId: number) {
-    await this.playerTaskService.findPlayerTaskByPlayerId(this.gameService.getGameRoomCode(), playerId).subscribe(data => {
+  async getRealGame(roomCode:string) {
+    console.log("ROOM CODE " + roomCode);
+    await this.gameService.getRealPlayerGame(1, roomCode)
+    .subscribe(gameData => { this.game = gameData, console.log(this.game)});
+  }
+
+  async getPlayerTasks() {
+    await this.playerTaskService.findPlayerTaskByPlayerId(this.gameService.getGameRoomCode(),
+     1).subscribe(data => {
       this.playerTasks = data, console.log(data)});
   }
 

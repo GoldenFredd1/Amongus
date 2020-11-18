@@ -45,8 +45,7 @@ public class PlayerController {
 
     @GetMapping("/{username}")
     public Player findAppUser(@PathVariable String username){
-        AppUser appUser = appUserService.findByUserName(username);
-        return service.findByAppUserId(appUser.getAppUserId());
+        return service.findByUsername(username);
     }
 
     @GetMapping("/appUser/{appUserId}")

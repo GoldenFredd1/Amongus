@@ -56,7 +56,7 @@ export class PlayerListComponent implements OnInit {
     //TODO call on  a method to reset all players to false/false..
     this.getSpecificPlayer();
     console.log("AppUSer ID");
-    console.log(this.player.appUserId);
+    console.log(this.player.playerId);
     await this.gameService.setUpGame(this.players);
 
     for(let i=0; i<this.players.length; i++) {

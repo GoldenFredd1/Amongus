@@ -9,6 +9,8 @@ public interface PlayerRepository {
     List<Player> findAll();
     Player findById(int playerId);
 
+    Player findByUserName(String username);
+
     Player findByAppUserId(int appUserId);
 
     List<Player> findByIsImposter(boolean Imposter);

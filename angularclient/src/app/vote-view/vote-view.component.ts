@@ -39,6 +39,7 @@ export class VoteViewComponent implements OnInit {
     this.playerServiceService.findAll().subscribe(data => {
       this.players = data});
   }
+  
 
   VotingPlayerOut = this.fb.group({
     playerId: ['']
@@ -48,7 +49,8 @@ export class VoteViewComponent implements OnInit {
     this.vote = new Votes();
     this.vote.gameRoomCode = this.game.gameRoomCode;
     this.vote.votedForPlayerId = parseInt(JSON.stringify(this.VotingPlayerOut.value).slice(12,-1));
-    this.vote.playerId = 5;
+    //hardcoded and I am not proud of it..
+    this.vote.playerId = 1;
     console.log("start voting");
     console.log(this.vote.gameRoomCode);
     console.log(this.vote.playerId);

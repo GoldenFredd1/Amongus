@@ -34,6 +34,16 @@ public class PlayerTestDouble implements PlayerRepository {
     }
 
     @Override
+    public Player findByUserName(String username) {
+        for(Player p: playerArrayList){
+            if(p.getPlayerName() == username){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public Player findByAppUserId(int appUserId) {
         return null;
     }
