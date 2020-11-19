@@ -37,6 +37,10 @@ export class GameService {
     return this.http.get<any>(this.gameUrl +"/findReal" +  (`/${playerId}`)+ (`/${gameRoomCode}`));
   }
 
+  public getListOfPlayersInRoom(gameRoomCode: string, playerId: number): Observable<Player[]>{
+    return this.http.get<Player[]>(this.gameUrl +"/findPlayers" + (`/${gameRoomCode}`) + (`/${playerId}`));
+  }
+
   public getGameRoomCode() {
       return this.game.gameRoomCode;
   }
@@ -58,7 +62,7 @@ export class GameService {
   }
 
   public getPlayer(username:String): Observable<Player>{
-    console.log(this.appUserUrl + (`/${username}`));
+    //console.log(this.appUserUrl + (`/${username}`));
     return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
 
   }

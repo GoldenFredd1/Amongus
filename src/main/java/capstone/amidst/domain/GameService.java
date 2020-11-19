@@ -3,12 +3,14 @@ package capstone.amidst.domain;
 import capstone.amidst.data.GameRepository;
 import capstone.amidst.data.PlayerRepository;
 import capstone.amidst.models.Game;
+import capstone.amidst.models.Player;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +32,21 @@ public class GameService {
 
     public Game findById(int gameId) {
         return repository.findById(gameId);
+    }
+
+    public List<Player> findAllPlayersByCode(String gameRoomCode, int playerId){
+        List<Game> allPlayers = repository.findByGameCode(gameRoomCode);
+        Game game = repository.findByPlayerGameCode(playerId, gameRoomCode);
+        List<Player> allPlayersInRoom = new ArrayList<>();
+        for(Game player : allPlayers){
+            if(player.getRoomId() == game.getRoomId() &&
+                playerId != player.getPlayerId() &&
+                    !playerRepository.findById(player.getPlayerId()).isDead()){
+                allPlayersInRoom.add(playerRepository.findById(player.getPlayerId()));
+            }
+        }
+
+        return allPlayersInRoom;
     }
 
     public Game findByGameRoomCode(String gameRoomCode){

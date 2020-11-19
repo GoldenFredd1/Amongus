@@ -1,9 +1,10 @@
 package capstone.amidst.controllers;
 
+import capstone.amidst.domain.ComputerPlayers;
 import capstone.amidst.domain.PlayerService;
 import capstone.amidst.domain.Result;
 import capstone.amidst.domain.ResultType;
-import capstone.amidst.models.AppUser;
+import capstone.amidst.models.Game;
 import capstone.amidst.models.Player;
 import capstone.amidst.security.AppUserService;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ public class PlayerController {
 
     private final PlayerService service;
     private final AppUserService appUserService;
+    private final ComputerPlayers computerPlayers;
 
-    public PlayerController(PlayerService service, AppUserService appUserService) {
+    public PlayerController(PlayerService service, AppUserService appUserService, ComputerPlayers computerPlayers) {
         this.service = service;
         this.appUserService = appUserService;
+        this.computerPlayers = computerPlayers;
     }
 
     // Mappings
@@ -90,6 +93,18 @@ public class PlayerController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
+    @PutMapping("/players/killPlayer/{playerId}")
+    public ResponseEntity<Player> update(@PathVariable int playerId, @RequestBody Game game){
+        Result<Player> result = service.killPlayer(playerId);
+        if (result.getType() == ResultType.INVALID) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        System.out.println("we killed yo.");
+
+        computerPlayers.ComputerPlayersMovement(game);
+        return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+    }
 
 
 }

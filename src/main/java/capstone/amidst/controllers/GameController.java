@@ -2,9 +2,12 @@ package capstone.amidst.controllers;
 
 import capstone.amidst.domain.*;
 import capstone.amidst.models.Game;
+import capstone.amidst.models.Player;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
@@ -50,6 +53,11 @@ public class GameController {
     @GetMapping("/game/findReal/{playerId}/{gameRoomCode}")
     public Game findByGameUserId(@PathVariable int playerId, @PathVariable String gameRoomCode){
         return service.findByPlayerGame(gameRoomCode, playerId);
+    }
+
+    @GetMapping("/game/findPlayers/{gameRoomCode}/{playerId}")
+    public List<Player> findListOfPlayersInRoom(@PathVariable int playerId, @PathVariable String gameRoomCode){
+        return service.findAllPlayersByCode(gameRoomCode, playerId);
     }
 
     @PostMapping("/game")

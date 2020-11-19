@@ -113,4 +113,33 @@ public class PlayerService {
     public boolean updateResetPlayer(Player player) {
         return repository.updateResetPlayer(player);
     }
+
+    public Result<Player> killPlayer(int playerId){
+        Player playerBeingKilled = repository.findById(playerId);
+        Result<Player> result = new Result<>();
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<Player>> violations = validator.validate(playerBeingKilled);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Player> violation : violations) {
+                result.addMessage(violation.getMessage(), ResultType.INVALID);
+            }
+            return result;
+        }
+
+        if (playerBeingKilled.getPlayerId() <= 0) {
+            result.addMessage("playerId must be set for `update` operation", ResultType.INVALID);
+            return result;
+        }
+
+        if (!repository.updateIsDead(playerBeingKilled)) {
+            String msg = String.format("playerId: %s, not found", playerBeingKilled.getPlayerId());
+            result.addMessage(msg, ResultType.NOT_FOUND);
+        }
+
+        return result;
+    }
 }

@@ -23,12 +23,14 @@ export class GameViewComponent implements OnInit {
   playerTasks: PlayerTask[];
   tasks: Task[];
   rooms: Rooms[];
+  playersInRoom: Player[];
   public realPlayer;
   public game;
+  playerId: number;
   gameRoomCode: string;
   isGameOver: boolean;
   didImposterWin: boolean;
-  appUserIdReal: number;
+  appUserIdReal: number = 1;
   public username;
   isValid: any;
 
@@ -54,6 +56,7 @@ export class GameViewComponent implements OnInit {
    // await this.getIsGameOver();
    // await this.getDidImposterWin();
     await this.deadBodyCheck();
+    await this.playersToKillCheck();
     await this.getPlayerTasks();
   }
 
@@ -69,8 +72,14 @@ export class GameViewComponent implements OnInit {
 
   async deadBodyCheck(){
     await this.gameService.checkForDeadBody(this.gameRoomCode).subscribe(data => {
-      this.isValid = data, console.log(data);
-    });
+      this.isValid = data});
+  }
+
+  async playersToKillCheck(){
+    console.log("players in room here: ");
+    await this.gameService.getListOfPlayersInRoom(this.gameRoomCode, this.appUserIdReal).subscribe(
+      data => {this.playersInRoom = data, console.log(data)}
+    );
   }
 
   async getDidImposterWin() {
@@ -86,23 +95,24 @@ export class GameViewComponent implements OnInit {
 
   async getRealPlayer(username:string){
     await this.playerServiceService.findUser(username)
-    .subscribe(playerdata => {this.realPlayer = playerdata, console.log(playerdata)});
+    .subscribe(playerdata => {this.realPlayer = playerdata});
   }
 
   async getRealGame(roomCode:string) {
-    console.log("ROOM CODE " + roomCode);
+    //console.log("ROOM CODE " + roomCode);
     await this.gameService.getRealPlayerGame(1, roomCode)
-    .subscribe(gameData => { this.game = gameData, console.log(this.game)});
+    .subscribe(gameData => { this.game = gameData});
   }
 
   async getPlayerTasks() {
     await this.playerTaskService.findPlayerTaskByPlayerId(this.gameService.getGameRoomCode(),
      1).subscribe(data => {
-      this.playerTasks = data, console.log(data)});
+      this.playerTasks = data});
   }
 
 
   async getRooms() {
+    console.log("Listing rooms");
     await this.roomsService.findAll().subscribe(data => {
       this.rooms = data, console.log(data)});
   }
@@ -110,6 +120,7 @@ export class GameViewComponent implements OnInit {
   async updateTask(taskId) {
     await this.playerTaskService.updatePlayerTask(taskId, this.game);
     await this.deadBodyCheck();
+    await this.playersToKillCheck();
   }
 
   // actual roomId
@@ -121,5 +132,18 @@ export class GameViewComponent implements OnInit {
     this.game.roomId = (JSON.stringify(this.roomNameForm.value).slice(12,-1));
     this.gameService.editGame(this.game);
     this.deadBodyCheck();
+    this.playersToKillCheck();
+  }
+
+  KillPlayerInRoom = this.fb.group({
+    killPeople: ['']
+  })
+
+  onKillSubmit() {
+    console.log(JSON.stringify(this.KillPlayerInRoom.value).slice(14,-1));
+    this.playerId = parseInt(JSON.stringify(this.KillPlayerInRoom.value).slice(14,-1));
+    this.playerServiceService.killPlayer(this.playerId, this.game);
+    this.deadBodyCheck();
+    this.playersToKillCheck();
   }
 }

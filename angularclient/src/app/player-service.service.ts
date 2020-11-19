@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Player } from './models/player';
 import { Observable, of } from 'rxjs';
+import { Game } from './models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,10 @@ export class PlayerServiceService {
   }
 
   public findUser(username:string): Observable<Player>  {
-    console.log(this.appUserUrl + (`/${username}`));
     return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
   }
 
   public findRealPlayer(username: string): Observable<Player> {
-    console.log(this.appUserUrl + (`/${username}`));
     return this.http.get<Player>(this.appUserUrl + (`/${username}`));
   }
 
@@ -44,13 +43,15 @@ export class PlayerServiceService {
     return await this.http.put(this.playersUrl + (`/${player.playerId}`), player, this.httpOptions).toPromise();
   }
 
+  public async killPlayer(playerId: number, game:Game){
+    console.log(this.playersUrl+"/killPlayer" + (`/${playerId}`));
+    return await this.http.put(this.playersUrl+"/killPlayer" + (`/${playerId}`),game, this.httpOptions).toPromise();
+  }
+
   public getRealPlayer() {
     return this.realPlayer;
   }
 
-  // public setUpRealPlayer() {
-  //   this.realPlayer = this.findRealPlayer(1);
-  // }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
