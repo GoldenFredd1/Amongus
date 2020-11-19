@@ -1,8 +1,9 @@
-<div class="container">
-    <div>
-        User Name : <input type="text" name="username" [(ngModel)]="username"> Password : <input type="password" name="password" [(ngModel)]="password">
+<div class="container mt-3">
+    <div class="form-group">
+        User Name : <input class="col-form-label col-form-label-sm" for="inputSmall" type="text" name="username" [(ngModel)]="username">
+        Password : <input class="col-form-label col-form-label-sm" for="inputSmall" type="password" name="password" [(ngModel)]="password">
     </div>
-    <button (click)=checkLogin() class="btn btn-success">
+    <button (click)=checkLogin() class="btn btn-success btn-lg">
     Login
   </button>
 </div>

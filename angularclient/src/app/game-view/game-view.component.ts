@@ -55,7 +55,7 @@ export class GameViewComponent implements OnInit {
   async ngOnInit() {
     await this.getPlayers();
     await this.getRooms();
-    await this.getRealPlayer();
+    await this.getRealPlayer(this.username);
     await this.deadBodyCheck();
     await this.playersToKillCheck();
     await this.getPlayerTasks();
@@ -163,13 +163,7 @@ export class GameViewComponent implements OnInit {
   })
 
   async onSubmit() {
-    // console.log("start submitting the Room Change");
-    // console.log("GameID " + this.game.gameId);
-    // console.log("Game Room Code: " + this.game.gameRoomCode);
-    // console.log("ROOM ID: " + this.game.roomId);
     this.game.roomId = (JSON.stringify(this.roomNameForm.value).slice(12,-1));
-    // console.log("RoomID After: " + this.game.roomId);
-    // console.log("end the Room Change");
     await this.gameService.editGame(this.game);
 
 
@@ -196,7 +190,6 @@ export class GameViewComponent implements OnInit {
   })
 
   onKillSubmit() {
-    console.log(JSON.stringify(this.KillPlayerInRoom.value).slice(14,-1));
     this.playerId = parseInt(JSON.stringify(this.KillPlayerInRoom.value).slice(14,-1));
     this.playerServiceService.killPlayer(this.playerId, this.game);
     this.deadBodyCheck();

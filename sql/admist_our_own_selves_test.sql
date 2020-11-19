@@ -85,6 +85,8 @@ begin
 
 delete from Game;
 delete from Player_Assigned_Task;
+delete from Votes;
+	alter table Votes auto_increment = 1;
 delete from Player;
 	alter table Player auto_increment = 1;
 delete from app_user_role;
@@ -96,6 +98,7 @@ delete from Task;
 	alter table Task auto_increment = 1;
 delete from Room;
 	alter table Room auto_increment = 1;
+
 
 insert into app_user values
 (1,'Bob the test player','hashpasswordgoeshere',false),

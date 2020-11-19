@@ -17,7 +17,8 @@
           <td>{{ task.taskName }}</td>
           <td>{{ task.complete }}</td>
           <td>
-            <button [disabled]="realPlayer && realPlayer.imposter" (click)="updateTask(task.taskId)" class="btn btn-info"> Do Task </button>
+            <button [disabled]="realPlayer && realPlayer.imposter" (click)="updateTask(task.taskId)"
+              class="btn btn-info"> Do Task </button>
           </td>
         </tr>
       </tbody>
@@ -51,31 +52,33 @@
 
 
 <div class="row">
-  <div class="column" style= "width: 30%;">
+  <div class="column" style="width: 30%;">
     <h2 *ngIf="realPlayer && realPlayer.imposter == true"> You are the Imposter! </h2>
-    <h4 *ngIf="realPlayer && realPlayer.imposter == false"> You are a Crewmate! </h4>
+    <h4 *ngIf="realPlayer && realPlayer.imposter == false"> You are a Shopper! </h4>
     <h4> Current Room ID: {{game.roomId}} </h4>
   </div>
 
-  <div class="column" style="width:40%;">
-    <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">
-      <select formControlName="roomName">
-        <option disabled>Select Room</option>
-        <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
-      </select>
+  <div class="column">
+    <div class="div-inline">
+      <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">
+        <select class="custom-select" formControlName="roomName">
+          <option disabled>Select Room</option>
+          <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
+        </select>
 
-      <button class="btn btn-info">Change Room</button>
-    </form>
+        <button class="btn btn-info ml-2">Change Room</button>
+      </form>
+    </div>
     <div>
-      <button [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-warning">Report</button>
+      <button type="button" [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-success">Report</button>
     </div>
     <div *ngIf="realPlayer && realPlayer.imposter == true">
       <form [formGroup]="KillPlayerInRoom" (ngSubmit)="onKillSubmit()">
-        <select formControlName="killPeople">
+        <select class="custom-select" formControlName="killPeople">
           <option disabled>Select who to kill</option>
           <option *ngFor="let player of playersInRoom" [ngValue]="player.playerId">{{ player.playerName }}</option>
         </select>
-        <button class="btn btn-danger"> Kill </button>
+        <button class="btn btn-danger ml-2"> Kill </button>
       </form>
     </div>
   </div>

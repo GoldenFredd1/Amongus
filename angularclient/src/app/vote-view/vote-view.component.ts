@@ -106,8 +106,9 @@ export class VoteViewComponent implements OnInit {
       // return to home page
       await this.resetGame();
       this.router.navigate(["/"]);
+    }else{
+      this.router.navigate(["/game"]);
     }
-    this.router.navigate(["/game"]);
   }
 
 }

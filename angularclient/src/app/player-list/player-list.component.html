@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-10">
   <h3> Players </h3>
 
   
@@ -9,29 +9,22 @@
     </p>
   </div>
 
-  <div class="card my-5">
+  <div class="card">
     <div class="card-body">
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
-          <!-- <th scope="col">ID</th> -->
           <th scope="col">Name</th>
-          <!-- <th scope="col">Is Dead?</th> -->
-          <!-- <th scope="col">Is Imposter?</th> -->
-          <!-- <th scope="col">User ID</th> -->
-          <!-- <th scope="col">Change</th> -->
           <th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let player of players">
-          <!-- <td>{{ player.playerId }}</td> -->
           <td>{{ player.playerName }}</td>
-          <!-- <td>{{ player.dead }}</td> -->
-          <!-- <td>{{ player.imposter }}</td> -->
-          <!-- <td>{{ player.appUserId }}</td> -->
           <td *ngIf="player.appUserId == 2">
             <a (click)="delete(player.playerId)" class="btn btn-info"> Delete </a>
+          </td>
+          <td *ngIf="player.appUserId != 2">
           </td>
         </tr>
         </tbody>
@@ -41,7 +34,7 @@
 
   <div>
     <p>
-      <a (click)="setUpGame()" class="btn btn-info"> Start Game </a>
+      <a (click)="setUpGame()" class="btn btn-success mt-3"> Start Game </a>
     </p>
   </div>
 

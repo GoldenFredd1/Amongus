@@ -1,0 +1,13 @@
+.card-body{
+    background-color: hotpink;
+}
+tr,td{
+    background-color: cyan;
+    font-size:22px;
+}
+
+
+h3{
+    font-size: 48px;
+    color:white;
+}

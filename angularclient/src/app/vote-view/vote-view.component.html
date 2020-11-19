@@ -19,7 +19,7 @@
 
 <div>
   <form [formGroup]="VotingPlayerOut" (ngSubmit)="onSubmit()">
-    <select formControlName="playerId">
+    <select class="custom-select" formControlName="playerId">
       <ng-container  *ngFor="let player of players">
         <option  *ngIf="player.dead == false" [ngValue]="player.playerId">{{ player?.playerName }}</option>
       </ng-container>
