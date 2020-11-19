@@ -98,15 +98,6 @@ public class GameJdbcRepository implements GameRepository {
         return jdbcTemplate.update("set SQL_SAFE_UPDATES = 1;") > 0;
     }
 
-    // End Game
-    // sql statement to get all gameIDs with the given gameRoomCode
-    // join this with player to get player info (isImposter, isDead)
-    // join this with player task to get task info (isComplete)
-    // now we have all the players because each gameID is a different player in the game
-    // we also have the information to check every win condition
-    // only 1 crew member left (imposter wins)
-    // all tasks are completed (crewmates win)
-    // imposter is voted out/dead (crewmates win)
     @Override
     public boolean checkEndGame(String gameRoomCode) {
         int numPeopleAlive = getNumPeopleAlive(gameRoomCode);
