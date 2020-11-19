@@ -1,7 +1,6 @@
 <nav class="nav flex-column flex-sm-row p-10">
     <h2>Amidst Our Own Selves</h2>
-    <a  class="nav-link" *ngIf="!loginService.isUserLoggedIn()" routerLink="/login">Login</a>
-    <a  class="nav-link" (click)="resetGame()" *ngIf="loginService.isUserLoggedIn()">New Game</a>
-    <a  class="nav-link"*ngIf="loginService.isUserLoggedIn()" routerLink="/logout">LogOut</a>
+    <a  class="btn btn-info" *ngIf="!loginService.isUserLoggedIn()" routerLink="/login">Login</a>
+    <a  class="btn btn-info" (click)="resetGame()" *ngIf="loginService.isUserLoggedIn()">New Game</a>
+    <a  class="btn btn-info"*ngIf="loginService.isUserLoggedIn()" routerLink="/logout">LogOut</a>
 </nav>
-

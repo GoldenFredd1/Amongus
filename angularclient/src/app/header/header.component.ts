@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   async getSpecificPlayer(){
     console.log("hitting header resetplayer ");
     console.log(this.username);
-    this.player = await this.gameService.getPlayer('arjohnson').toPromise();
+    this.player = await this.gameService.getPlayer('eabearden97').toPromise();
   }
 
   async resetGame() {
