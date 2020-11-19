@@ -36,6 +36,11 @@ public class PlayerAssignedTaskService {
         return repository.findById(taskId);
     }
 
+    public boolean deleteAll() {
+        System.out.println("You've made it to deleteAll() in the PlayerTask service.");
+        return repository.deleteAll();
+    }
+
     public Result<PlayerAssignedTask> addTask(PlayerAssignedTask PAT) {
         Result<PlayerAssignedTask> result = new Result<>();
 

@@ -19,4 +19,6 @@ public interface PlayerAssignedTaskRepository {
     PlayerAssignedTask addTask(PlayerAssignedTask PAT);
 
     Boolean updateTask(PlayerAssignedTask PAT);
+
+    boolean deleteAll();
 }

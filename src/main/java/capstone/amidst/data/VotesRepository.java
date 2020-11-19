@@ -10,4 +10,6 @@ public interface VotesRepository {
     Votes findById(int voteId);
 
     Votes add(Votes vote);
+
+    boolean deleteAll();
 }

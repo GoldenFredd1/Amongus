@@ -108,6 +108,11 @@ public class GameService {
         return repository.deleteById(gameId);
     }
 
+    public boolean deleteAll() {
+        System.out.println("You've made it to deleteAllGames() in the Game service.");
+        return repository.deleteAll();
+    }
+
     public boolean isGameOver(String gameRoomCode) {
         return repository.checkEndGame(gameRoomCode);
     }

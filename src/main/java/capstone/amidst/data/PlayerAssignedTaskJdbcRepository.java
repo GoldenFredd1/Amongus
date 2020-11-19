@@ -96,4 +96,13 @@ public class PlayerAssignedTaskJdbcRepository implements PlayerAssignedTaskRepos
 
         return jdbcTemplate.update(sql, PAT.getTaskId()) > 0;
     }
+
+    @Override
+    public boolean deleteAll() {
+        System.out.println("You've made it to deleteAll() in the PlayerTask repository.");
+        jdbcTemplate.update("set SQL_SAFE_UPDATES = 0;");
+        jdbcTemplate.update("delete from Player_Assigned_Task;");
+        return jdbcTemplate.update("set SQL_SAFE_UPDATES = 1;") > 0;
+    }
+
 }

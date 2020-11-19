@@ -67,8 +67,6 @@ public class PlayerJdbcRepository implements PlayerRepository {
         return jdbcTemplate.query(sql, new PlayerMapper(), isImposter);
     }
 
-
-
     @Override
     public List<Player> findByIsDead(boolean isDead) {
         final String sql = "select playerId, playerName, isDead, isImposter, app_user_id" +
@@ -162,5 +160,11 @@ public class PlayerJdbcRepository implements PlayerRepository {
         jdbcTemplate.update("delete from Game where playerId = ?;", playerId);
         jdbcTemplate.update("delete from Player_Assigned_Task where playerId = ?;", playerId);
         return jdbcTemplate.update("delete from Player where playerId = ?;", playerId) > 0;
+    }
+
+    @Override
+    public boolean deleteAllButRealPlayer() {
+        System.out.println("You've made it to deleteAllButRealPlayer() in the Player repository.");
+        return jdbcTemplate.update("delete from Player where playerId != 1;") > 0;
     }
 }

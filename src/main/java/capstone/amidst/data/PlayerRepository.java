@@ -29,4 +29,6 @@ public interface PlayerRepository {
     Boolean updateResetPlayer(Player player);
 
     boolean deleteById(int playerId);
+
+    boolean deleteAllButRealPlayer();
 }

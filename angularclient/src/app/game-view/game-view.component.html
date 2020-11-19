@@ -17,8 +17,7 @@
           <td>{{ task.taskName }}</td>
           <td>{{ task.complete }}</td>
           <td>
-            <button [disabled]="realPlayer.imposter" (click)="updateTask(task.taskId)" class="btn btn-info"> Do Task
-            </button>
+            <button [disabled]="realPlayer && realPlayer.imposter" (click)="updateTask(task.taskId)" class="btn btn-info"> Do Task </button>
           </td>
         </tr>
       </tbody>
@@ -52,7 +51,7 @@
 
 
 <div class="row">
-  <div class="column" style="width: 30%;">
+  <div class="column" style= "width: 30%;">
     <h2 *ngIf="realPlayer && realPlayer.imposter == true"> You are the Imposter! </h2>
     <h4 *ngIf="realPlayer && realPlayer.imposter == false"> You are a Crewmate! </h4>
     <h4> Current Room ID: {{game.roomId}} </h4>

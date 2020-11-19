@@ -34,6 +34,8 @@ export class GameViewComponent implements OnInit {
   public username;
   isValid: any;
 
+  didGamesDelete: boolean;
+
   constructor(
       private playerServiceService: PlayerServiceService,
       private playerTaskService: PlayerTaskService,
@@ -47,25 +49,21 @@ export class GameViewComponent implements OnInit {
         this.realPlayer = this.getRealPlayer(this.username);
         this.gameRoomCode = gameService.getGameRoomCode();
         this.game = this.getRealGame(this.gameRoomCode);
-         
+
   }
 
   async ngOnInit() {
     await this.getPlayers();
     await this.getRooms();
-   // await this.getIsGameOver();
-   // await this.getDidImposterWin();
+    await this.getRealPlayer();
     await this.deadBodyCheck();
     await this.playersToKillCheck();
     await this.getPlayerTasks();
   }
 
   async getIsGameOver() {
-    await this.gameService.checkGameOver(this.gameService.getGameRoomCode())
-    .subscribe(data => {
-      this.isGameOver = data
-    });
-    if(this.isGameOver) {
+    this.isGameOver = await this.gameService.checkGameOver(this.gameService.getGameRoomCode()).toPromise();
+    if(this.isGameOver == true) {
       await this.getDidImposterWin();
     }
   }
@@ -83,9 +81,7 @@ export class GameViewComponent implements OnInit {
   }
 
   async getDidImposterWin() {
-    await this.gameService.checkImposterWin(this.gameService.getGameRoomCode())
-    .subscribe(data => {
-      this.didImposterWin = data});
+    this.didImposterWin = await this.gameService.checkImposterWin(this.gameService.getGameRoomCode()).toPromise();
   }
 
   async getPlayers() {
@@ -110,6 +106,29 @@ export class GameViewComponent implements OnInit {
       this.playerTasks = data});
   }
 
+  async delete(playerId) {
+    await this.playerServiceService.deleteComputerPlayer(playerId)
+    this.getPlayers();
+  }
+
+  async resetGame() {
+    console.log("Start of reset game.");
+    await this.gameService.deleteAllGames().toPromise();
+    console.log("Done with delete all games.");
+    await this.playerTaskService.deleteAllPlayerTasks().toPromise();
+    console.log("Done with delete all Player Tasks.");
+    await this.gameService.deleteAllVotes().toPromise();
+    console.log("Done with delete all Votes.");
+    await this.playerServiceService.deleteAllPlayersButRealPlayer().toPromise();
+    console.log("Done with delete all Players.");
+    await this.playerServiceService.addComputerPlayer(new Player());
+    await this.playerServiceService.addComputerPlayer(new Player());
+    await this.playerServiceService.addComputerPlayer(new Player());
+    console.log("End of reset game.");
+  }
+  //async getDidImposterWin() {
+  //   this.didImposterWin = await this.gameService.checkImposterWin(this.gameService.getGameRoomCode()).toPromise();
+  // }
 
   async getRooms() {
     console.log("Listing rooms");
@@ -119,8 +138,23 @@ export class GameViewComponent implements OnInit {
 
   async updateTask(taskId) {
     await this.playerTaskService.updatePlayerTask(taskId, this.game);
-    await this.deadBodyCheck();
-    await this.playersToKillCheck();
+
+    console.log("Now checking if the game is over.....");
+    await this.getIsGameOver();
+    console.log("Game over data: " + this.isGameOver);
+    if(this.isGameOver == true) {
+      console.log("Game Over!");
+      if(this.didImposterWin == true) {
+        console.log("The Imposter won.");
+      } else {
+        console.log("The Crewmates won.");
+      }
+      await this.resetGame();
+      this.router.navigate(["/"]);
+    } else {
+      await this.deadBodyCheck();
+      await this.playersToKillCheck();
+    }
   }
 
   // actual roomId
@@ -128,11 +162,33 @@ export class GameViewComponent implements OnInit {
     roomName: ['']
   })
 
-  onSubmit() {
+  async onSubmit() {
+    // console.log("start submitting the Room Change");
+    // console.log("GameID " + this.game.gameId);
+    // console.log("Game Room Code: " + this.game.gameRoomCode);
+    // console.log("ROOM ID: " + this.game.roomId);
     this.game.roomId = (JSON.stringify(this.roomNameForm.value).slice(12,-1));
-    this.gameService.editGame(this.game);
-    this.deadBodyCheck();
-    this.playersToKillCheck();
+    // console.log("RoomID After: " + this.game.roomId);
+    // console.log("end the Room Change");
+    await this.gameService.editGame(this.game);
+
+
+    console.log("Now checking if the game is over.....");
+    await this.getIsGameOver();
+    console.log("Game over data: " + this.isGameOver);
+    if(this.isGameOver == true) {
+      console.log("Game Over!");
+      if(this.didImposterWin == true) {
+        console.log("The Imposter won.");
+      } else {
+        console.log("The Crewmates won.");
+      }
+      await this.resetGame();
+      await this.router.navigate(["/"]);
+    } else {
+      await this.deadBodyCheck();
+      await this.playersToKillCheck();
+    }
   }
 
   KillPlayerInRoom = this.fb.group({

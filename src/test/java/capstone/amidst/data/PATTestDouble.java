@@ -63,4 +63,9 @@ public class PATTestDouble implements PlayerAssignedTaskRepository {
         PAT.setComplete(true);
         return true;
     }
+
+    @Override
+    public boolean deleteAll() {
+        return false;
+    }
 }

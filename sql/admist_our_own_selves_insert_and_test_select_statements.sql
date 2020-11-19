@@ -16,11 +16,10 @@ insert into app_user_role values
 (3,1);
 
 insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
-(1,'testPlayerAlpha',false, false,1),
+(1,'eabearden97',false,false,1),
 (2,'Computer1',false, false,2),
 (3,'Computer2',false, false,2),
-(4,'Computer3',false, false,2),
-(5,'arjohnson',false,false,3);
+(4,'Computer3',false, false,2);
 
 insert into Room(roomId,roomName) values
 (1,'Food Court'),

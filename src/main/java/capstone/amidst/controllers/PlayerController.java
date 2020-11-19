@@ -106,5 +106,11 @@ public class PlayerController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/players")
+    public ResponseEntity<Void> deleteAllButRealPlayer() {
+        System.out.println("You've made it to deleteAllButRealPlayer() in the Player controller.");
+        service.deleteAllButRealPlayer();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

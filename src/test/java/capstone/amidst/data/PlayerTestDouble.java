@@ -93,4 +93,9 @@ public class PlayerTestDouble implements PlayerRepository {
     public boolean deleteById(int playerId) {
         return false;
     }
+
+    @Override
+    public boolean deleteAllButRealPlayer() {
+        return false;
+    }
 }

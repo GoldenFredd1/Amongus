@@ -110,6 +110,11 @@ public class PlayerService {
         return repository.deleteById(playerId);
     }
 
+    public boolean deleteAllButRealPlayer() {
+        System.out.println("You've made it to deleteAllButRealPlayer() in the Player service.");
+        return repository.deleteAllButRealPlayer();
+    }
+
     public boolean updateResetPlayer(Player player) {
         return repository.updateResetPlayer(player);
     }

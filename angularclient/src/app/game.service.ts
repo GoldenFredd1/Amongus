@@ -53,8 +53,17 @@ export class GameService {
     return await this.http.post(this.gameUrl, game, this.httpOptions).toPromise();
   }
 
-  public deleteGame(gameId: number) {
-    return this.http.delete(this.gameUrl + (`/${gameId}`));
+  public async deleteGame(gameId: number) {
+    return await this.http.delete(this.gameUrl + (`/${gameId}`)).toPromise();
+  }
+
+  public deleteAllGames(): Observable<boolean> {
+    console.log(this.gameUrl);
+    return this.http.delete<boolean>(this.gameUrl, this.httpOptions);
+  }
+
+  public deleteAllVotes(): Observable<boolean> {
+    return this.http.delete<boolean>(this.voteUrl, this.httpOptions);
   }
 
   public async votingPlayerOut(vote){
@@ -63,10 +72,9 @@ export class GameService {
 
   public getPlayer(username:String): Observable<Player>{
     //console.log(this.appUserUrl + (`/${username}`));
-    return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
+    return this.http.get<Player>(this.appUserUrl + (`/${username}`));
 
   }
-
 
   public editGame(game: Game) {
     return this.http.put(this.gameUrl + "/updateGame" +  (`/${game.gameId}`), game).toPromise();
@@ -86,8 +94,6 @@ export class GameService {
             players[i].imposter = true;
         }
         const data: any = await this.addGame(this.game);
-        // console.log("ADD GAME RETURN VALUE");
-        // console.log(data);
         this.game.gameId=data.gameId;
         console.log(this.game);
     }

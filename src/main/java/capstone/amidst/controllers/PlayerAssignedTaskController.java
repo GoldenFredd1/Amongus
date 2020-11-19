@@ -72,4 +72,11 @@ public class PlayerAssignedTaskController {
 
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/assignedTask")
+    public ResponseEntity<Void> deleteAllPATs() {
+        System.out.println("You've made it to deleteAll() in the PlayerTask controller.");
+        service.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -78,6 +78,13 @@ public class GameController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping("/game")
+    public ResponseEntity<Void> deleteAllGames() {
+        System.out.println("You've made it to deleteAllGames() in the Game controller.");
+        service.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @PutMapping("/game/updateGame/{gameId}")
     public ResponseEntity<Game> update(@PathVariable int gameId, @RequestBody Game game) {
         System.out.println("You made it to the game update??");

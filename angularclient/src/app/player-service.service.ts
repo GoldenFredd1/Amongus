@@ -24,7 +24,7 @@ export class PlayerServiceService {
   }
 
   public findUser(username:string): Observable<Player>  {
-    return this.http.get<Player>(this.appUserUrl + (`/${username}`)); 
+    return this.http.get<Player>(this.appUserUrl + (`/${username}`));
   }
 
   public findRealPlayer(username: string): Observable<Player> {
@@ -46,6 +46,11 @@ export class PlayerServiceService {
   public async killPlayer(playerId: number, game:Game){
     console.log(this.playersUrl+"/killPlayer" + (`/${playerId}`));
     return await this.http.put(this.playersUrl+"/killPlayer" + (`/${playerId}`),game, this.httpOptions).toPromise();
+  }
+
+  public deleteAllPlayersButRealPlayer(): Observable<boolean> {
+    console.log(this.playersUrl);
+    return this.http.delete<boolean>(this.playersUrl, this.httpOptions);
   }
 
   public getRealPlayer() {

@@ -90,6 +90,13 @@ public class GameJdbcRepository implements GameRepository {
         return jdbcTemplate.update("delete from Game where gameId = ?;", gameId) > 0;
     }
 
+    @Override
+    public boolean deleteAll() {
+        System.out.println("You've made it to deleteAllGames() in the Game repository.");
+        jdbcTemplate.update("set SQL_SAFE_UPDATES = 0;");
+        jdbcTemplate.update("delete from Game;");
+        return jdbcTemplate.update("set SQL_SAFE_UPDATES = 1;") > 0;
+    }
 
     // End Game
     // sql statement to get all gameIDs with the given gameRoomCode

@@ -81,4 +81,9 @@ public class VoteService {
         //update player...
         playerRepository.updateIsDead(playerRepository.findById(PlayerId));
     }
+
+    public boolean deleteAll() {
+        System.out.println("You've made it to deleteAll() in the Vote service.");
+        return votesRepository.deleteAll();
+    }
 }

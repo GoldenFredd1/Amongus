@@ -33,6 +33,11 @@ export class PlayerTaskService {
     return await this.http.put(this.playerTaskUrl + (`/${taskId}`), game).toPromise();
   }
 
+  public deleteAllPlayerTasks(): Observable<boolean> {
+    console.log(this.playerTaskUrl);
+    return this.http.delete<boolean>(this.playerTaskUrl, this.httpOptions);
+  }
+
   public async save(playerTask: PlayerTask) {
     return await this.http.post<PlayerTask>(this.playerTaskUrl, playerTask, this.httpOptions).toPromise();
   }

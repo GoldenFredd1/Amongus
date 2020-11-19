@@ -82,6 +82,11 @@ public class EndGameTestDouble implements GameRepository {
     }
 
     @Override
+    public boolean deleteAll() {
+        return false;
+    }
+
+    @Override
     public boolean checkEndGame(String gameRoomCode) {
         int numPeopleAlive = getNumPeopleAlive();
         int numTasksLeft = getTasksRemaining();

@@ -40,4 +40,11 @@ public class VoteController {
        System.out.println("We made it!!!!");
        return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
    }
+
+    @DeleteMapping("/votes")
+    public ResponseEntity<Void> deleteAllVotes() {
+        System.out.println("You've made it to deleteAll() in the Vote controller.");
+        service.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
