@@ -36,9 +36,10 @@ export class PlayerListComponent implements OnInit {
       this.players = data, console.log(data)});
   }
 
-  async getSpecificPlayer(){
+  getSpecificPlayer(){
     console.log(this.username);
-    this.player = await this.gameService.getPlayer(this.username).toPromise();
+    this.gameService.getPlayer(this.username).subscribe(data =>{
+      this.player = data, console.log(data)});
   }
 
   async add() {
@@ -53,7 +54,7 @@ export class PlayerListComponent implements OnInit {
 
   async setUpGame() {
     //TODO call on  a method to reset all players to false/false..
-    await this.getSpecificPlayer();
+    this.getSpecificPlayer();
     console.log("AppUSer ID");
     console.log(this.player.playerId);
     await this.gameService.setUpGame(this.players);

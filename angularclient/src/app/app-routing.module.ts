@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { VoteViewComponent } from './vote-view/vote-view.component'; 
+import { EndGameViewComponent } from './end-game-view/end-game-view.component';
 
 const routes: Routes = [
   { path: '', component: PlayerListComponent,canActivate:[AuthGuardService] },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent,canActivate:[AuthGuardService] },
   { path: 'game', component: GameViewComponent},
   { path: 'voteScreen', component: VoteViewComponent},
+  { path: 'gameOver', component: EndGameViewComponent}
 ];
 
 @NgModule({

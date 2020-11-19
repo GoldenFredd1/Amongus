@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { GameViewComponent } from './game-view/game-view.component';
 import { VoteViewComponent } from './vote-view/vote-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EndGameViewComponent } from './end-game-view/end-game-view.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     GameViewComponent,
     VoteViewComponent,
-    
+    EndGameViewComponent,
   ],
   imports: [
     BrowserModule,

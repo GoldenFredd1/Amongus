@@ -111,25 +111,6 @@ export class GameViewComponent implements OnInit {
     this.getPlayers();
   }
 
-  async resetGame() {
-    console.log("Start of reset game.");
-    await this.gameService.deleteAllGames().toPromise();
-    console.log("Done with delete all games.");
-    await this.playerTaskService.deleteAllPlayerTasks().toPromise();
-    console.log("Done with delete all Player Tasks.");
-    await this.gameService.deleteAllVotes().toPromise();
-    console.log("Done with delete all Votes.");
-    await this.playerServiceService.deleteAllPlayersButRealPlayer().toPromise();
-    console.log("Done with delete all Players.");
-    await this.playerServiceService.addComputerPlayer(new Player());
-    await this.playerServiceService.addComputerPlayer(new Player());
-    await this.playerServiceService.addComputerPlayer(new Player());
-    console.log("End of reset game.");
-  }
-  //async getDidImposterWin() {
-  //   this.didImposterWin = await this.gameService.checkImposterWin(this.gameService.getGameRoomCode()).toPromise();
-  // }
-
   async getRooms() {
     console.log("Listing rooms");
     await this.roomsService.findAll().subscribe(data => {
@@ -149,8 +130,7 @@ export class GameViewComponent implements OnInit {
       } else {
         console.log("The Crewmates won.");
       }
-      await this.resetGame();
-      this.router.navigate(["/"]);
+      this.router.navigate(["/gameOver"]);
     } else {
       await this.deadBodyCheck();
       await this.playersToKillCheck();
@@ -177,8 +157,7 @@ export class GameViewComponent implements OnInit {
       } else {
         console.log("The Crewmates won.");
       }
-      await this.resetGame();
-      await this.router.navigate(["/"]);
+      this.router.navigate(["/gameOver"]);
     } else {
       await this.deadBodyCheck();
       await this.playersToKillCheck();

@@ -102,13 +102,10 @@ export class VoteViewComponent implements OnInit {
       } else {
         console.log("The Crewmates won.");
       }
-      // reset Game
-      // return to home page
-      await this.resetGame();
-      this.router.navigate(["/"]);
+      this.router.navigate(["/gameOver"]);
     }else{
       this.router.navigate(["/game"]);
-    }
+    } 
   }
 
 }
