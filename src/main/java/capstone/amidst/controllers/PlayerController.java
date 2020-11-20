@@ -53,8 +53,6 @@ public class PlayerController {
 
     @GetMapping("/appUser/{appUserId}")
     public Player findByAppUserId(@PathVariable int appUserId) {
-        System.out.println("You've made it to findByAppUserId in the Player Controller.");
-        System.out.println("App user ID is: "+appUserId);
         return service.findByAppUserId(appUserId);
     }
 
@@ -100,7 +98,6 @@ public class PlayerController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
-        System.out.println("we killed yo.");
 
         computerPlayers.ComputerPlayersMovement(game);
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
@@ -108,7 +105,6 @@ public class PlayerController {
 
     @DeleteMapping("/players")
     public ResponseEntity<Void> deleteAllButRealPlayer() {
-        System.out.println("You've made it to deleteAllButRealPlayer() in the Player controller.");
         service.deleteAllButRealPlayer();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

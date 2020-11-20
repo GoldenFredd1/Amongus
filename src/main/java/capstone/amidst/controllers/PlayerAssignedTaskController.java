@@ -47,8 +47,6 @@ public class PlayerAssignedTaskController {
 
     @PostMapping("/assignedTask")
     public ResponseEntity<Object> addPlayerTask(@RequestBody PlayerAssignedTask PAT) {
-        //System.out.println("You've made it to the controller!");
-
         Result<PlayerAssignedTask> result = service.addTask(PAT);
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -75,7 +73,6 @@ public class PlayerAssignedTaskController {
 
     @DeleteMapping("/assignedTask")
     public ResponseEntity<Void> deleteAllPATs() {
-        System.out.println("You've made it to deleteAll() in the PlayerTask controller.");
         service.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

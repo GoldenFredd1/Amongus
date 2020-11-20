@@ -111,7 +111,6 @@ public class PlayerService {
     }
 
     public boolean deleteAllButRealPlayer() {
-        System.out.println("You've made it to deleteAllButRealPlayer() in the Player service.");
         return repository.deleteAllButRealPlayer();
     }
 

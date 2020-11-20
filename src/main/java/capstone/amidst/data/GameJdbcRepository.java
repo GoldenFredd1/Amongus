@@ -92,7 +92,6 @@ public class GameJdbcRepository implements GameRepository {
 
     @Override
     public boolean deleteAll() {
-        System.out.println("You've made it to deleteAllGames() in the Game repository.");
         jdbcTemplate.update("set SQL_SAFE_UPDATES = 0;");
         jdbcTemplate.update("delete from Game;");
         return jdbcTemplate.update("set SQL_SAFE_UPDATES = 1;") > 0;
@@ -105,10 +104,8 @@ public class GameJdbcRepository implements GameRepository {
         final boolean imposterAlive = isImposterAlive(gameRoomCode);
 
         if (numPeopleAlive == 0 || numPeopleAlive == 1 || numTasksLeft == 0 || !imposterAlive) {
-            System.out.println("True");
             return true;
         } else {
-            System.out.println("False");
             return false;
         }
     }
@@ -118,10 +115,8 @@ public class GameJdbcRepository implements GameRepository {
         int numPeopleAlive = getNumPeopleAlive(gameRoomCode);
         final boolean imposterAlive = isImposterAlive(gameRoomCode);
         if ((numPeopleAlive == 0 || numPeopleAlive == 1) && imposterAlive) {
-            System.out.println("Imposter wins! (True)");
             return true;
         } else {
-            System.out.println("Crew mates win! (False)");
             return false;
         }
     }

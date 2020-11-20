@@ -83,7 +83,6 @@ public class VoteService {
     }
 
     public boolean deleteAll() {
-        System.out.println("You've made it to deleteAll() in the Vote service.");
         return votesRepository.deleteAll();
     }
 }

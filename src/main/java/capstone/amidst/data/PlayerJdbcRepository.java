@@ -164,7 +164,6 @@ public class PlayerJdbcRepository implements PlayerRepository {
 
     @Override
     public boolean deleteAllButRealPlayer() {
-        System.out.println("You've made it to deleteAllButRealPlayer() in the Player repository.");
         return jdbcTemplate.update("delete from Player where playerId != 1;") > 0;
     }
 }

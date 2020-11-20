@@ -109,7 +109,6 @@ public class GameService {
     }
 
     public boolean deleteAll() {
-        System.out.println("You've made it to deleteAllGames() in the Game service.");
         return repository.deleteAll();
     }
 

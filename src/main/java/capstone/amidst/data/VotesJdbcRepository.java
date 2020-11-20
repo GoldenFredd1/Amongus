@@ -61,7 +61,6 @@ public class VotesJdbcRepository implements VotesRepository {
 
     @Override
     public boolean deleteAll() {
-        System.out.println("You've made it to deleteAll() in the Votes repository.");
         jdbcTemplate.update("set SQL_SAFE_UPDATES = 0;");
         jdbcTemplate.update("delete from Votes;");
         return jdbcTemplate.update("set SQL_SAFE_UPDATES = 1;") > 0;

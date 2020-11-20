@@ -37,7 +37,6 @@ public class PlayerAssignedTaskService {
     }
 
     public boolean deleteAll() {
-        System.out.println("You've made it to deleteAll() in the PlayerTask service.");
         return repository.deleteAll();
     }
 
@@ -89,7 +88,6 @@ public class PlayerAssignedTaskService {
         else{
             repository.updateTask(PAT);
         }
-        System.out.println(result);
         return result;
     }
 }

@@ -33,20 +33,17 @@ public class GameController {
     @GetMapping("/game/gameOver/{gameRoomCode}")
 
     public Boolean isGameOver(@PathVariable String gameRoomCode) {
-        System.out.println("You've made it to isGameOver in the Game Controller.");
         return service.isGameOver(gameRoomCode);
     }
 
     @GetMapping("/game/whoWon/{gameRoomCode}")
     public Boolean didImposterWin(@PathVariable String gameRoomCode) {
-        System.out.println("You've made it to didImposterWin in the Game Controller.");
         return service.didImposterWin(gameRoomCode);
     }
 
     @GetMapping("/game/bodyCheck/{gameRoomCode}")
     public Boolean deadBodyCheck(@PathVariable String gameRoomCode){
         Game game = service.findByGameRoomCode(gameRoomCode);
-        System.out.println("Checking for a dead body don't mind me..");
         return service.deadBodyInRoomCheck(game);
     }
 
@@ -80,14 +77,12 @@ public class GameController {
 
     @DeleteMapping("/game")
     public ResponseEntity<Void> deleteAllGames() {
-        System.out.println("You've made it to deleteAllGames() in the Game controller.");
         service.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/game/updateGame/{gameId}")
     public ResponseEntity<Game> update(@PathVariable int gameId, @RequestBody Game game) {
-        System.out.println("You made it to the game update??");
         if (gameId != game.getGameId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -96,9 +91,6 @@ public class GameController {
         if (result.getType() == ResultType.INVALID) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        System.out.println("You updated the game!!!!!");
-
-        //once a piece of the game has been updated ->
         computerPlayers.ComputerPlayersMovement(game);
 
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
