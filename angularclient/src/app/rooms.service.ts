@@ -22,7 +22,6 @@ export class RoomsService {
   }
 
   public findByRoomName(roomName: string) {
-    console.log(this.roomUrl + (`/${roomName}`));
     return this.http.post<Rooms>(this.roomUrl + (`/${roomName}`),roomName);
   }
 

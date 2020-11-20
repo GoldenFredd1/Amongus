@@ -16,7 +16,6 @@ export class EndGameViewComponent implements OnInit {
 
   async ngOnInit() {
     this.didImposterWin = await this.gameService.checkImposterWin(this.gameService.getGameRoomCode()).toPromise();
-    console.log(this.didImposterWin);
   }
 
 }

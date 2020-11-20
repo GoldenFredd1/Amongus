@@ -57,6 +57,8 @@ public class ComputerPlayers {
                 } else {
                     int crewRandom = randomVote(allPlayers);
                     System.out.println("Crew random voted for: "+crewRandom);
+                    System.out.println(allPlayers.get(crewRandom).getPlayerId());
+                    System.out.println(allPlayers.get(crewRandom).getGameRoomCode());
                     listOfVotes.add(allPlayers.get(crewRandom).getPlayerId());
                 }
             }

@@ -33,13 +33,12 @@ export class PlayerListComponent implements OnInit {
 
   getPlayers() {
     this.playerServiceService.findAll().subscribe(data => {
-      this.players = data, console.log(data)});
+      this.players = data});
   }
 
   getSpecificPlayer(){
-    console.log(this.username);
     this.gameService.getPlayer(this.username).subscribe(data =>{
-      this.player = data, console.log(data)});
+      this.player = data});
   }
 
   async add() {
@@ -53,10 +52,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   async setUpGame() {
-    //TODO call on  a method to reset all players to false/false..
     this.getSpecificPlayer();
-    console.log("AppUSer ID");
-    console.log(this.player.playerId);
     await this.gameService.setUpGame(this.players);
 
     for(let i=0; i<this.players.length; i++) {

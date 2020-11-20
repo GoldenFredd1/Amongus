@@ -58,7 +58,6 @@ export class GameService {
   }
 
   public deleteAllGames(): Observable<boolean> {
-    console.log(this.gameUrl);
     return this.http.delete<boolean>(this.gameUrl, this.httpOptions);
   }
 
@@ -71,7 +70,6 @@ export class GameService {
   }
 
   public getPlayer(username:String): Observable<Player>{
-    //console.log(this.appUserUrl + (`/${username}`));
     return this.http.get<Player>(this.appUserUrl + (`/${username}`));
 
   }
@@ -95,7 +93,6 @@ export class GameService {
         }
         const data: any = await this.addGame(this.game);
         this.game.gameId=data.gameId;
-        console.log(this.game);
     }
   }
 
@@ -112,7 +109,6 @@ export class GameService {
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     for(var i=0; i<6; i++)
       code += possible.charAt(Math.floor(Math.random()*possible.length));
-    // console.log(code);
     return code;
   }
 

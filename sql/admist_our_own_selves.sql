@@ -85,37 +85,5 @@ create table Player_Assigned_Task (
     FOREIGN KEY (playerId)
     REFERENCES Player (playerId));
     
--- insert into app_user values
--- (1,'Bob the test player','hashpasswordgoeshere',false),
--- (2,'Computer','hashpasswordgoeshere',false);
 
 
--- insert into app_role values
--- (1,'Admin'),
--- (2,'User'),
--- (3,'Computer');
-
-
--- insert into Room(roomId,roomName) values
--- (1,'Food Court'),
--- (2,'Payless ShoeSource'),
--- (3,'Toys R Us'),
--- (4,'Sears'),
--- (5,'Radio Shack'),
--- (6,'Neiman Marcus'),
--- (7,'The Hallway of Failure');
-
-
--- insert into Task(taskId,taskName,roomId) values
--- (1,'Pickup trash',1),
--- (2,'Collect moldy sandwich',1),
--- (3,'Pickout some fabulous shoes',2),
--- (4,'Smash bugs with shoes',2),
--- (5,'Shoot all the targets at the nerf range',3),
--- (6,'Put the dolls to bed.',3),
--- (7,'Re-wire a fridge',4),
--- (8,'Setup a christmas tree',4),
--- (9,'Chase down mice with an RC car',5),
--- (10,'Check for usable batteries',5),
--- (11,'Find a fancy hat',6),
--- (12,'Put makeup on a mannequin',6);

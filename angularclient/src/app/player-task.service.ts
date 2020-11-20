@@ -34,7 +34,6 @@ export class PlayerTaskService {
   }
 
   public deleteAllPlayerTasks(): Observable<boolean> {
-    console.log(this.playerTaskUrl);
     return this.http.delete<boolean>(this.playerTaskUrl, this.httpOptions);
   }
 
@@ -66,7 +65,6 @@ export class PlayerTaskService {
       }
       this.save(this.playerTask);
     }
-    console.log("Tasks: " + this.findAll());
   }
 
   getRandomTaskId(num: number) {

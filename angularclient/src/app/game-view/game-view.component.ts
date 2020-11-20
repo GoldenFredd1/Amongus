@@ -74,9 +74,8 @@ export class GameViewComponent implements OnInit {
   }
 
   async playersToKillCheck(){
-    console.log("players in room here: ");
     await this.gameService.getListOfPlayersInRoom(this.gameRoomCode, this.appUserIdReal).subscribe(
-      data => {this.playersInRoom = data, console.log(data)}
+      data => {this.playersInRoom = data}
     );
   }
 
@@ -95,7 +94,7 @@ export class GameViewComponent implements OnInit {
   }
 
   async getRealGame(roomCode:string) {
-    //console.log("ROOM CODE " + roomCode);
+
     await this.gameService.getRealPlayerGame(1, roomCode)
     .subscribe(gameData => { this.game = gameData});
   }
@@ -112,28 +111,20 @@ export class GameViewComponent implements OnInit {
   }
 
   async getRooms() {
-    console.log("Listing rooms");
     await this.roomsService.findAll().subscribe(data => {
-      this.rooms = data, console.log(data)});
+      this.rooms = data});
   }
 
   async updateTask(taskId) {
     await this.playerTaskService.updatePlayerTask(taskId, this.game);
 
-    console.log("Now checking if the game is over.....");
     await this.getIsGameOver();
-    console.log("Game over data: " + this.isGameOver);
     if(this.isGameOver == true) {
-      console.log("Game Over!");
-      if(this.didImposterWin == true) {
-        console.log("The Imposter won.");
-      } else {
-        console.log("The Crewmates won.");
-      }
       this.router.navigate(["/gameOver"]);
     } else {
       await this.deadBodyCheck();
       await this.playersToKillCheck();
+      await this.getPlayerTasks();
     }
   }
 
@@ -147,20 +138,13 @@ export class GameViewComponent implements OnInit {
     await this.gameService.editGame(this.game);
 
 
-    console.log("Now checking if the game is over.....");
     await this.getIsGameOver();
-    console.log("Game over data: " + this.isGameOver);
     if(this.isGameOver == true) {
-      console.log("Game Over!");
-      if(this.didImposterWin == true) {
-        console.log("The Imposter won.");
-      } else {
-        console.log("The Crewmates won.");
-      }
       this.router.navigate(["/gameOver"]);
     } else {
       await this.deadBodyCheck();
       await this.playersToKillCheck();
+      await this.getPlayerTasks();
     }
   }
 
@@ -168,10 +152,17 @@ export class GameViewComponent implements OnInit {
     killPeople: ['']
   })
 
-  onKillSubmit() {
+  async onKillSubmit() {
     this.playerId = parseInt(JSON.stringify(this.KillPlayerInRoom.value).slice(14,-1));
     this.playerServiceService.killPlayer(this.playerId, this.game);
-    this.deadBodyCheck();
-    this.playersToKillCheck();
+
+    await this.getIsGameOver();
+    if(this.isGameOver == true) {
+      this.router.navigate(["/gameOver"]);
+    } else {
+      await this.deadBodyCheck();
+      await this.playersToKillCheck();
+      await this.getPlayerTasks();
+    }
   }
 }

@@ -166,8 +166,3 @@ Insert into Votes values
 
 end //
 delimiter ;
-
--- select playerId, playerName, isDead, isImposter, app_user_id
--- from Player;
-
--- select * from app_user

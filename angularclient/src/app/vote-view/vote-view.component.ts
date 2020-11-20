@@ -82,26 +82,12 @@ export class VoteViewComponent implements OnInit {
     this.vote.votedForPlayerId = parseInt(JSON.stringify(this.VotingPlayerOut.value).slice(12,-1));
     //hardcoded and I am not proud of it..
     this.vote.playerId = 1;
-    console.log("start voting");
-    console.log(this.vote.gameRoomCode);
-    console.log(this.vote.playerId);
-    console.log(this.vote.votedForPlayerId);
-    console.log(JSON.stringify(this.VotingPlayerOut.value));
     this.playerIdVotedFor = (JSON.stringify(this.VotingPlayerOut.value).slice(12,-1));
-    console.log(this.playerIdVotedFor);
-    console.log("end voting");
     this.gameService.votingPlayerOut(this.vote);
 
-    console.log("Now checking if the game is over.....");
+
     await this.getIsGameOver();
-    console.log("Game over data: " + this.isGameOver);
     if(this.isGameOver == true) {
-      console.log("Game Over!");
-      if(this.didImposterWin == true) {
-        console.log("The Imposter won.");
-      } else {
-        console.log("The Crewmates won.");
-      }
       this.router.navigate(["/gameOver"]);
     }else{
       this.router.navigate(["/game"]);

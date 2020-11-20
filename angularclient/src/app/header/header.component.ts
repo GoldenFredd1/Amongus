@@ -30,13 +30,10 @@ export class HeaderComponent implements OnInit {
   }
 
   async getSpecificPlayer(){
-    console.log("hitting header resetplayer ");
-    console.log(this.username);
-    this.player = await this.gameService.getPlayer('eabearden97').toPromise();
+    this.player = await this.gameService.getPlayer('arjohnson').toPromise();
   }
 
   async resetGame() {
-    console.log("trying to reset the game...");
     await this.gameService.deleteAllGames().toPromise();
     await this.playerTaskService.deleteAllPlayerTasks().toPromise();
     await this.gameService.deleteAllVotes().toPromise();
@@ -48,7 +45,6 @@ export class HeaderComponent implements OnInit {
     await this.playerServiceService.addComputerPlayer(new Player());
     await this.playerServiceService.addComputerPlayer(new Player());
     await this.playerServiceService.addComputerPlayer(new Player());
-    console.log("done resetting the game...");
     await this.router.navigate(["/"]);
   }
 

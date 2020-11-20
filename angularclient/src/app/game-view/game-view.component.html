@@ -1,85 +1,86 @@
-<div class="row">
-  <div class="column" style="width: 30%;">
-    <h2 style="text-align: center" *ngIf="realPlayer && realPlayer.imposter == false"> Task List</h2>
-    <h2 style="text-align: center" *ngIf="realPlayer && realPlayer.imposter == true"> Fake Task List</h2>
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Task ID</th>
-          <th scope="col">Task Name</th>
-          <th scope="col">Status</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let task of playerTasks">
-          <td>{{ task.taskId }}</td>
-          <td>{{ task.taskName }}</td>
-          <td>{{ task.complete }}</td>
-          <td>
-            <button [disabled]="realPlayer && realPlayer.imposter" (click)="updateTask(task.taskId)"
-              class="btn btn-info"> Do Task </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="column" style="width: 40%;">
-    <h2 style="text-align: center"> Map </h2>
-    <img src="../../assets/RoomDiagram.png" width="90%" height="300" />
-  </div>
-
-  <div class="column" style="width: 30%;">
-    <h2 style="text-align: center"> Players </h2>
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Player Name</th>
-          <th scope="col">Dead</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let player of players">
-          <td>{{ player.playerName }}</td>
-          <td>{{ player.dead }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
-
-
-<div class="row">
-  <div class="column" style="width: 30%;">
-    <h2 *ngIf="realPlayer && realPlayer.imposter == true"> You are the Imposter! </h2>
-    <h4 *ngIf="realPlayer && realPlayer.imposter == false"> You are a Shopper! </h4>
-    <h4> Current Room ID: {{game.roomId}} </h4>
-  </div>
-
-  <div class="column">
-    <div class="div-inline">
-      <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">
-        <select class="custom-select" formControlName="roomName">
-          <option disabled>Select Room</option>
-          <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
-        </select>
-
-        <button class="btn btn-info ml-2">Change Room</button>
-      </form>
+<div class="container">
+  <div class="row" style="width: 100%;">
+    <div class="column">
+      <h2 style="text-align: center" *ngIf="realPlayer && realPlayer.imposter == false"> Task List</h2>
+      <h2 style="text-align: center" *ngIf="realPlayer && realPlayer.imposter == true"> Fake Task List</h2>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Task Name</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of playerTasks">
+            <td>{{ task.taskName }}</td>
+            <td *ngIf="task.complete == false">Incomplete </td>
+            <td *ngIf="task.complete == true">Complete</td>
+            <td>
+              <button [disabled]="task.complete == true || realPlayer && realPlayer.imposter"
+                (click)="updateTask(task.taskId)" class="btn btn-info"> Do Task </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div>
-      <button type="button" [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-success">Report</button>
+  </div>
+  <div class="row mb-3">
+    <div class="column" style="width: 50%;">
+      <h2 style="text-align: center"> Map </h2>
+      <img src="../../assets/RoomDiagram.png" width="90%" height="300" />
     </div>
-    <div *ngIf="realPlayer && realPlayer.imposter == true">
-      <form [formGroup]="KillPlayerInRoom" (ngSubmit)="onKillSubmit()">
-        <select class="custom-select" formControlName="killPeople">
-          <option disabled>Select who to kill</option>
-          <option *ngFor="let player of playersInRoom" [ngValue]="player.playerId">{{ player.playerName }}</option>
-        </select>
-        <button class="btn btn-danger ml-2"> Kill </button>
-      </form>
+
+    <div class="column" style="width: 50%;">
+      <h2 style="text-align: center"> Players in Room </h2>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Player Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let player of playersInRoom">
+            <td>{{ player.playerName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+  <div class="row mb-5">
+    <div class="column mr-5">
+      <h2 *ngIf="realPlayer && realPlayer.imposter == true"> You are the Imposter! </h2>
+      <h2 *ngIf="realPlayer && realPlayer.imposter == false"> You are a Shopper! </h2>
+      <h4> Current Room ID: {{game.roomId}} </h4>
+    </div>
+
+    <div class="column">
+      
+        <form [formGroup]="roomNameForm" (ngSubmit)="onSubmit()">
+          <div class="div-inline">
+          <select class="custom-select" formControlName="roomName">
+            <option disabled>Select Room</option>
+            <option *ngFor="let room of rooms" [ngValue]="room.roomId">{{ room.roomName }}</option>
+          </select>
+          <button class="btn btn-info ml-2">Change Room</button>
+        </div>
+        </form>
+      
+      <div>
+        <button type="button" [disabled]="!isValid" routerLink="/voteScreen" class="btn btn-success">Report</button>
+      </div>
+      <div *ngIf="realPlayer && realPlayer.imposter == true">
+        <form [formGroup]="KillPlayerInRoom" (ngSubmit)="onKillSubmit()">
+          <select class="custom-select" formControlName="killPeople">
+            <option disabled>Select who to kill</option>
+            <option *ngFor="let player of playersInRoom" [ngValue]="player.playerId">{{ player.playerName }}</option>
+          </select>
+          <button class="btn btn-danger ml-2"> Kill </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
