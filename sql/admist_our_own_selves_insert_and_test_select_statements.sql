@@ -16,7 +16,7 @@ insert into app_user_role values
 (3,1);
 
 insert into Player(playerId, playerName, isDead, isImposter, app_user_id) values
-(1,'eabearden97',false,false,1),
+(1,'arjohnson',false,false,1),
 (2,'Computer1',false, false,2),
 (3,'Computer2',false, false,2),
 (4,'Computer3',false, false,2);
@@ -59,28 +59,3 @@ insert into Player_Assigned_Task values
 (8, 3, false),
 (3, 4, false),
 (7, 4, false);
-
--- select p.playerName, t.taskName, g.gameRoomCode
--- from Task t
--- join Player_Assigned_Task pat on  pat.taskId  = t.taskId
--- join  Player p on p.playerId = pat.playerId
--- join Game g on g.playerId = p.playerId
--- where g.gameRoomCode = 'HELPME';
-
-Select pat.taskId, t.taskName, pat.isComplete 
-from Player_Assigned_Task pat
-join Task t on t.taskId = pat.taskId
-join  Player p on p.playerId = pat.playerId 
-join Game g on g.playerId = p.playerId 
-where g.gameRoomCode = 'HELPME' and pat.playerId = 1;
-
-
-select * from Game;
-
-select * from Votes;
-
--- Select pat.taskId, pat.playerId, pat.isComplete
--- from Player_Assigned_Task pat
--- join  Player p on p.playerId = pat.playerId 
--- join Game g on g.playerId = p.playerId 
---  where g.gameRoomCode = 'HELPME' and p.playerId =1;
